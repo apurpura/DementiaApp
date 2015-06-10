@@ -11,4 +11,5 @@ tools:context=".HelloWorldActivity">
     android:text="@string/notify"
     android:id="@+id/wearButton"
     android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
