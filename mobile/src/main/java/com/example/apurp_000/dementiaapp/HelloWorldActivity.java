@@ -24,8 +24,8 @@ public class HelloWorldActivity extends Activity {
                 NotificationCompat.Builder notificationBuilder =
                         new NotificationCompat.Builder(HelloWorldActivity.this)
                                 .setSmallIcon(R.mipmap.ic_launcher)
-                                .setContentTitle("HelloWorld")
-                                .setContentText("You just got a notification bro!");
+                                .setContentTitle("Remove Me")
+                                .setContentText("This is a new notification!");
 
                 NotificationManagerCompat notificationManager =
                         NotificationManagerCompat.from(HelloWorldActivity.this);
