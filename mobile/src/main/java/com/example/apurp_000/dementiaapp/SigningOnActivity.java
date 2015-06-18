@@ -32,13 +32,13 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class SigningOnActivity extends Activity {
     /**
      * A Google Calendar API service object used to access the API.
      * Note: Do not confuse this class with API library's model classes, which
      * represent specific data structures.
      */
-    com.google.api.services.calendar.Calendar mService;
+    com.google.api.services.calendar.Calendar calendarService;
 
     GoogleAccountCredential credential;
     private TextView mStatusText;
@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     private static final String PREF_ACCOUNT_NAME = "accountName";
-    private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
+    private static final String[] SCOPES = { CalendarScopes.CALENDAR};
 
     /**
      * Create the main activity.
@@ -93,10 +93,11 @@ public class MainActivity extends Activity {
                 .setBackOff(new ExponentialBackOff())
                 .setSelectedAccountName(settings.getString(PREF_ACCOUNT_NAME, null));
 
-        mService = new com.google.api.services.calendar.Calendar.Builder(
+        calendarService = new com.google.api.services.calendar.Calendar.Builder(
                 transport, jsonFactory, credential)
                 .setApplicationName("Google Calendar API Android Quickstart")
                 .build();
+        ApplicationContextProvider.setContext(this);
     }
 
     /**
@@ -176,65 +177,14 @@ public class MainActivity extends Activity {
             chooseAccount();
         } else {
             if (isDeviceOnline()) {
-                new ApiAsyncTask(this).execute();
+                Credentials.credential = credential;
+                Credentials.signonActivity = this;
+                Intent intent = new Intent(this, CalendarActivity.class);
+                startActivity(intent);
             } else {
                 mStatusText.setText("No network connection available.");
             }
         }
-    }
-
-    /**
-     * Clear any existing Google Calendar API data from the TextView and update
-     * the header message; called from background threads and async tasks
-     * that need to update the UI (in the UI thread).
-     */
-    public void clearResultsText() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mStatusText.setText("Retrieving data…");
-                mResultsText.setText("");
-            }
-        });
-    }
-
-    /**
-     * Fill the data TextView with the given List of Strings; called from
-     * background threads and async tasks that need to update the UI (in the
-     * UI thread).
-     * @param dataStrings a List of Strings to populate the main TextView with.
-     */
-    public void updateResultsText(final List<String> dataStrings) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (dataStrings == null) {
-                    mStatusText.setText("Error retrieving data!");
-                } else if (dataStrings.size() == 0) {
-                    mStatusText.setText("No data found.");
-                } else {
-                    mStatusText.setText("Data retrieved using" +
-                            " the Google Calendar API:");
-
-                 mResultsText.setText(TextUtils.join("\n\n", dataStrings));
-                }
-                if(dataStrings != null){
-                    int notificationId = 001;
-                    String eventText = dataStrings.get(0);
-                    NotificationCompat.Builder notificationBuilder =
-                            new NotificationCompat.Builder(MainActivity.this)
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setContentTitle(eventText)
-                                    .setContentText(eventText);
-
-                    NotificationManagerCompat notificationManager =
-                            NotificationManagerCompat.from(MainActivity.this);
-
-                    notificationManager.notify(notificationId, notificationBuilder.build());
-
-                }
-            }
-        });
     }
 
     /**
@@ -303,7 +253,7 @@ public class MainActivity extends Activity {
             public void run() {
                 Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
                         connectionStatusCode,
-                        MainActivity.this,
+                        SigningOnActivity.this,
                         REQUEST_GOOGLE_PLAY_SERVICES);
                 dialog.show();
             }
