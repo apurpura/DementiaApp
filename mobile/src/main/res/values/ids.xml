@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="publishEvent" type="id">Submit</item>
+    <item name="eventTitle" type="id">Event Title</item>
+    <item name="eventDescription" type="id">Event Description</item>
+    <item name="eventStartDate" type="id">Start Date</item>
+</resources>

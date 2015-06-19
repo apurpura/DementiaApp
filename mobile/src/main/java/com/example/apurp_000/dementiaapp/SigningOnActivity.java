@@ -179,7 +179,10 @@ public class SigningOnActivity extends Activity {
             if (isDeviceOnline()) {
                 Credentials.credential = credential;
                 Credentials.signonActivity = this;
-                Intent intent = new Intent(this, CalendarActivity.class);
+                /*Intent intent = new Intent(this, CalendarActivity.class);
+                startActivity(intent);*/
+
+                Intent intent = new Intent(this, InsertEvent.class);
                 startActivity(intent);
             } else {
                 mStatusText.setText("No network connection available.");

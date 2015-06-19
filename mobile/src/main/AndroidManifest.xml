@@ -20,11 +20,14 @@
             android:label="@string/title_activity_hello_world" >
         </activity>
         <activity
+            android:name=".InsertEvent"
+            android:label="Insert Event" >
+        </activity>
+        <activity
             android:name=".SigningOnActivity"
             android:label="Google Calendar API Android Quickstart" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
