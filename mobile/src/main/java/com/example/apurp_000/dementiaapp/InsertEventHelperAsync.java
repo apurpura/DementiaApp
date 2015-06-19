@@ -1,5 +1,6 @@
 package com.example.apurp_000.dementiaapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.EditText;
@@ -58,7 +59,6 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     }
 
     public void initializeEvent() throws IOException {
-        new InsertEventHelperAsync(mActivity).execute();
         CalendarAPIAdapter zCalendarAPIAdapter = new CalendarAPIAdapter();
         String calendarId = zCalendarAPIAdapter.getCalendar();
         //final EditText mEventTitle = (EditText) findViewById(R.id.eventTitle);
@@ -70,13 +70,13 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
                 .setLocation("800 Howard St., San Francisco, CA 94103")
                 .setDescription("A chance to hear more about Google's developer products.");
 
-        DateTime startDateTime = new DateTime("2015-06-26T09:00:00");
+        DateTime startDateTime = new DateTime("2015-06-23T09:00:00");
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime)
                 .setTimeZone("America/Los_Angeles");
         event.setStart(start);
 
-        DateTime endDateTime = new DateTime("2015-06-26T17:00:00");
+        DateTime endDateTime = new DateTime("2015-06-23T17:00:00");
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime)
                 .setTimeZone("America/Los_Angeles");
@@ -85,7 +85,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
         //String[] recurrence = new String[] {"RRULE:FREQ=DAILY;COUNT=7"};
         //event.setRecurrence(Arrays.asList(recurrence));
 
-        EventAttendee[] attendees = new EventAttendee[] {
+        /*EventAttendee[] attendees = new EventAttendee[] {
                 new EventAttendee().setEmail("lpage@example.com"),
                 new EventAttendee().setEmail("sbrin@example.com"),
         };
@@ -98,15 +98,17 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
         Event.Reminders reminders = new Event.Reminders()
                 .setUseDefault(false)
                 .setOverrides(Arrays.asList(reminderOverrides));
-        event.setReminders(reminders);
+        event.setReminders(reminders);*/
 
 /*         Event event = new Event()
                 .setSummary(mEventTitle.getText().toString())
                 .setLocation("800 Howard St., San Francisco, CA 94103")
                 .setDescription(mEventDescription.getText().toString());
 */
-        event = Credentials.signonActivity.calendarService.events().insert(calendarId,event).execute();
-        Log.d("Event created: %s\n", event.getHtmlLink());
+        Credentials.signonActivity.calendarService.events().insert(calendarId,event).execute();
+        Intent intent = new Intent(mActivity, CalendarActivity.class);
+        mActivity.startActivity(intent);
+
     }
 }
 
