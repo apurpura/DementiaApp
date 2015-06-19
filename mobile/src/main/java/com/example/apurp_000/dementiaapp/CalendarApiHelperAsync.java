@@ -12,7 +12,12 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.*;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -46,7 +51,12 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
         try {
             clearResultsText();
             String calendarId = new CalendarAPIAdapter().getCalendar();
-            updateResultsText(getDataFromApi(calendarId));
+            try {
+                getDataFromApi(calendarId);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            updateResultsText();
 
 
         } catch (final GooglePlayServicesAvailabilityIOException availabilityException) {
@@ -69,23 +79,24 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
      * Fill the data TextView with the given List of Strings; called from
      * background threads and async tasks that need to update the UI (in the
      * UI thread).
-     * @param dataStrings a List of Strings to populate the main TextView with.
      */
-    public void updateResultsText(final List<String> dataStrings) {
+    public void updateResultsText() {
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (dataStrings == null) {
+                if (mActivity.listDataHeader == null) {
                     AlertDialogPopup.ShowDialogPopup("Error", "An error was accountered retrieving data!", mActivity);
                    // mActivity.mResultsText.setText("Error retrieving data!");
-                } else if (dataStrings.size() == 0) {
+                } else if (mActivity.listDataHeader.size() == 0) {
                     AlertDialogPopup.ShowDialogPopup("Alert", "No events found", mActivity);
-                    mActivity.mResultsText.setText("No events found.");
+                    //mActivity.mResultsText.setText("No events found.");
                 } else {
                   // mActivity.mStatusText.setText("Data retrieved using" + " the Google Calendar API:");
 //todo
-                    mActivity.mResultsText.setText(TextUtils.join("\n\n", dataStrings));
+                   // mActivity.mResultsText.setText(TextUtils.join("\n\n", dataStrings));
                 }
+
+                mActivity.listAdapter.refresh();
                 /*if(dataStrings != null){
                     int notificationId = 001;
                     String eventText = dataStrings.get(0);
@@ -130,7 +141,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
             @Override
             public void run() {
                // mActivity.mStatusText.setText("Retrieving data…");
-                mActivity.mResultsText.setText("");
+               // mActivity.mResultsText.setText("");
             }
         });
     }
@@ -172,13 +183,10 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
      * @return List of Strings describing returned events.
      * @throws IOException
      */
-    private List<String> getDataFromApi(String calendarId) throws IOException {
-
-        // List the next 10 events from the primary calendar.
+    private void getDataFromApi(String calendarId) throws IOException, ParseException {
         DateTime now = new DateTime(System.currentTimeMillis());
         List<String> eventStrings = new ArrayList<String>();
         Events events = Credentials.signonActivity.calendarService.events().list(calendarId)
-        //Events events = mActivity.mService.events().list("primary")
                 .setTimeMin(now)
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
@@ -186,16 +194,22 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
         List<Event> items = events.getItems();
 
         for (Event event : items) {
-            DateTime start = event.getStart().getDateTime();
-            if (start == null) {
-                // All-day events don't have start times, so just use
-                // the start date.
-                start = event.getStart().getDate();
+            String start = event.getStart().getDateTime().toString();
+            int index = start.indexOf("T");
+            start = start.substring(0, index);
+            String summary =  event.getSummary();
+            if(!mActivity.listDataHeader.contains(start)){
+                mActivity.listDataHeader.add(start);
+                ArrayList newList = new ArrayList<String>();
+                newList.add(summary);
+                mActivity.listDataChild.put(start, newList);
             }
-            eventStrings.add(
-                    String.format("%s (%s)", event.getSummary(), start));
+            else{
+                List<String> theList = mActivity.listDataChild.get(start);
+                theList.add(summary);
+            }
         }
-        return eventStrings;
+
     }
 
 
