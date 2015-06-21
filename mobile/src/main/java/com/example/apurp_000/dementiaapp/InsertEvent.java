@@ -1,5 +1,6 @@
 package com.example.apurp_000.dementiaapp;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -18,19 +19,27 @@ import java.lang.*;
  * Created by Ryan on 6/18/2015.
  */
 public class InsertEvent extends Activity {
+    Context context;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
-        //Button publishEvent = (Button) findViewById(R.id.publishEvent);
-        //publishEvent.setOnClickListener(new View.OnClickListener() {
-            //public void onClick(View v) {
-              //  try {
-              //  } catch (Exception e) {
-                //    e.printStackTrace();
-              //  }
-           // }
-        //});
+        Button publishEvent = (Button) findViewById(R.id.publishEvent);
+        context = this;
+
+        publishEvent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    if (Credentials.isOnline()) {
+                        new InsertEventHelperAsync(InsertEvent.this).execute();
+                    } else {
+                        AlertDialogPopup.ShowDialogPopup("Alert", "No Network Connection Available.", InsertEvent.this);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
     /**
      * Called whenever this activity is pushed to the foreground, such as after
@@ -54,11 +63,7 @@ public class InsertEvent extends Activity {
      * user can pick an account.
      */
     private void refreshResults() {
-        if (Credentials.isOnline()) {
-            new InsertEventHelperAsync(this).execute();
-        } else {
-            AlertDialogPopup.ShowDialogPopup("Alert", "No Network Connection Available.", this);
-        }
+
 
     }
 }
