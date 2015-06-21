@@ -50,7 +50,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         try {
             clearResultsText();
-            String calendarId = new CalendarAPIAdapter().getCalendar();
+            String calendarId = new CalendarAPIAdapter(mActivity).getCalendar();
             try {
                 getDataFromApi(calendarId);
             } catch (ParseException e) {

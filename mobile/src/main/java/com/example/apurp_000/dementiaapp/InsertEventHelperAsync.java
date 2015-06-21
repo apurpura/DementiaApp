@@ -1,5 +1,6 @@
 package com.example.apurp_000.dementiaapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -59,53 +60,40 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     }
 
     public void initializeEvent() throws IOException {
-        CalendarAPIAdapter zCalendarAPIAdapter = new CalendarAPIAdapter();
+        CalendarAPIAdapter zCalendarAPIAdapter = new CalendarAPIAdapter(mActivity);
         String calendarId = zCalendarAPIAdapter.getCalendar();
         //final EditText mEventTitle = (EditText) findViewById(R.id.eventTitle);
         //final EditText mEventDescription = (EditText) findViewById(R.id.eventDescription);
         //final EditText mEventDate = (EditText) findViewById(R.id.eventStartDate);
+        String summary = "Google I/O 2015";
+        String location = "800 Howard St., San Francisco, CA 94103";
+        String description = "A chance to hear more about Google's developer products.";
 
         Event event = new Event()
-                .setSummary("Google I/O 2015")
-                .setLocation("800 Howard St., San Francisco, CA 94103")
-                .setDescription("A chance to hear more about Google's developer products.");
+                .setSummary(summary)
+                .setLocation(location)
+                .setDescription(description);
 
-        DateTime startDateTime = new DateTime("2015-06-23T09:00:00");
+        DateTime startDateTime = new DateTime(System.currentTimeMillis() + 60000);
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime)
                 .setTimeZone("America/Los_Angeles");
         event.setStart(start);
 
-        DateTime endDateTime = new DateTime("2015-06-23T17:00:00");
+        DateTime endDateTime = new DateTime(System.currentTimeMillis() + 720000);
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime)
                 .setTimeZone("America/Los_Angeles");
         event.setEnd(end);
 
-        //String[] recurrence = new String[] {"RRULE:FREQ=DAILY;COUNT=7"};
-        //event.setRecurrence(Arrays.asList(recurrence));
+        Event ev = Credentials.signonActivity.calendarService.events().insert(calendarId,event).execute();
+        String id = ev.getId();
 
-        /*EventAttendee[] attendees = new EventAttendee[] {
-                new EventAttendee().setEmail("lpage@example.com"),
-                new EventAttendee().setEmail("sbrin@example.com"),
-        };
-        event.setAttendees(Arrays.asList(attendees));
+        //insert in DB
+        new EventDbHelper(mActivity).insertEventDB(id, calendarId, summary, description,
+                location, start.getDateTime(), end.getDateTime(), "TEXT"
+                , mActivity);
 
-        EventReminder[] reminderOverrides = new EventReminder[] {
-                new EventReminder().setMethod("email").setMinutes(24 * 60),
-                new EventReminder().setMethod("sms").setMinutes(10),
-        };
-        Event.Reminders reminders = new Event.Reminders()
-                .setUseDefault(false)
-                .setOverrides(Arrays.asList(reminderOverrides));
-        event.setReminders(reminders);*/
-
-/*         Event event = new Event()
-                .setSummary(mEventTitle.getText().toString())
-                .setLocation("800 Howard St., San Francisco, CA 94103")
-                .setDescription(mEventDescription.getText().toString());
-*/
-        Credentials.signonActivity.calendarService.events().insert(calendarId,event).execute();
         Intent intent = new Intent(mActivity, CalendarActivity.class);
         mActivity.startActivity(intent);
 

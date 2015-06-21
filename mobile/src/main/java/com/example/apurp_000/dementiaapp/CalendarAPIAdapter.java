@@ -1,6 +1,7 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -10,6 +11,10 @@ import java.io.IOException;
  * Created by apurpura on 6/17/2015.
  */
 public class CalendarAPIAdapter {
+    private Context mActivity;
+    CalendarAPIAdapter(Context context){
+        mActivity = context;
+    }
 
     public String getCalendar() throws IOException {
         String id = getCalendarId(Credentials.credential.getSelectedAccountName());
@@ -30,13 +35,13 @@ public class CalendarAPIAdapter {
         values.put(CalendarDbHelper.Calendar.USERNAME,username);
         values.put(CalendarDbHelper.Calendar.CALENDAR_ID, calendarId);
 
-        SQLiteDatabase db = new CalendarDbHelper(ApplicationContextProvider.getContext()).getWritableDatabase();
+        SQLiteDatabase db = new CalendarDbHelper(mActivity).getWritableDatabase();
         db.insert("Calendar", null, values);
         db.close();
     }
 
     public String getCalendarId(String username){
-        SQLiteDatabase db = new CalendarDbHelper(ApplicationContextProvider.getContext()).getReadableDatabase();
+        SQLiteDatabase db = new CalendarDbHelper(mActivity).getReadableDatabase();
         String id = "";
 
         String[] projection = {

@@ -21,7 +21,7 @@ public class Credentials {
 
     public static boolean isGooglePlayServicesAvailable(final Activity activity) {
         final int connectionStatusCode =
-                GooglePlayServicesUtil.isGooglePlayServicesAvailable(ApplicationContextProvider.getContext());
+                GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
         if (GooglePlayServicesUtil.isUserRecoverableError(connectionStatusCode)) {
             showGooglePlayServicesAvailabilityErrorDialog(connectionStatusCode, activity);
             return false;
@@ -52,7 +52,7 @@ public class Credentials {
     }
 
     public static boolean isOnline() {
-        ConnectivityManager conMgr = (ConnectivityManager) ApplicationContextProvider.getContext()
+        ConnectivityManager conMgr = (ConnectivityManager) signonActivity
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
 
