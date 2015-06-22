@@ -14,6 +14,9 @@ public class MainMenu extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        /*Button call for viewing the calender of the logged in use.
+        * Need to address how to change the calendar being viewed*/
         Button viewCalendar = (Button) findViewById(R.id.viewCalendar);
         viewCalendar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -21,6 +24,7 @@ public class MainMenu extends Activity {
                 startActivity(intent);
             }
         });
+        /*Button call for creating an event in the calender of the logged in use.*/
         Button insertEvent = (Button) findViewById(R.id.insertEvent);
         insertEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -28,12 +32,18 @@ public class MainMenu extends Activity {
                 startActivity(intent);
             }
         });
+
+         /*Button call for triggering notifications.
+        * Need to address how the flow of this*/
         Button triggerNotification = (Button) findViewById(R.id.triggerNotification);
         triggerNotification.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                //new Intent(this,triggerNotification.class);
             }
         });
+        /*Button call for triggering games to start on wearable.
+        * Need to push a game on the wearable and figure the flow
+        * on notifying and opening the app how the flow of this*/
         Button triggerGame = (Button) findViewById(R.id.triggerGame);
         triggerGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
