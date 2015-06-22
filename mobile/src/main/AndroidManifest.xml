@@ -22,7 +22,15 @@
         </activity>
         <activity
             android:name=".InsertEvent"
-            android:label="Insert Event" >
+            android:label="@string/title_activity_insertEvent" >
+        </activity>
+        <activity
+            android:name=".MainMenu"
+            android:label="@string/title_activity_mainMenu" >
+        </activity>
+        <activity
+            android:name=".CalendarActivity"
+            android:label="@string/title_activity_calendar" >
         </activity>
         <activity
             android:name=".SigningOnActivity"
@@ -36,11 +44,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <activity
-            android:name=".CalendarActivity"
-            android:label="@string/title_activity_calendar" >
-        </activity>
 
         <receiver android:name=".AlarmManagerHelper" >
             <intent-filter>

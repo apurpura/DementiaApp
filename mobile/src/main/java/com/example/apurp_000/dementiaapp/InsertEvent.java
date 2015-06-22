@@ -26,7 +26,6 @@ public class InsertEvent extends Activity {
         setContentView(R.layout.activity_event_create);
         Button publishEvent = (Button) findViewById(R.id.publishEvent);
         context = this;
-
         publishEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {

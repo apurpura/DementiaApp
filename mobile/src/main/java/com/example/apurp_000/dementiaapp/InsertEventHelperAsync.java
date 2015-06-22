@@ -62,17 +62,14 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     public void initializeEvent() throws IOException {
         CalendarAPIAdapter zCalendarAPIAdapter = new CalendarAPIAdapter(mActivity);
         String calendarId = zCalendarAPIAdapter.getCalendar();
-        //final EditText mEventTitle = (EditText) findViewById(R.id.eventTitle);
-        //final EditText mEventDescription = (EditText) findViewById(R.id.eventDescription);
-        //final EditText mEventDate = (EditText) findViewById(R.id.eventStartDate);
-        String summary = "Google I/O 2015";
-        String location = "800 Howard St., San Francisco, CA 94103";
-        String description = "A chance to hear more about Google's developer products.";
+        EditText summary = (EditText) mActivity.findViewById(R.id.eventTitle);
+        EditText location = (EditText) mActivity.findViewById(R.id.eventLocation);
+        EditText description = (EditText) mActivity.findViewById(R.id.eventDescription);
 
         Event event = new Event()
-                .setSummary(summary)
-                .setLocation(location)
-                .setDescription(description);
+                .setSummary(summary.getText().toString())
+                .setLocation(location.getText().toString())
+                .setDescription(description.getText().toString());
 
         DateTime startDateTime = new DateTime(System.currentTimeMillis() + 60000);
         EventDateTime start = new EventDateTime()
@@ -90,8 +87,8 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
         String id = ev.getId();
 
         //insert in DB
-        new EventDbHelper(mActivity).insertEventDB(id, calendarId, summary, description,
-                location, start.getDateTime(), end.getDateTime(), "TEXT"
+        new EventDbHelper(mActivity).insertEventDB(id, calendarId, summary.getText().toString(), description.getText().toString(),
+                location.getText().toString(), start.getDateTime(), end.getDateTime(), "TEXT"
                 , mActivity);
 
         Intent intent = new Intent(mActivity, CalendarActivity.class);

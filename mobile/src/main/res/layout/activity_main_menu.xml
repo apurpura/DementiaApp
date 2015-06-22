@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:text="View Calendar"
+        android:id="@+id/viewCalendar"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:text="Create Event"
+        android:id="@+id/insertEvent"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:text="Trigger Notification"
+        android:id="@+id/triggerNotification"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:text="Trigger Game"
+        android:id="@+id/triggerGame"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" />
+
+</LinearLayout>

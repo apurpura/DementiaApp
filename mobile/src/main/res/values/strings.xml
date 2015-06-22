@@ -6,4 +6,6 @@
     <string name="title_activity_hello_world">HelloWorldActivity</string>
     <string name="notify">Notify Wearable</string>
     <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="title_activity_mainMenu">Main Menu</string>
+    <string name="title_activity_insertEvent">Insert Event</string>
 </resources>

@@ -182,7 +182,7 @@ public class SigningOnActivity extends Activity {
                 /*Intent intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);*/
 
-                Intent intent = new Intent(this, InsertEvent.class);
+                Intent intent = new Intent(this, MainMenu.class);
                 startActivity(intent);
             } else {
                 mStatusText.setText("No network connection available.");
