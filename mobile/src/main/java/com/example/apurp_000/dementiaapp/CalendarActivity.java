@@ -59,11 +59,10 @@ public class CalendarActivity extends Activity {
 
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
         //prepareListData();
-        listDataHeader = new ArrayList<String>();
+        /*listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-        expListView.setAdapter(listAdapter);
-
+        expListView.setAdapter(listAdapter);*/
     }
 
     /**
@@ -74,7 +73,16 @@ public class CalendarActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if (Credentials.isGooglePlayServicesAvailable(this)) {
+            listDataHeader = new ArrayList<String>();
+            listDataChild = new HashMap<String, List<String>>();
+            listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+            expListView.setAdapter(listAdapter);
             refreshResults();
+            ExpandableListView listView = (ExpandableListView) findViewById(R.id.lvExp);
+            int count = listDataHeader.size();
+            for (int position = 1; position <= count; position++)
+                listView.expandGroup(position - 1);
+            this.listAdapter.refresh();
         } else {
             String message = "\"Google Play Services required: \" +\n" +
                     "                    \"after installing, close and relaunch this app.\"";

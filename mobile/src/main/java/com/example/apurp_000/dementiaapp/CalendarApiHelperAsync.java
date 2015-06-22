@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 
 /**
@@ -195,18 +196,32 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
 
         for (Event event : items) {
             String start = event.getStart().getDateTime().toString();
+            String fulltime = start;
+            String entireDate = start;
             int index = start.indexOf("T");
+            String time = start.substring(index + 1, start.length() - 1);
             start = start.substring(0, index);
+            DateFormat formatter1;
+            formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+            start = DateFormat.getDateInstance().format(formatter1.parse(start));
             String summary =  event.getSummary();
+
+            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+            df.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = df.parse(time);
+            df.setTimeZone(TimeZone.getDefault());
+            String formattedDate = DateFormat.getTimeInstance().format(date);
+            String childLine = formattedDate + "     " + summary;
             if(!mActivity.listDataHeader.contains(start)){
                 mActivity.listDataHeader.add(start);
                 ArrayList newList = new ArrayList<String>();
-                newList.add(summary);
+                newList.add(childLine);
                 mActivity.listDataChild.put(start, newList);
             }
             else{
                 List<String> theList = mActivity.listDataChild.get(start);
-                theList.add(summary);
+                if(!theList.contains(childLine))
+                    theList.add(childLine);
             }
         }
 
