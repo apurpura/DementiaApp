@@ -6,11 +6,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,8 @@ public class InsertEvent extends Activity {
     int zYear, zMonth, zDay;
     int zTextField;
     static final int zDIALOG = 0;
+    String action;
+    Spinner actionSpinner;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,12 @@ public class InsertEvent extends Activity {
                 }
             }
         });
+
+        //listen for the action selected
+        action = "";
+        actionSpinner = (Spinner) findViewById(R.id.actionSpinner);
+        actionSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+
     }
 
     //Create a Popup Dialog for Start Date button and End Date Buttons
@@ -133,6 +143,20 @@ public class InsertEvent extends Activity {
      */
     private void refreshResults() {
 
+
+    }
+
+    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+
+                    action = parent.getItemAtPosition(pos).toString();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            // TODO Auto-generated method stub
+        }
 
     }
 }

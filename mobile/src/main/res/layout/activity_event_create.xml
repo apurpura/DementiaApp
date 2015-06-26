@@ -15,6 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Location" />
+    <Spinner
+        android:id="@+id/actionSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/actions_array"
+        android:prompt="@string/action_prompt" />
 
 
     <LinearLayout
@@ -66,13 +72,34 @@
         android:text="Set End Date"
         android:id="@+id/eventEndDate"
         android:layout_gravity="right|center_vertical" />
+
+        <!--<TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timePicker3"
+            android:layout_gravity="left|center_vertical" />-->
     </FrameLayout>
 
     </LinearLayout>
 
+   <!-- <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker2" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner" />
+-->
     <Button
         android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:text="Publish"
         android:id="@+id/publishEvent"
         android:layout_gravity="center_horizontal" />
