@@ -1,7 +1,6 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,14 +12,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wearable.MessageApi;
-import com.google.android.gms.wearable.MessageEvent;
-import com.google.android.gms.wearable.Wearable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends Activity{
+public class TextMessageActivity extends Activity{
 
     private TextView mTextView;
     private GoogleApiClient mApiClient;
@@ -77,7 +73,7 @@ public class MainActivity extends Activity{
 
             Log.d("onRecieve", "made it");
             String message = intent.getStringExtra("message");
-            Intent messageIntent = new Intent(context, MainActivity.class);
+            Intent messageIntent = new Intent(context, TextMessageActivity.class);
             messageIntent.putExtra("name", message);
             context.startActivity(intent);
         }
