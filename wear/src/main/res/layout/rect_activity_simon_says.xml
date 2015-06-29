@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical"
+    tools:context="com.example.apurp_000.dementiaapp.simonSaysActivity"
+    tools:deviceIds="wear_square"
+    android:weightSum="1">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="6"
+        android:rowCount="6"
+        android:background="@color/black">
+
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:id="@+id/greenImage"
+            android:src="@drawable/ssgreendown"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:contentDescription="Green" />
+
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:id="@+id/yellowImage"
+            android:src="@drawable/ssyellowdown"
+            android:layout_row="1"
+            android:layout_column="5"
+            android:contentDescription="Green" />
+
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:id="@+id/redImage"
+            android:src="@drawable/ssreddown"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:contentDescription="Green" />
+
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:id="@+id/blueImage"
+            android:src="@drawable/ssbluedown"
+            android:layout_row="5"
+            android:layout_column="5"
+            android:contentDescription="Green" />
+    </GridLayout>
+</LinearLayout>

@@ -13,5 +13,6 @@
     <string-array name="actions_array">
         <item>Text Message</item>
         <item>Image Carousel</item>
+        <item>Simon Says - Memory Game</item>
     </string-array>
 </resources>

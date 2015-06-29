@@ -40,10 +40,22 @@ public class MessageListener extends WearableListenerService {
                     break;
                 case "Image Carousel":
                     startCarousel();
+                    break;
+                case "Simon Says - Memory Game":
+                    simonSaysActivity();
+                    break;
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void simonSaysActivity() {
+        Log.d("activatingIntent", "MainActivityIntent");
+        Intent messageIntent = new Intent(this, simonSaysActivity.class);
+        messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(messageIntent);
     }
 
     private void startTextMessageActivity(String message){
