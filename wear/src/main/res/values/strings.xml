@@ -4,4 +4,9 @@
     <string name="hello_square">Hello Square World!</string>
     <string name="ImageCarouselView">ImageCarousel</string>
     <string name="title_activity_simon_says">simonSaysActivity</string>
+    <string name="greenButton">greenButton</string>
+    <string name="yellowButton">yellowButton</string>
+    <string name="redButton">redButton</string>
+    <string name="blueButton">blueButton</string>
+    <string name="title_activity_simon_says_start_page">simonSaysStartPage</string>
 </resources>
