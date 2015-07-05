@@ -18,7 +18,7 @@ package com.example.apurp_000.dementiaapp;
  */
 
 public class ImageCarousel extends Activity {
-    //the images to display
+    //the brah to display
     Integer[] imageIDs = {
             R.drawable.pic1,
             R.drawable.pic2,
@@ -38,7 +38,7 @@ public class ImageCarousel extends Activity {
             {
                 Toast.makeText(getBaseContext(),"pic" + (position + 1) + " selected",
                         Toast.LENGTH_SHORT).show();
-                // display the images selected
+                // display the brah selected
                 ImageView imageView = (ImageView) findViewById(R.id.image1);
                 imageView.setImageResource(imageIDs[position]);
             }
@@ -51,12 +51,12 @@ public class ImageCarousel extends Activity {
         public ImageAdapter(Context c)
         {
             context = c;
-            // sets a grey background; wraps around the images
+            // sets a grey background; wraps around the brah
             TypedArray a =obtainStyledAttributes(R.styleable.MyGallery);
             itemBackground = a.getResourceId(R.styleable.MyGallery_android_galleryItemBackground, 0);
             a.recycle();
         }
-        // returns the number of images
+        // returns the number of brah
         public int getCount() {
             return imageIDs.length;
         }

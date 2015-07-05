@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class ActSequence extends Activity {
 
     private TextView mTextView;
+    int currentPic = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +27,52 @@ public class ActSequence extends Activity {
             }
         });
     }
-    protected void tapToConitinue(){
+    public void tapToConitinue(){
 
-        final ImageButton continueButton = (ImageButton)findViewById(R.id.imageButton6);
+        ImageButton continueButton = (ImageButton)findViewById(R.id.imageButton6);
 
-       continueButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        continueButton.setOnClickListener(new View.OnClickListener() {
+           public void onClick(View v) {
 
-            //loop
-                //case to transverse
+                   switch (currentPic){
+
+                       case 0:
+                           currentPic++;
+                           ImageButton continueButton = (ImageButton)findViewById(R.id.imageButton6);
+                           continueButton.setImageResource(R.drawable.underwear);
+
+                           break;
+                       case 1:
+                           currentPic++;;
+                           continueButton = (ImageButton)findViewById(R.id.imageButton6);
+                           continueButton.setImageResource(R.drawable.brah);
+                           break;
+                       case 2:
+                           currentPic++;
+                           continueButton = (ImageButton)findViewById(R.id.imageButton6);
+                           continueButton.setImageResource(R.drawable.pants);
+                           break;
+                       case 3:
+                           currentPic++;
+                           continueButton = (ImageButton)findViewById(R.id.imageButton6);
+                           continueButton.setImageResource(R.drawable.sweater);
+                           break;
+                       case 4:
+                           currentPic++;
+                           continueButton = (ImageButton)findViewById(R.id.imageButton6);
+                           continueButton.setImageResource(R.drawable.slippers);
+                           break;
+                       case 5:
+                           currentPic++;
+                           continueButton = (ImageButton)findViewById(R.id.imageButton6);
+                           continueButton.setImageResource(R.drawable.finishedsequence);
+                           break;
+                       case 6:
+                           finish();
+                           break;
+
+                   }
+
 
 
             }
