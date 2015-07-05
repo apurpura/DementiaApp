@@ -50,24 +50,29 @@ public class ActSequence extends Activity {
                        case 2:
                            currentPic++;
                            continueButton = (ImageButton)findViewById(R.id.imageButton6);
-                           continueButton.setImageResource(R.drawable.pants);
+                           continueButton.setImageResource(R.drawable.socks);
                            break;
                        case 3:
                            currentPic++;
                            continueButton = (ImageButton)findViewById(R.id.imageButton6);
-                           continueButton.setImageResource(R.drawable.sweater);
+                           continueButton.setImageResource(R.drawable.pants);
                            break;
                        case 4:
                            currentPic++;
                            continueButton = (ImageButton)findViewById(R.id.imageButton6);
-                           continueButton.setImageResource(R.drawable.slippers);
+                           continueButton.setImageResource(R.drawable.sweater);
                            break;
                        case 5:
                            currentPic++;
                            continueButton = (ImageButton)findViewById(R.id.imageButton6);
-                           continueButton.setImageResource(R.drawable.finishedsequence);
+                           continueButton.setImageResource(R.drawable.slippers);
                            break;
                        case 6:
+                           currentPic++;
+                           continueButton = (ImageButton)findViewById(R.id.imageButton6);
+                           continueButton.setImageResource(R.drawable.finishedsequence);
+                           break;
+                       case 7:
                            finish();
                            break;
 
