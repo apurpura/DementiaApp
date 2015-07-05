@@ -11,13 +11,15 @@ import android.widget.TextView;
 public class startPage extends Activity {
 
     private TextView mTextView;
-    MediaPlayer goodJob;
+    //Code for when wearable has speakers
+   // MediaPlayer goodJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
-        goodJob = MediaPlayer.create(this, R.raw.applause);
+        //Code for when wearable has speakers
+        // goodJob = MediaPlayer.create(this, R.raw.applause);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -36,7 +38,9 @@ public class startPage extends Activity {
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                goodJob.start();
+                //Code for when wearable has speakers
+                //goodJob.start();
+
                 finish();
 
             }

@@ -1,9 +1,11 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,13 +16,19 @@ public class simonSaysActivity extends Activity {
 
     private TextView mTextView;
 
-    MediaPlayer yellowMediaPlayer;
-    MediaPlayer blueMediaPlayer;
-    MediaPlayer greenMediaPlayer;
-    MediaPlayer redMediaPlayer;
-    MediaPlayer win;
-    MediaPlayer loose;
+    //sound - implement when speakers are avail
+    //MediaPlayer yellowMediaPlayer;
+    //MediaPlayer blueMediaPlayer;
+    //MediaPlayer greenMediaPlayer;
+    //MediaPlayer redMediaPlayer;
+    //MediaPlayer win;
+    //MediaPlayer loose;
 
+    //vibrate
+    //private Vibrator greenVibrator;
+    //private Vibrator redVibrator;
+    //private Vibrator blueVibrator;
+    //private Vibrator yellowVibrator;
 
 
 
@@ -28,7 +36,8 @@ public class simonSaysActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simon_says);
-
+        /*
+        sound - implement when speakers are avail
         yellowMediaPlayer = MediaPlayer.create(this, R.raw.asharp);
         blueMediaPlayer = MediaPlayer.create(this, R.raw.dsharp);
         redMediaPlayer = MediaPlayer.create(this, R.raw.csharp);
@@ -36,6 +45,12 @@ public class simonSaysActivity extends Activity {
         win = MediaPlayer.create(this, R.raw.applause);
         loose = MediaPlayer.create(this, R.raw.aww);
 
+        //Vibrate
+        yellowVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        redVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        blueVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        greenVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        */
 
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
@@ -61,32 +76,43 @@ public class simonSaysActivity extends Activity {
     }
 
     protected void onClickGreen(){
+
         final ImageButton greenButton3 = (ImageButton)findViewById(R.id.imageButton);
-        //Proceed to Publishing the Event to Calendar and Event DB
+
         greenButton3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                //sound
-                greenMediaPlayer.start();
+                //vibrate 1 sec
+               //greenVibrator.vibrate(10000);
+                //sound - implement when speakers are avail
+               // greenMediaPlayer.start();
+
 
             }
         });
     }
 
     protected void onClickRed(){
+
         final ImageButton redButton = (ImageButton)findViewById(R.id.imageButton3);
+
         //Proceed to Publishing the Event to Calendar and Event DB
         redButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                //sound
-               redMediaPlayer.start();
+                //vibrate 1.5 sec
+               //redVibrator.vibrate(1500);
+
+                //sound - implement when speakers are avail
+              // redMediaPlayer.start();
             }
         });
     }
 
     protected void onClickYellow(){
+
         final ImageButton yellowButton2 = (ImageButton)findViewById(R.id.imageButton2);
+
 
         //Proceed to Publishing the Event to Calendar and Event DB
         yellowButton2.setOnClickListener(new View.OnClickListener() {
@@ -94,20 +120,28 @@ public class simonSaysActivity extends Activity {
 
                 //debug close game
                 finish();
-                //sound
-                yellowMediaPlayer.start();
+
+
+                //vibrate 2 sec
+                // yellowVibrator.vibrate(2000);
+                //sound - implement when speakers are avail
+                // yellowMediaPlayer.start();
 
             }
         });
     }
     public void onClickBlue(){
         final ImageButton blueButton4 = (ImageButton)findViewById(R.id.imageButton4);
+
         //Proceed to Publishing the Event to Calendar and Event DB
         blueButton4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                //sound
-                blueMediaPlayer.start();
+                //vibrate 2.5 sec
+                //blueVibrator.vibrate(2500);
+
+                //sound - implement when speakers are avail
+                //blueMediaPlayer.start();
             }
         });
     }
