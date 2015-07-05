@@ -10,4 +10,5 @@
     <string name="blueButton">blueButton</string>
     <string name="title_activity_simon_says_start_page">simonSaysStartPage</string>
     <string name="title_activity_act_sequence">ActSequence</string>
+    <string name="title_activity_pill_sequence">PillSequence</string>
 </resources>
