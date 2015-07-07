@@ -44,7 +44,12 @@ public class MessageListener extends WearableListenerService {
                 case "Simon Says - Memory Game":
                     simonSaysActivity();
                     break;
-
+                case "Pills - Sequence":
+                    pillSequence();
+                    break;
+                case "Female Dressed - Sequence":
+                    actSequence();
+                    break;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -54,6 +59,18 @@ public class MessageListener extends WearableListenerService {
     private void simonSaysActivity() {
         Log.d("activatingIntent", "MainActivityIntent");
         Intent messageIntent = new Intent(this, simonSaysActivity.class);
+        messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(messageIntent);
+    }
+    private void pillSequence() {
+        Log.d("activatingIntent", "MainActivityIntent");
+        Intent messageIntent = new Intent(this, PillSequence.class);
+        messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(messageIntent);
+    }
+    private void actSequence() {
+        Log.d("activatingIntent", "MainActivityIntent");
+        Intent messageIntent = new Intent(this, ActSequence.class);
         messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(messageIntent);
     }
