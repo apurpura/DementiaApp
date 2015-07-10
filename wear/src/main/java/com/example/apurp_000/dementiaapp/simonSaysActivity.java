@@ -3,18 +3,31 @@ package com.example.apurp_000.dementiaapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+//import java.util.logging.Handler;
+
 
 public class simonSaysActivity extends Activity {
 
     private TextView mTextView;
+    public  int i1;
 
     //sound - implement when speakers are avail
     //MediaPlayer yellowMediaPlayer;
@@ -56,9 +69,6 @@ public class simonSaysActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                //startPage
-                startActivity(new Intent(getApplicationContext(),startPage.class));
-
                 //UI
                 mTextView = (TextView) stub.findViewById(R.id.text);
                 onClickGreen();
@@ -67,13 +77,25 @@ public class simonSaysActivity extends Activity {
                 onClickYellow();
 
                 //GameLoop
-                gameFlow();
-
+                //gameFlow();
             }
         });
-
-
     }
+
+    protected void onResume(){
+        super.onResume();
+        new CountDownTimer(10000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                gameLoop();
+            }
+        }.start();
+    };
 
     protected void onClickGreen(){
 
@@ -219,6 +241,95 @@ nextLevel = false;
             }
         }while (nextLevel);
 
-
     }
+
+    public void gameLoop() {
+        //int tileArray[] = {1, 2, 3, 4};
+        final int gameArray[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        final int min = 1;
+        final int max = 4;
+        final int length = gameArray.length;
+        int count = 0;
+
+                for (int loop = 0; loop < length; loop++) {
+                    final int delayTimer = 5000;
+                    final int finalCount = count;
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Random r = new Random();
+                            int i1 = r.nextInt(max - min + 1) + min;
+                            gameArray[finalCount] = i1;
+                            switch (i1) {
+                                case 1:
+                                    final ImageButton greenButton = (ImageButton) findViewById(R.id.imageButton);
+                                    greenButton.setImageResource(R.drawable.ssgreendown);
+                                    handler.postDelayed(r1, delayTimer);
+                                    //greenButton.setImageResource(R.drawable.ssgreenup);
+                                    break;
+                                case 2:
+                                    final ImageButton yellowButton = (ImageButton) findViewById(R.id.imageButton2);
+                                    yellowButton.setImageResource(R.drawable.ssyellowdown);
+                                    handler.postDelayed(r2, delayTimer);
+                                    //yellowButton.setImageResource(R.drawable.ssyellowup);
+                                    break;
+                                case 3:
+                                    final ImageButton redButton = (ImageButton) findViewById(R.id.imageButton3);
+                                    redButton.setImageResource(R.drawable.ssreddown);
+                                    handler.postDelayed(r3, delayTimer);
+                                    //redButton.setImageResource(R.drawable.ssredup);
+                                    break;
+                                case 4:
+                                    final ImageButton blueButton = (ImageButton) findViewById(R.id.imageButton4);
+                                    blueButton.setImageResource(R.drawable.ssbluedown);
+                                    handler.postDelayed(r4, delayTimer);
+                                    /*handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            blueButton.setImageResource(R.drawable.ssblueup);
+                                        }
+                                    }, 5000 * (count + 1));*/
+                                    //blueButton.setImageResource(R.drawable.ssblueup);
+                                    break;
+                            }
+                        }
+                    },5000 * (count + 1));
+                    count++;
+                }
+            }
+
+    final Runnable r1 = new Runnable() {
+        @Override
+        public void run() {
+            final ImageButton greenButton = (ImageButton) findViewById(R.id.imageButton);
+            greenButton.setImageResource(R.drawable.ssgreenup);
+            //handler.postDelayed(this,4000);
+        }};
+
+        final Runnable r2 = new Runnable() {
+            @Override
+            public void run() {
+                final ImageButton yellowButton = (ImageButton) findViewById(R.id.imageButton2);
+                yellowButton.setImageResource(R.drawable.ssyellowup);
+                //handler.postDelayed(this,4000);
+            }};
+
+            final Runnable r3 = new Runnable() {
+                @Override
+                public void run() {
+                    final ImageButton redButton = (ImageButton) findViewById(R.id.imageButton3);
+                    redButton.setImageResource(R.drawable.ssredup);
+                    //handler.postDelayed(this,4000);
+                }};
+
+                final Runnable r4 = new Runnable() {
+                    @Override
+                    public void run() {
+                        final ImageButton blueButton = (ImageButton) findViewById(R.id.imageButton4);
+                        blueButton.setImageResource(R.drawable.ssblueup);
+                        //handler.postDelayed(this,4000);
+                    }};
+
+    Handler handler = new Handler();
 }
+

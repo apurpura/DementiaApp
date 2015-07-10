@@ -40,7 +40,6 @@ public class startPage extends Activity {
 
                 //Code for when wearable has speakers
                 //goodJob.start();
-
                 finish();
 
             }

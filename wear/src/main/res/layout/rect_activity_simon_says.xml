@@ -14,6 +14,15 @@
         android:background="@color/black">
 
         <ImageButton
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:id="@+id/testButton"
+            android:layout_row="3"
+            android:layout_column="3"
+            android:src="@drawable/pic1"
+            android:contentDescription="@string/greenButton" />
+
+        <ImageButton
             android:layout_width="106dp"
             android:layout_height="106dp"
             android:id="@+id/imageButton"

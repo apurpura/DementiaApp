@@ -58,7 +58,7 @@ public class MessageListener extends WearableListenerService {
 
     private void simonSaysActivity() {
         Log.d("activatingIntent", "MainActivityIntent");
-        Intent messageIntent = new Intent(this, simonSaysActivity.class);
+        Intent messageIntent = new Intent(this, startPage.class);
         messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(messageIntent);
     }
