@@ -13,6 +13,7 @@ import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.Random;
@@ -75,16 +76,13 @@ public class simonSaysActivity extends Activity {
                 onClickRed();
                 onClickBlue();
                 onClickYellow();
-
-                //GameLoop
-                //gameFlow();
             }
         });
     }
 
     protected void onResume(){
         super.onResume();
-        new CountDownTimer(10000,1000) {
+        new CountDownTimer(6000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -92,6 +90,7 @@ public class simonSaysActivity extends Activity {
 
             @Override
             public void onFinish() {
+                Toast.makeText(getBaseContext(), "Repeat After Simon", Toast.LENGTH_SHORT).show();
                 gameLoop();
             }
         }.start();
