@@ -8,6 +8,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class MemoryGameActivity extends Activity {
 
     private TextView mTextView;
@@ -87,6 +92,14 @@ public class MemoryGameActivity extends Activity {
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
 
+                //shuffle layout
+                List<Integer> shuffleList = Arrays.asList(cardDefaultLayout);
+                Collections.shuffle(shuffleList);
+                Integer[]shuffleLayoutArray = shuffleList.toArray(new Integer[shuffleList.size()]);
+                //make default layout shuffled ready for new game
+                cardDefaultLayout= shuffleLayoutArray;
+
+
                 //set up card listeners by position
                 setUpCardListeners();
 
@@ -96,7 +109,6 @@ public class MemoryGameActivity extends Activity {
 
 
     }
-
 
 
     public void setUpCardListeners(){
