@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class MemoryGameActivity extends Activity {
 
@@ -34,6 +33,9 @@ public class MemoryGameActivity extends Activity {
             R.drawable.memorygreensquare,
             R.drawable.memorygreensquare
     };
+    //game layout
+    Integer[] cardLayout = {};
+    //Array to check matching cards when 2 flipped
     Integer[] checkArray =
             {
                     0,
@@ -97,7 +99,7 @@ public class MemoryGameActivity extends Activity {
                 Collections.shuffle(shuffleList);
                 Integer[]shuffleLayoutArray = shuffleList.toArray(new Integer[shuffleList.size()]);
                 //make default layout shuffled ready for new game
-                cardDefaultLayout= shuffleLayoutArray;
+                cardLayout = shuffleLayoutArray;
 
 
                 //set up card listeners by position
@@ -579,7 +581,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x1);
-                    imageView.setImageResource(cardDefaultLayout[0]);
+                    imageView.setImageResource(cardLayout[0]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -590,7 +592,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[0];
+                        checkArray[1]= cardLayout[0];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -611,7 +613,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 1;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[0];
+                        checkArray[0]= cardLayout[0];
 
                     }
                     //check for cleared board
@@ -639,7 +641,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x2);
-                    imageView.setImageResource(cardDefaultLayout[1]);
+                    imageView.setImageResource(cardLayout[1]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -650,7 +652,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[1];
+                        checkArray[1]= cardLayout[1];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -671,7 +673,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 2;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[1];
+                        checkArray[0]= cardLayout[1];
 
                     }
                     //check for cleared board
@@ -699,7 +701,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x3);
-                    imageView.setImageResource(cardDefaultLayout[2]);
+                    imageView.setImageResource(cardLayout[2]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -710,7 +712,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[2];
+                        checkArray[1]= cardLayout[2];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -731,7 +733,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 3;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[2];
+                        checkArray[0]= cardLayout[2];
 
                     }
                     //check for cleared board
@@ -758,7 +760,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x4);
-                    imageView.setImageResource(cardDefaultLayout[3]);
+                    imageView.setImageResource(cardLayout[3]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -769,7 +771,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[3];
+                        checkArray[1]= cardLayout[3];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -790,7 +792,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 4;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[3];
+                        checkArray[0]= cardLayout[3];
 
                     }
                     //check for cleared board
@@ -815,7 +817,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton2x1);
-                    imageView.setImageResource(cardDefaultLayout[4]);
+                    imageView.setImageResource(cardLayout[4]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -826,7 +828,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[4];
+                        checkArray[1]= cardLayout[4];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -847,7 +849,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 5;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[4];
+                        checkArray[0]= cardLayout[4];
 
                     }
                     //check for cleared board
@@ -874,7 +876,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton2x2);
-                    imageView.setImageResource(cardDefaultLayout[5]);
+                    imageView.setImageResource(cardLayout[5]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -885,7 +887,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[5];
+                        checkArray[1]= cardLayout[5];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -906,7 +908,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 6;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[5];
+                        checkArray[0]= cardLayout[5];
 
                     }
                     //check for cleared board
@@ -934,7 +936,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton2x3);
-                    imageView.setImageResource(cardDefaultLayout[6]);
+                    imageView.setImageResource(cardLayout[6]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -945,7 +947,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[6];
+                        checkArray[1]= cardLayout[6];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -966,7 +968,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 7;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[6];
+                        checkArray[0]= cardLayout[6];
 
                     }
                     //check for cleared board
@@ -994,7 +996,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton2x4);
-                    imageView.setImageResource(cardDefaultLayout[7]);
+                    imageView.setImageResource(cardLayout[7]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1005,7 +1007,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[7];
+                        checkArray[1]= cardLayout[7];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -1026,7 +1028,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 8;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[7];
+                        checkArray[0]= cardLayout[7];
 
                     }
                     //check for cleared board
@@ -1053,7 +1055,7 @@ public class MemoryGameActivity extends Activity {
 
 
                         ImageView imageView = (ImageView) findViewById(R.id.imageButton3x1);
-                        imageView.setImageResource(cardDefaultLayout[8]);
+                        imageView.setImageResource(cardLayout[8]);
 
 
                         if (isOneCardAlreadyFlipped){
@@ -1064,7 +1066,7 @@ public class MemoryGameActivity extends Activity {
                             //reset if any others are flipped
                             resetIfCardFlippedByButtons();
                             //store what this button is
-                            checkArray[1]=cardDefaultLayout[8];
+                            checkArray[1]= cardLayout[8];
                             if (checkArray[0].equals(checkArray[1])){
 
                                 closeCardsForMatches();
@@ -1085,7 +1087,7 @@ public class MemoryGameActivity extends Activity {
                             //set int for first card case
                             cardA = 9;
                             //store to check
-                            checkArray[0]=cardDefaultLayout[8];
+                            checkArray[0]= cardLayout[8];
 
                         }
                         //check for cleared board
@@ -1113,7 +1115,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton3x2);
-                    imageView.setImageResource(cardDefaultLayout[9]);
+                    imageView.setImageResource(cardLayout[9]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1124,7 +1126,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[9];
+                        checkArray[1]= cardLayout[9];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -1145,7 +1147,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 10;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[9];
+                        checkArray[0]= cardLayout[9];
 
                     }
                     //check for cleared board
@@ -1172,7 +1174,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton3x3);
-                    imageView.setImageResource(cardDefaultLayout[10]);
+                    imageView.setImageResource(cardLayout[10]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1183,7 +1185,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[10];
+                        checkArray[1]= cardLayout[10];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -1204,7 +1206,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 11;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[10];
+                        checkArray[0]= cardLayout[10];
 
                     }
                     //check for cleared board
@@ -1230,7 +1232,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton3x4);
-                    imageView.setImageResource(cardDefaultLayout[11]);
+                    imageView.setImageResource(cardLayout[11]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1241,7 +1243,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[11];
+                        checkArray[1]= cardLayout[11];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -1262,7 +1264,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 12;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[11];
+                        checkArray[0]= cardLayout[11];
 
                     }
                     //check for cleared board
@@ -1288,7 +1290,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton4x1);
-                    imageView.setImageResource(cardDefaultLayout[12]);
+                    imageView.setImageResource(cardLayout[12]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1299,7 +1301,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[12];
+                        checkArray[1]= cardLayout[12];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -1320,7 +1322,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 13;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[12];
+                        checkArray[0]= cardLayout[12];
 
                     }
                     //check for cleared board
@@ -1347,7 +1349,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton4x2);
-                    imageView.setImageResource(cardDefaultLayout[13]);
+                    imageView.setImageResource(cardLayout[13]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1358,7 +1360,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[13];
+                        checkArray[1]= cardLayout[13];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -1379,7 +1381,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 14;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[13];
+                        checkArray[0]= cardLayout[13];
 
                     }
                     //check for cleared board
@@ -1407,7 +1409,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton4x3);
-                    imageView.setImageResource(cardDefaultLayout[14]);
+                    imageView.setImageResource(cardLayout[14]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1418,7 +1420,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[14];
+                        checkArray[1]= cardLayout[14];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -1439,7 +1441,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 15;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[14];
+                        checkArray[0]= cardLayout[14];
 
                     }
                     //check for cleared board
@@ -1466,7 +1468,7 @@ public class MemoryGameActivity extends Activity {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton4x4);
-                    imageView.setImageResource(cardDefaultLayout[15]);
+                    imageView.setImageResource(cardLayout[15]);
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1477,7 +1479,7 @@ public class MemoryGameActivity extends Activity {
                         //reset if any others are flipped
                         resetIfCardFlippedByButtons();
                         //store what this button is
-                        checkArray[1]=cardDefaultLayout[15];
+                        checkArray[1]= cardLayout[15];
                         if (checkArray[0].equals(checkArray[1])){
 
                             closeCardsForMatches();
@@ -1498,7 +1500,7 @@ public class MemoryGameActivity extends Activity {
                         //set int for first card case
                         cardA = 16;
                         //store to check
-                        checkArray[0]=cardDefaultLayout[15];
+                        checkArray[0]= cardLayout[15];
 
                     }
                     //check for cleared board
