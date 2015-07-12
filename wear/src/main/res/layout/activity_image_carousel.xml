@@ -4,15 +4,18 @@
     android:layout_height="match_parent"
     >
 
-    <Gallery
-        android:id="@+id/gallery1"
-        android:layout_width="match_parent"
-        android:layout_height="40dp" />
     <ImageView
         android:id="@+id/image1"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#cfcfcf"
         android:src="@drawable/pic1"
         android:contentDescription="@string/ImageCarouselView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/photoData"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

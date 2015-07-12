@@ -30,4 +30,5 @@
     <string name="title_activity_emergency_alert">EmergencyAlert</string>
     <string name="title_activity_memory_game">MemoryGameActivity</string>
     <string name="title_activity_memory_game_start_page">MemoryGameStartPage</string>
+    <string name="photoData">photoData</string>
 </resources>
