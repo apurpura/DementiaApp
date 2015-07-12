@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical"
+    tools:context="com.example.apurp_000.dementiaapp.MemoryGameActivity"
+    tools:deviceIds="wear_square">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="7"
+        android:rowCount="6"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white">
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton1x1"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:contentDescription="@string/cardBack1x1"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton1x2"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:contentDescription="@string/cardBack1x2"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton1x3"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:contentDescription="@string/cardBack1x3"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton1x4"
+            android:layout_row="1"
+            android:layout_column="4"
+            android:contentDescription="@string/cardBack1x4"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton2x1"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:contentDescription="@string/cardBack2x1"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton2x2"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:contentDescription="@string/cardBack2x2"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton2x3"
+            android:layout_row="2"
+            android:layout_column="3"
+            android:contentDescription="@string/cardBack2x3"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton2x4"
+            android:layout_row="2"
+            android:layout_column="4"
+            android:contentDescription="@string/cardBack2x4"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton3x1"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:contentDescription="@string/cardBack3x1"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton3x2"
+            android:layout_row="3"
+            android:layout_column="2"
+            android:contentDescription="@string/cardBack3x2"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton3x3"
+            android:layout_row="3"
+            android:layout_column="3"
+            android:contentDescription="@string/cardBack3x3"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton3x4"
+            android:layout_row="3"
+            android:layout_column="4"
+            android:contentDescription="@string/cardBack3x4"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton4x1"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:contentDescription="@string/cardBack4x1"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton4x2"
+            android:layout_row="4"
+            android:layout_column="2"
+            android:contentDescription="@string/cardBack4x2"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton4x3"
+            android:layout_row="4"
+            android:layout_column="3"
+            android:contentDescription="@string/cardBack4x3"
+            android:background="@drawable/cardback"/>
+
+        <ImageButton
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:id="@+id/imageButton4x4"
+            android:layout_row="4"
+            android:layout_column="4"
+            android:contentDescription="@string/cardBack4x4"
+            android:background="@drawable/cardback"/>
+
+    </GridLayout>
+
+
+</LinearLayout>
+

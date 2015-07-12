@@ -1,25 +1,21 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
-import android.media.MediaPlayer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class startPage extends Activity {
+public class MemoryGameStartPage extends Activity {
 
     private TextView mTextView;
-    //Code for when wearable has speakers
-   // MediaPlayer goodJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_page);
-        //Code for when wearable has speakers
-        // goodJob = MediaPlayer.create(this, R.raw.applause);
+        setContentView(R.layout.activity_memory_game_start_page);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -34,12 +30,14 @@ public class startPage extends Activity {
 
     }
     public void onClickStart(){
-        final ImageButton startGame = (ImageButton)findViewById(R.id.imageButton1x1);
+        final ImageButton startGame = (ImageButton)findViewById(R.id.imageButtonStartMemory);
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                //Code for when wearable has speakers
-                //goodJob.start();
+
+                //start Memory
+                startActivity(new Intent(getApplicationContext(),MemoryGameActivity.class));
+                //Close Start Page
                 finish();
 
             }

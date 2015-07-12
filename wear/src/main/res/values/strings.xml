@@ -8,8 +8,26 @@
     <string name="yellowButton">yellowButton</string>
     <string name="redButton">redButton</string>
     <string name="blueButton">blueButton</string>
+    <string name="cardBack1x1">cardBack1x1</string>
+    <string name="cardBack1x2">cardBack1x2</string>
+    <string name="cardBack1x3">cardBack1x3</string>
+    <string name="cardBack1x4">cardBack1x4</string>
+    <string name="cardBack2x1">cardBack2x1</string>
+    <string name="cardBack2x2">cardBack2x2</string>
+    <string name="cardBack2x3">cardBack2x3</string>
+    <string name="cardBack2x4">cardBack2x4</string>
+    <string name="cardBack3x1">cardBack3x1</string>
+    <string name="cardBack3x2">cardBack3x2</string>
+    <string name="cardBack3x3">cardBack3x3</string>
+    <string name="cardBack3x4">cardBack3x4</string>
+    <string name="cardBack4x1">cardBack4x1</string>
+    <string name="cardBack4x2">cardBack4x2</string>
+    <string name="cardBack4x3">cardBack4x3</string>
+    <string name="cardBack4x4">cardBack4x4</string>
     <string name="title_activity_simon_says_start_page">simonSaysStartPage</string>
     <string name="title_activity_act_sequence">ActSequence</string>
     <string name="title_activity_pill_sequence">PillSequence</string>
     <string name="title_activity_emergency_alert">EmergencyAlert</string>
+    <string name="title_activity_memory_game">MemoryGameActivity</string>
+    <string name="title_activity_memory_game_start_page">MemoryGameStartPage</string>
 </resources>
