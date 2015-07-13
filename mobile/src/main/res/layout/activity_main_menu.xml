@@ -28,8 +28,8 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:text="Trigger Game"
-        android:id="@+id/triggerGame"
+        android:text="Memory Analytics"
+        android:id="@+id/memoryAnalytics"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1" />
 

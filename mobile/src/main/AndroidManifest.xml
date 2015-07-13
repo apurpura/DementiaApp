@@ -37,6 +37,7 @@
             android:label="Google Calendar API Android Quickstart" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,8 +52,14 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".AlarmService"
-            android:enabled="true"/>
+        <service
+            android:name=".AlarmService"
+            android:enabled="true" />
+
+        <activity
+            android:name=".MemoryRecallAnalytics"
+            android:label="@string/title_activity_memory_recall_analytics" >
+        </activity>
     </application>
 
 </manifest>

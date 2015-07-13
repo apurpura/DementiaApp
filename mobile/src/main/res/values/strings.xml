@@ -17,4 +17,5 @@
         <item>Pills - Sequence</item>
         <item>Female Dressed - Sequence</item>
     </string-array>
+    <string name="title_activity_memory_recall_analytics">MemoryRecallAnalytics</string>
 </resources>
