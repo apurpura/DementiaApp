@@ -12,33 +12,39 @@ package com.example.apurp_000.dementiaapp;
 
 public class ImageCarousel extends Activity {
     //Configure Array to Store Pictures.
-    Integer[] imageIDs = {
+    Integer[] zImageIDs = {
             R.drawable.pic1,
             R.drawable.pic2,
             R.drawable.pic3,
             R.drawable.pic4
     };
-    int i = 0;
+
+    int zImageCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_carousel);
 
-        final ImageView imageView = (ImageView) findViewById(R.id.image1);
-        //final Handler handler = new Handler();
+        //Pull the Image View variable from the XML Layout
+        final ImageView zImageView = (ImageView) findViewById(R.id.image1);
+
+        //Create a thread that scrolls through the imageID array with a set delay
+        //before moving onto the next image.
         Runnable r = new Runnable() {
             public void run() {
-                imageView.setImageResource(imageIDs[i]);
-                i++;
-                if (i >= imageIDs.length) {
-                    i = 0;
+                zImageView.setImageResource(zImageIDs[zImageCounter]);
+                zImageCounter++;
+                if (zImageCounter >= zImageIDs.length) {
+                    zImageCounter = 0;
                 }
-                imageView.postDelayed(this, 5000); //set to go off again in 3 seconds.
+                zImageView.postDelayed(this, 5000); //set to go off again in 5 seconds.
             }
         };
-        imageView.postDelayed(r, 3000);
+        zImageView.postDelayed(r, 3000);//set inital delay of 3 seconds before starting
     }
+
+    //Insert Code Here for Basic Meta Data for Quiz to Use.
 }
 
 

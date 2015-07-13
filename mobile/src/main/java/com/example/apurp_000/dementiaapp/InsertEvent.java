@@ -3,37 +3,28 @@ package com.example.apurp_000.dementiaapp;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.app.Activity;
-import android.content.Intent;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.api.client.util.DateTime;
-import com.google.api.services.calendar.model.*;
-import com.google.api.services.calendar.model.Calendar;
-
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 import java.lang.*;
-import java.util.*;
+import java.util.Calendar;
 
 /**
  * Created by Ryan on 6/18/2015.
  */
 public class InsertEvent extends Activity {
     Context context;
-    int zYear, zMonth, zDay;
-    int zTextField;
-    static final int zDIALOG = 0;
+    int zYear, zMonth, zDay, zMinute, zHourOfDay;
+    static final int zDialog = 0;
+    boolean setFalse = false;
+
     String action;
     Spinner actionSpinner;
 
@@ -41,13 +32,17 @@ public class InsertEvent extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
 
-        //Set dialog to use current Year, Month and Day
+        //Set date dialog to use current Year, Month and Day
+        //Set time dialog to use current Hour of Day and Minute
         final java.util.Calendar cal = java.util.Calendar.getInstance();
-            zYear = cal.get(java.util.Calendar.YEAR);
-            zMonth = cal.get(java.util.Calendar.MONTH);
-            zDay = cal.get(java.util.Calendar.DAY_OF_MONTH);
+            zYear = cal.get(Calendar.YEAR);
+            zMonth = cal.get(Calendar.MONTH);
+            zDay = cal.get(Calendar.DAY_OF_MONTH);
+            zMinute = cal.get(Calendar.MINUTE);
+            zHourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+
         //Execute Calendar Dialog Popup
-        showDialogOnButtonClick();
+        showDialog();
 
         //Proceed to Publishing the Event to Calendar and Event DB
         Button publishEvent = (Button) findViewById(R.id.publishEvent);
@@ -73,30 +68,29 @@ public class InsertEvent extends Activity {
 
     }
 
-    //Create a Popup Dialog for Start Date button and End Date Buttons
-    public void showDialogOnButtonClick() {
-        Button eventStartDate = (Button)findViewById(R.id.eventStartDate);
+    //Create a Popup Dialog for Start Date and End Date text fields
+    public void showDialog() {
+        EditText eventStartDate = (EditText)findViewById(R.id.startView);
         eventStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(zDIALOG);
-                zTextField = 0;
+                showDialog(zDialog);
+                setFalse = true;
             }
         });
 
-        final Button eventEndDate = (Button)findViewById(R.id.eventEndDate);
+        EditText eventEndDate = (EditText)findViewById(R.id.endView);
         eventEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(zDIALOG);
-                zTextField = 1;
+                showDialog(zDialog);
             }
         });
     }
     //Shows the Date Picker Dialog Calendar
     @Override
     protected Dialog onCreateDialog(int id) {
-        if(id == zDIALOG)
+        if(id == zDialog)
             return new DatePickerDialog(this,dpickerListner,zYear,zMonth,zDay);
         else return null;
     }
@@ -109,12 +103,13 @@ public class InsertEvent extends Activity {
             zYear = year;
             zMonth = monthOfYear + 1;
             zDay = dayOfMonth;
-            TextView startView =(TextView)findViewById(R.id.startView) ;
-            TextView endView = (TextView)findViewById(R.id.endView);
-            if(zTextField == 0)
+            EditText eventStartDate = (EditText)findViewById(R.id.startView);
+            EditText eventEndDate = (EditText)findViewById(R.id.endView);
+            if(setFalse)
             {
-            startView.setText(zYear + "-" + zMonth + "-" + zDay);
-            }else{endView.setText(zYear + "-" + zMonth + "-" + zDay);}
+                eventStartDate.setText(zYear + "-" + zMonth + "-" + zDay);
+                setFalse = false;
+            }else{eventEndDate.setText(zYear + "-" + zMonth + "-" + zDay);}
 
             //Toast.makeText(InsertEvent.this,zYear + "-" + zMonth + "-" + zDay, Toast.LENGTH_LONG).show();
         }
@@ -142,7 +137,6 @@ public class InsertEvent extends Activity {
      * user can pick an account.
      */
     private void refreshResults() {
-
 
     }
 

@@ -31,19 +31,17 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Start Date"
+                android:hint="Select Start Date"
                 android:id="@+id/startView"
                 android:layout_gravity="left|center_vertical" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="End Date"
+                android:hint="Select End Date"
                 android:id="@+id/endView"
                 android:layout_gravity="right|center_vertical" />
         </FrameLayout>
@@ -51,38 +49,7 @@
     </LinearLayout>
 
 
-
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:text="Set Start Date"
-            android:id="@+id/eventStartDate" />
-
-    <FrameLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-    <Button
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
-        android:text="Set End Date"
-        android:id="@+id/eventEndDate"
-        android:layout_gravity="right|center_vertical" />
-
-        <!--<TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/timePicker3"
-            android:layout_gravity="left|center_vertical" />-->
-    </FrameLayout>
-
-    </LinearLayout>
-
-   <!-- <TimePicker
+    <!-- <TimePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timePicker" />
