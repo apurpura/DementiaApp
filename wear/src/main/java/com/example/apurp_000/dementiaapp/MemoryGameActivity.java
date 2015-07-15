@@ -82,6 +82,8 @@ public class MemoryGameActivity extends Activity {
     //int for case to know witch cards to lock
     int cardA = 0;
     int cardB = 0;
+    //Make a boolean so if in timer it does not double click
+    boolean inTimer = false;
 
 
 
@@ -570,8 +572,11 @@ public class MemoryGameActivity extends Activity {
         final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton1x1);
         card1x1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if(iscard1x1Flipped){
+            //fix to keep cards from being a double click match because code in a timer "frieze stae"
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                }
+                else if(iscard1x1Flipped){
                     //do nothing cause its flipped
                 }
 
@@ -581,11 +586,16 @@ public class MemoryGameActivity extends Activity {
                 }else {
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x1);
                     imageView.setImageResource(cardLayout[0]);
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
 
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             ImageView imageView = (ImageView) findViewById(R.id.imageButton1x1);
+                            //
+                            inTimer = false;
+
                             if (isOneCardAlreadyFlipped) {
                                 //reset if one card is flipped
                                 isOneCardAlreadyFlipped = false;
