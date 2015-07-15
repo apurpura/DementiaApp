@@ -2,6 +2,7 @@ package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class MemoryGameActivity extends Activity {
-
+    Handler handler = new Handler();
     private TextView mTextView;
     Integer[] cardDefaultLayout = {
             R.drawable.memoryredstar,
@@ -578,49 +579,49 @@ public class MemoryGameActivity extends Activity {
                     //do nothing if already matched
 
                 }else {
-
-
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x1);
                     imageView.setImageResource(cardLayout[0]);
 
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton1x1);
+                            if (isOneCardAlreadyFlipped) {
+                                //reset if one card is flipped
+                                isOneCardAlreadyFlipped = false;
+                                //set int for first card case
+                                cardB = 1;
+                                //reset if any others are flipped
+                                resetIfCardFlippedByButtons();
+                                //store what this button is
+                                checkArray[1] = cardLayout[0];
+                                if (checkArray[0].equals(checkArray[1])) {
 
-                    if (isOneCardAlreadyFlipped){
-                        //reset if one card is flipped
-                        isOneCardAlreadyFlipped = false;
-                        //set int for first card case
-                        cardB = 1;
-                        //reset if any others are flipped
-                        resetIfCardFlippedByButtons();
-                        //store what this button is
-                        checkArray[1]= cardLayout[0];
-                        if (checkArray[0].equals(checkArray[1])){
+                                    closeCardsForMatches();
+                                    imageView.setImageResource(R.drawable.memorymatch);
 
-                            closeCardsForMatches();
-                            imageView.setImageResource(R.drawable.memorymatch);
+                                } else {
 
+                                    reflipCardBacks();
+                                }
 
-                        }else {
+                            } else {
 
-                            reflipCardBacks();
+                                //flip card to know to leave up
+                                iscard1x1Flipped = true;
+                                //Set a card is global flipped
+                                isOneCardAlreadyFlipped = true;
+                                //set int for first card case
+                                cardA = 1;
+                                //store to check
+                                checkArray[0] = cardLayout[0];
+
+                            }
                         }
-
-                    }else {
-
-                        //flip card to know to leave up
-                        iscard1x1Flipped = true;
-                        //Set a card is global flipped
-                        isOneCardAlreadyFlipped = true;
-                        //set int for first card case
-                        cardA = 1;
-                        //store to check
-                        checkArray[0]= cardLayout[0];
-
-                    }
+                    }, 800);
+                }
                     //check for cleared board
                      isBoardCleared();
-
-                }
-
             }
         });
     }
