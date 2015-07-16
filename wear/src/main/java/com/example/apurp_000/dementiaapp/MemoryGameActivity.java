@@ -637,71 +637,85 @@ public class MemoryGameActivity extends Activity {
     }
 
     public void cardListerSetUp1x2(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton1x2);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card1x2 = (ImageButton)findViewById(R.id.imageButton1x2);
+        card1x2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(iscard1x2Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if (iscard1x2Flipped) {
                     //do nothing cause its flipped
-                }
-
-                else if(iscard1x2Matched){
+                } else if (iscard1x2Matched) {
                     //do nothing if already matched
 
-                }else {
+                } else {
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x2);
                     imageView.setImageResource(cardLayout[1]);
 
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
 
-                    if (isOneCardAlreadyFlipped){
-                        //reset if one card is flipped
-                        isOneCardAlreadyFlipped = false;
-                        //set int for first card case
-                        cardB = 2;
-                        //reset if any others are flipped
-                        resetIfCardFlippedByButtons();
-                        //store what this button is
-                        checkArray[1]= cardLayout[1];
-                        if (checkArray[0].equals(checkArray[1])){
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton1x2);
 
-                            closeCardsForMatches();
-                            imageView.setImageResource(R.drawable.memorymatch);
+                            //let know timer running code now
+                            inTimer = false;
+
+                            if (isOneCardAlreadyFlipped) {
+                                //reset if one card is flipped
+                                isOneCardAlreadyFlipped = false;
+                                //set int for first card case
+                                cardB = 2;
+                                //reset if any others are flipped
+                                resetIfCardFlippedByButtons();
+                                //store what this button is
+                                checkArray[1] = cardLayout[1];
+                                if (checkArray[0].equals(checkArray[1])) {
+
+                                    closeCardsForMatches();
+                                    imageView.setImageResource(R.drawable.memorymatch);
 
 
-                        }else {
+                                } else {
 
-                            reflipCardBacks();
+                                    reflipCardBacks();
+                                }
+
+                            } else {
+
+                                //flip card to know to leave up
+                                iscard1x2Flipped = true;
+                                //Set a card is global flipped
+                                isOneCardAlreadyFlipped = true;
+                                //set int for first card case
+                                cardA = 2;
+                                //store to check
+                                checkArray[0] = cardLayout[1];
+
+                            }
                         }
-
-                    }else {
-
-                        //flip card to know to leave up
-                        iscard1x2Flipped = true;
-                        //Set a card is global flipped
-                        isOneCardAlreadyFlipped = true;
-                        //set int for first card case
-                        cardA = 2;
-                        //store to check
-                        checkArray[0]= cardLayout[1];
-
-                    }
-                    //check for cleared board
-                    isBoardCleared();
+                    }, 800);
                 }
-
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
+
+
     public void cardListerSetUp1x3(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton1x3);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card1x3 = (ImageButton)findViewById(R.id.imageButton1x3);
+        card1x3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
-                if(iscard1x3Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard1x3Flipped){
                     //do nothing cause its flipped
                 }
 
@@ -713,6 +727,17 @@ public class MemoryGameActivity extends Activity {
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x3);
                     imageView.setImageResource(cardLayout[2]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton1x3);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -747,20 +772,24 @@ public class MemoryGameActivity extends Activity {
                         checkArray[0]= cardLayout[2];
 
                     }
-                    //check for cleared board
-                    isBoardCleared();
-                }
 
+                }
+                    }, 800);
+                }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp1x4(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton1x4);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card1x4 = (ImageButton)findViewById(R.id.imageButton1x4);
+        card1x4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(iscard1x4Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard1x4Flipped){
                     //do nothing cause its flipped
                 }
 
@@ -772,6 +801,17 @@ public class MemoryGameActivity extends Activity {
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton1x4);
                     imageView.setImageResource(cardLayout[3]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton1x4);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -806,18 +846,24 @@ public class MemoryGameActivity extends Activity {
                         checkArray[0]= cardLayout[3];
 
                     }
-                    //check for cleared board
-                    isBoardCleared();
-                }
 
+                        }
+                    }, 800);
+                }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
+
     public void cardListerSetUp2x1(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton2x1);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card2x1 = (ImageButton)findViewById(R.id.imageButton2x1);
+        card2x1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(iscard2x1Flipped){
+
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard2x1Flipped){
                     //do nothing cause its flipped
                 }
 
@@ -829,6 +875,17 @@ public class MemoryGameActivity extends Activity {
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton2x1);
                     imageView.setImageResource(cardLayout[4]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton2x1);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -863,20 +920,24 @@ public class MemoryGameActivity extends Activity {
                         checkArray[0]= cardLayout[4];
 
                     }
-                    //check for cleared board
-                    isBoardCleared();
-                }
 
+                        }
+                    }, 800);
+                }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp2x2(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton2x2);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card2x2 = (ImageButton)findViewById(R.id.imageButton2x2);
+        card2x2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(iscard2x2Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard2x2Flipped){
                     //do nothing cause its flipped
                 }
 
@@ -888,6 +949,17 @@ public class MemoryGameActivity extends Activity {
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton2x2);
                     imageView.setImageResource(cardLayout[5]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton2x2);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -922,21 +994,24 @@ public class MemoryGameActivity extends Activity {
                         checkArray[0]= cardLayout[5];
 
                     }
-                    //check for cleared board
-                    isBoardCleared();
+
                 }
-
-
-            }
-        });
+            }, 800);
+                                   }
+                //check for cleared board
+                isBoardCleared();
     }
+});
+        }
 
     public void cardListerSetUp2x3(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton2x3);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card2x3 = (ImageButton)findViewById(R.id.imageButton2x3);
+        card2x3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(iscard2x3Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard2x3Flipped){
                     //do nothing cause its flipped
                 }
 
@@ -948,6 +1023,17 @@ public class MemoryGameActivity extends Activity {
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton2x3);
                     imageView.setImageResource(cardLayout[6]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton2x3);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -982,21 +1068,24 @@ public class MemoryGameActivity extends Activity {
                         checkArray[0]= cardLayout[6];
 
                     }
-                    //check for cleared board
-                    isBoardCleared();
+
+                        }
+                    }, 800);
                 }
-
-
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp2x4(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton2x4);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card2x4 = (ImageButton)findViewById(R.id.imageButton2x4);
+        card2x4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(iscard2x4Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard2x4Flipped){
                     //do nothing cause its flipped
                 }
 
@@ -1008,6 +1097,17 @@ public class MemoryGameActivity extends Activity {
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton2x4);
                     imageView.setImageResource(cardLayout[7]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton2x4);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1042,20 +1142,24 @@ public class MemoryGameActivity extends Activity {
                         checkArray[0]= cardLayout[7];
 
                     }
-                    //check for cleared board
-                    isBoardCleared();
+
+                        }
+                    }, 800);
                 }
-
-
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
+
     public void cardListerSetUp3x1(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton3x1);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card3x1 = (ImageButton)findViewById(R.id.imageButton3x1);
+        card3x1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                    if(iscard3x1Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard3x1Flipped){
                         //do nothing cause its flipped
                     }
 
@@ -1067,6 +1171,17 @@ public class MemoryGameActivity extends Activity {
 
                         ImageView imageView = (ImageView) findViewById(R.id.imageButton3x1);
                         imageView.setImageResource(cardLayout[8]);
+
+                        //set intimer so no errors occur while code frozen
+                        inTimer = true;
+                        //timer
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ImageView imageView = (ImageView) findViewById(R.id.imageButton3x1);
+
+                                //let know timer running code now
+                                inTimer = false;
 
 
                         if (isOneCardAlreadyFlipped){
@@ -1101,25 +1216,26 @@ public class MemoryGameActivity extends Activity {
                             checkArray[0]= cardLayout[8];
 
                         }
-                        //check for cleared board
-                        isBoardCleared();
-                    }
 
+                            }
+                        }, 800);
+                    }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp3x2(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton3x2);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card3x2 = (ImageButton)findViewById(R.id.imageButton3x2);
+        card3x2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
-                if(iscard3x2Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard3x2Flipped){
                     //do nothing cause its flipped
-                }
-
-                else if(iscard3x2Matched){
+                } else if(iscard3x2Matched){
                     //do nothing if already matched
 
                 }else {
@@ -1128,6 +1244,16 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton3x2);
                     imageView.setImageResource(cardLayout[9]);
 
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton3x2);
+
+                            //let know timer running code now
+                            inTimer = false;
 
                     if (isOneCardAlreadyFlipped){
                         //reset if one card is flipped
@@ -1159,33 +1285,43 @@ public class MemoryGameActivity extends Activity {
                         cardA = 10;
                         //store to check
                         checkArray[0]= cardLayout[9];
-
                     }
-                    //check for cleared board
-                    isBoardCleared();
+
+                        }
+                    }, 800);
                 }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp3x3(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton3x3);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card3x3 = (ImageButton)findViewById(R.id.imageButton3x3);
+        card3x3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
-                if(iscard3x3Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard3x3Flipped){
                     //do nothing cause its flipped
-                }
-
-                else if(iscard3x3Matched){
+                } else if(iscard3x3Matched){
                     //do nothing if already matched
 
                 }else {
-
-
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton3x3);
                     imageView.setImageResource(cardLayout[10]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton3x3);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1220,30 +1356,41 @@ public class MemoryGameActivity extends Activity {
                         checkArray[0]= cardLayout[10];
 
                     }
-                    //check for cleared board
-                    isBoardCleared();
+
+                        }
+                    }, 800);
                 }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp3x4(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton3x4);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card3x4 = (ImageButton)findViewById(R.id.imageButton3x4);
+        card3x4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if(iscard3x4Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else  if(iscard3x4Flipped){
                     //do nothing cause its flipped
-                }
-
-                else if(iscard3x4Matched){
+                }else if(iscard3x4Matched){
                     //do nothing if already matched
 
                 }else {
-
-
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton3x4);
                     imageView.setImageResource(cardLayout[11]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton3x4);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1276,32 +1423,41 @@ public class MemoryGameActivity extends Activity {
                         cardA = 12;
                         //store to check
                         checkArray[0]= cardLayout[11];
-
                     }
-                    //check for cleared board
-                    isBoardCleared();
-                }
 
+                        }
+                    }, 800);
+                }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
     public void cardListerSetUp4x1(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton4x1);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card4x1 = (ImageButton)findViewById(R.id.imageButton4x1);
+        card4x1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if(iscard4x1Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard4x1Flipped){
                     //do nothing cause its flipped
-                }
-
-                else if(iscard4x1Matched){
+                } else if(iscard4x1Matched){
                     //do nothing if already matched
 
                 }else {
-
-
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton4x1);
                     imageView.setImageResource(cardLayout[12]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton4x1);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1336,32 +1492,40 @@ public class MemoryGameActivity extends Activity {
                         checkArray[0]= cardLayout[12];
 
                     }
-                    //check for cleared board
-                    isBoardCleared();
-                }
 
+                        }
+                    }, 800);
+                }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp4x2(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton4x2);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card4x2 = (ImageButton)findViewById(R.id.imageButton4x2);
+        card4x2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if(iscard4x2Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard4x2Flipped){
                     //do nothing cause its flipped
-                }
-
-                else if(iscard4x2Matched){
+                } else if(iscard4x2Matched){
                     //do nothing if already matched
-
                 }else {
-
-
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton4x2);
                     imageView.setImageResource(cardLayout[13]);
 
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton4x2);
+
+                            //let know timer running code now
+                            inTimer = false;
 
                     if (isOneCardAlreadyFlipped){
                         //reset if one card is flipped
@@ -1393,34 +1557,43 @@ public class MemoryGameActivity extends Activity {
                         cardA = 14;
                         //store to check
                         checkArray[0]= cardLayout[13];
-
                     }
-                    //check for cleared board
-                    isBoardCleared();
-                }
 
+                        }
+                    }, 800);
+                }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp4x3(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton4x3);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card4x3 = (ImageButton)findViewById(R.id.imageButton4x3);
+        card4x3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
-                if(iscard4x3Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard4x3Flipped){
                     //do nothing cause its flipped
-                }
-
-                else if(iscard4x3Matched){
+                } else if(iscard4x3Matched){
                     //do nothing if already matched
 
                 }else {
-
-
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton4x3);
                     imageView.setImageResource(cardLayout[14]);
+
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton4x3);
+
+                            //let know timer running code now
+                            inTimer = false;
 
 
                     if (isOneCardAlreadyFlipped){
@@ -1453,71 +1626,82 @@ public class MemoryGameActivity extends Activity {
                         cardA = 15;
                         //store to check
                         checkArray[0]= cardLayout[14];
-
                     }
-                    //check for cleared board
-                    isBoardCleared();
-                }
 
+                        }
+                    }, 800);
+                }
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
 
     public void cardListerSetUp4x4(){
-        final ImageButton card1x1 = (ImageButton)findViewById(R.id.imageButton4x4);
-        card1x1.setOnClickListener(new View.OnClickListener() {
+        final ImageButton card4x4 = (ImageButton)findViewById(R.id.imageButton4x4);
+        card4x4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if(iscard4x4Flipped){
+                if(inTimer){
+                    //do nothing because code is frozen in a timer and errors occur like same card match
+                } else if(iscard4x4Flipped){
                     //do nothing cause its flipped
-                }
-
-                else if(iscard4x4Matched){
+                } else if(iscard4x4Matched){
                     //do nothing if already matched
 
                 }else {
-
-
                     ImageView imageView = (ImageView) findViewById(R.id.imageButton4x4);
                     imageView.setImageResource(cardLayout[15]);
 
+                    //set intimer so no errors occur while code frozen
+                    inTimer = true;
+                    //timer
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = (ImageView) findViewById(R.id.imageButton4x4);
 
-                    if (isOneCardAlreadyFlipped){
-                        //reset if one card is flipped
-                        isOneCardAlreadyFlipped = false;
-                        //set int for first card case
-                        cardB = 16;
-                        //reset if any others are flipped
-                        resetIfCardFlippedByButtons();
-                        //store what this button is
-                        checkArray[1]= cardLayout[15];
-                        if (checkArray[0].equals(checkArray[1])){
-
-                            closeCardsForMatches();
-                            imageView.setImageResource(R.drawable.memorymatch);
+                            //let know timer running code now
+                            inTimer = false;
 
 
-                        }else {
+                            if (isOneCardAlreadyFlipped) {
+                                //reset if one card is flipped
+                                isOneCardAlreadyFlipped = false;
+                                //set int for first card case
+                                cardB = 16;
+                                //reset if any others are flipped
+                                resetIfCardFlippedByButtons();
+                                //store what this button is
+                                checkArray[1] = cardLayout[15];
+                                if (checkArray[0].equals(checkArray[1])) {
 
-                            reflipCardBacks();
+                                    closeCardsForMatches();
+                                    imageView.setImageResource(R.drawable.memorymatch);
+
+
+                                } else {
+
+                                    reflipCardBacks();
+                                }
+
+                            } else {
+
+                                //flip card to know to leave up
+                                iscard4x4Flipped = true;
+                                //Set a card is global flipped
+                                isOneCardAlreadyFlipped = true;
+                                //set int for first card case
+                                cardA = 16;
+                                //store to check
+                                checkArray[0] = cardLayout[15];
+
+                            }
+
                         }
-
-                    }else {
-
-                        //flip card to know to leave up
-                        iscard4x4Flipped = true;
-                        //Set a card is global flipped
-                        isOneCardAlreadyFlipped = true;
-                        //set int for first card case
-                        cardA = 16;
-                        //store to check
-                        checkArray[0]= cardLayout[15];
-
-                    }
-                    //check for cleared board
-                    isBoardCleared();
+                    }, 800);
                 }
-
+                //check for cleared board
+                isBoardCleared();
             }
         });
     }
