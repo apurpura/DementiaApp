@@ -9,6 +9,7 @@
     <string name="title_activity_mainMenu">Main Menu</string>
     <string name="title_activity_insertEvent">Insert Event</string>
     <string name="action_prompt">Choose an action</string>
+    <string name="account">Choose Account</string>
 
     <string-array name="actions_array">
         <item>Text Message</item>

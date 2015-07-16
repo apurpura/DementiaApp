@@ -1,6 +1,7 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
@@ -34,13 +35,16 @@ public class startPage extends Activity {
 
     }
     public void onClickStart(){
-        final ImageButton startGame = (ImageButton)findViewById(R.id.imageButton1x1);
+        final ImageButton startGame = (ImageButton)findViewById(R.id.imageButton5);
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 //Code for when wearable has speakers
                 //goodJob.start();
-                finish();
+
+                //finish();
+                Intent intent = new Intent(startPage.this,simonSaysActivity.class);
+                startActivity(intent);
 
             }
         });

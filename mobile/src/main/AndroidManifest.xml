@@ -60,6 +60,12 @@
             android:name=".MemoryRecallAnalytics"
             android:label="@string/title_activity_memory_recall_analytics" >
         </activity>
+
+        <service
+            android:name=".UpdateEventsService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

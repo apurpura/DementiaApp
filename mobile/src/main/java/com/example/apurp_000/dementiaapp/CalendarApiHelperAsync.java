@@ -1,14 +1,21 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.googleapis.util.Utils;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.*;
+import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.*;
 
 import java.io.IOException;
@@ -29,6 +36,8 @@ import java.util.TimeZone;
 public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     private static CalendarActivity mActivity;
     private static HttpTransport httpTransport;
+    private static final String PREFS_NAME = "CalendarPref";
+    private static final String PREFS_KEY = "SyncToken";
 
     /**
      * Constructor.
@@ -44,13 +53,23 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     }
 
     /**
+     * Constructor overload
+     */
+    CalendarApiHelperAsync() {
+        try {
+            httpTransport = AndroidHttp.newCompatibleTransport();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Background task to call Google Calendar API.
      * @param params no parameters needed for this task.
      */
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            clearResultsText();
             String calendarId = new CalendarAPIAdapter(mActivity).getCalendar();
             try {
                 getDataFromApi(calendarId);
@@ -76,43 +95,16 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    /**
-     * Fill the data TextView with the given List of Strings; called from
-     * background threads and async tasks that need to update the UI (in the
-     * UI thread).
-     */
     public void updateResultsText() {
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (mActivity.listDataHeader == null) {
                     AlertDialogPopup.ShowDialogPopup("Error", "An error was accountered retrieving data!", mActivity);
-                   // mActivity.mResultsText.setText("Error retrieving data!");
                 } else if (mActivity.listDataHeader.size() == 0) {
                     AlertDialogPopup.ShowDialogPopup("Alert", "No events found", mActivity);
-                    //mActivity.mResultsText.setText("No events found.");
-                } else {
-                  // mActivity.mStatusText.setText("Data retrieved using" + " the Google Calendar API:");
-//todo
-                   // mActivity.mResultsText.setText(TextUtils.join("\n\n", dataStrings));
                 }
-
                 mActivity.listAdapter.refresh();
-                /*if(dataStrings != null){
-                    int notificationId = 001;
-                    String eventText = dataStrings.get(0);
-                    *//*NotificationCompat.Builder notificationBuilder =
-                            new NotificationCompat.Builder(SigningOnActivity.this)
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setContentTitle(eventText)
-                                    .setContentText(eventText);
-
-                    NotificationManagerCompat notificationManager =
-                            NotificationManagerCompat.from(SigningOnActivity.this);
-
-                    notificationManager.notify(notificationId, notificationBuilder.build());*//*
-
-                }*/
             }
         });
     }
@@ -127,16 +119,15 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
             @Override
             public void run() {
                 AlertDialogPopup.ShowDialogPopup("Notification", message, mActivity);
-                               // mActivity.mStatusText.setText(message);
             }
         });
     }
 
-    /**
+  /*  *//**
      * Clear any existing Google Calendar API data from the TextView and update
      * the header message; called from background threads and async tasks
      * that need to update the UI (in the UI thread).
-     */
+     *//*
     public void clearResultsText() {
         mActivity.runOnUiThread(new Runnable() {
             @Override
@@ -145,39 +136,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                // mActivity.mResultsText.setText("");
             }
         });
-    }
-
-    /*private String checkForProviderCalendar(){
-        String ourCalendar = "";
-        String[] projection =
-                new String[]{
-                        Calendars._ID,
-                        Calendars.NAME,
-                        Calendars.ACCOUNT_NAME,
-                        Calendars.ACCOUNT_TYPE};
-        Cursor calCursor =
-                ApplicationContextProvider.getContext().getContentResolver().query(
-                        Calendars.CONTENT_URI,
-                        projection,
-                        Calendars.VISIBLE + " = 1",
-                        null,
-                                Calendars._ID + " ASC");
-        if (calCursor.moveToFirst()) {
-            do {
-                long id = calCursor.getLong(0);
-                String displayName = calCursor.getString(1);
-                System.out.println("Id: " + id + " Display Name: " + displayName);
-                if(displayName.equals("MARA")){
-                   ourCalendar = String.valueOf(id);
-                }
-                ourCalendar = ourCalendar + displayName;
-            } while (calCursor.moveToNext());
-
-        }
-        calCursor.close();
-        return ourCalendar;
-    }
-*/
+    }*/
 
     /**
      * Fetch a list of the next 10 events from the primary calendar.
@@ -226,6 +185,82 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
         }
 
     }
+
+    public static void UpdateEvents(String calendarId) throws IOException {
+        // Construct the {@link Calendar.Events.List} request, but don't execute it yet.
+        Calendar.Events.List request = Credentials.signonActivity.calendarService.events().list(calendarId);
+
+        // Load the sync token stored from the last execution, if any.
+        String syncToken = getValue(Credentials.signonActivity);
+        if (syncToken == null) {
+            System.out.println("Performing full sync.");
+        } else {
+            System.out.println("Performing incremental sync.");
+            request.setSyncToken(syncToken);
+        }
+
+        // Retrieve the events, one page at a time.
+        String pageToken = null;
+        Events events = null;
+        do {
+            request.setPageToken(pageToken);
+            try {
+                events = request.execute();
+            } catch (GoogleJsonResponseException e) {
+                if (e.getStatusCode() == 410) {
+                    // A 410 status code, "Gone", indicates that the sync token is invalid.
+                    System.out.println("Invalid sync token, clearing event store and re-syncing.");
+                    save(Credentials.signonActivity, null);
+                    UpdateEvents(calendarId);
+                } else {
+                    throw e;
+                }
+            }
+
+            List<Event> items = events.getItems();
+            if (items.size() == 0) {
+                System.out.println("No new events to sync.");
+            } else {
+                for (Event event : items) {
+                    String action = "";
+                    if(event.getExtendedProperties() != null)
+                        action = event.getExtendedProperties().getShared().get("Action");
+                    if(event.getId() != null & event.getSummary() != null & event.getStart() != null & event.getEnd() != null) {
+                        new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
+                                event.getLocation(), event.getStart().getDateTime(), event.getEnd().getDateTime(), action
+                                , Credentials.signonActivity);
+                    }
+                }
+            }
+
+            pageToken = events.getNextPageToken();
+        } while (pageToken != null);
+
+        save(Credentials.signonActivity, events.getNextSyncToken());
+
+        System.out.println("Sync complete.");
+    }
+
+
+    public static void save(Context context, String text) {
+        SharedPreferences settings;
+        SharedPreferences.Editor editor;
+        settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); //1
+        editor = settings.edit(); //2
+
+        editor.putString(PREFS_KEY, text); //3
+        editor.commit(); //4
+    }
+
+    public static String getValue(Context context) {
+        SharedPreferences settings;
+        String text;
+        settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); //1
+        text = settings.getString(PREFS_KEY, null); //2
+        return text;
+    }
+
+
 
 
 

@@ -3,9 +3,12 @@ package com.example.apurp_000.dementiaapp;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.app.Activity;
@@ -14,7 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.lang.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Ryan on 6/18/2015.
@@ -27,6 +32,10 @@ public class InsertEvent extends Activity {
 
     String action;
     Spinner actionSpinner;
+    String account;
+    Spinner accountSpinner;
+    ArrayAdapter<String> dataAdapter;
+    List<String> lables;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +70,32 @@ public class InsertEvent extends Activity {
             }
         });
 
+        if(Credentials.credential != null)
+            account = Credentials.credential.getSelectedAccountName();
+        else {
+            Intent intent = new Intent(this,SigningOnActivity.class);
+            startActivity(intent);
+        }
+        // Spinner Drop down elements
+        lables = new ArrayList<>();
+
+        // Creating adapter for spinner
+        dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+        // attaching data adapter to spinner
+        accountSpinner.setAdapter(dataAdapter);
+        accountSpinner.setOnItemSelectedListener(new AccountOnItemSelectedListener() );
+
+
         //listen for the action selected
         action = "";
         actionSpinner = (Spinner) findViewById(R.id.actionSpinner);
-        actionSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+        actionSpinner.setOnItemSelectedListener(new ActionOnItemSelectedListener());
 
     }
 
@@ -137,14 +168,28 @@ public class InsertEvent extends Activity {
      * user can pick an account.
      */
     private void refreshResults() {
-
+            new CalendarListAsync(InsertEvent.this).execute();
     }
 
-    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+    public class ActionOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
 
                     action = parent.getItemAtPosition(pos).toString();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            // TODO Auto-generated method stub
+        }
+
+    }
+
+    public class AccountOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+
+            account = parent.getItemAtPosition(pos).toString();
         }
 
         @Override

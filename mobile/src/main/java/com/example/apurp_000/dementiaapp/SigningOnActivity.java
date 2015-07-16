@@ -108,7 +108,7 @@ public class SigningOnActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if (isGooglePlayServicesAvailable()) {
-            refreshResults();
+                    refreshResults();
         } else {
             mStatusText.setText("Google Play Services required: " +
                     "after installing, close and relaunch this app.");
@@ -181,6 +181,7 @@ public class SigningOnActivity extends Activity {
                 Credentials.signonActivity = this;
                 /*Intent intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);*/
+                new StartEventSync(SigningOnActivity.this).execute();
 
                 Intent intent = new Intent(this, MainMenu.class);
                 startActivity(intent);

@@ -87,7 +87,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
 
             Integer theId = GetEvent(id, context).u_id;
             EventModel e = new EventModel(id, calendarId, summary, description, location, startTime.toString(), endTime.toString(), action, theId);
-            AlarmManagerHelper.setAlarm(context, startTime.getValue(), e);
+            AlarmManagerHelper.setAlarm(context, startTime.getValue(), e, "AlarmService");
         }
     }
 

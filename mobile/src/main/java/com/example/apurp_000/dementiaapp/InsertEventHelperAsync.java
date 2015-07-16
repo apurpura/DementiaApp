@@ -3,6 +3,7 @@ package com.example.apurp_000.dementiaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -21,7 +22,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -60,8 +63,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     }
 
     public void initializeEvent() throws IOException {
-        CalendarAPIAdapter zCalendarAPIAdapter = new CalendarAPIAdapter(mActivity);
-        String calendarId = zCalendarAPIAdapter.getCalendar();
+        String calendarId = CalendarAPIAdapter.getCalendarList().get(mActivity.account);
         EditText summary = (EditText) mActivity.findViewById(R.id.eventTitle);
         EditText location = (EditText) mActivity.findViewById(R.id.eventLocation);
         EditText description = (EditText) mActivity.findViewById(R.id.eventDescription);
@@ -82,6 +84,13 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
                 .setDateTime(endDateTime)
                 .setTimeZone("America/Los_Angeles");
         event.setEnd(end);
+
+        //add the action to extendedProperties
+        Event.ExtendedProperties EP = new Event.ExtendedProperties();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Action", mActivity.action);
+        EP.setShared(map);
+        event.setExtendedProperties(EP);
 
         Event ev = Credentials.signonActivity.calendarService.events().insert(calendarId,event).execute();
         String id = ev.getId();
