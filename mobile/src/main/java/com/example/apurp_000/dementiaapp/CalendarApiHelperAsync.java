@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 
@@ -70,8 +71,9 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            String calendarId = new CalendarAPIAdapter(mActivity).getCalendar();
+            String calendarId = CalendarAPIAdapter.getCalendarList().get(Account.account);
             try {
+
                 getDataFromApi(calendarId);
             } catch (ParseException e) {
                 e.printStackTrace();

@@ -28,7 +28,7 @@ public class MainMenu extends Activity {
         Button insertEvent = (Button) findViewById(R.id.insertEvent);
         insertEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this,InsertEvent.class);
+                Intent intent = new Intent(MainMenu.this,InsertEventActivity.class);
                 startActivity(intent);
             }
         });

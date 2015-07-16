@@ -14,9 +14,9 @@ import java.util.List;
  * Created by apurpura on 7/12/2015.
  */
 public class CalendarListAsync extends AsyncTask<Void, Void, Void> {
-    private InsertEvent mActivity;
+    private IActivity mActivity;
     private List<String> theList;
-    public CalendarListAsync(InsertEvent activity){
+    public CalendarListAsync(IActivity activity){
         mActivity = activity;
     }
 
@@ -28,6 +28,12 @@ public class CalendarListAsync extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         theList = new ArrayList(CalendarAPIAdapter.getCalendarList().keySet());
+        if(Account.account != null){
+            int index = theList.indexOf(Account.account);
+            String item = theList.get(index);
+            theList.remove(index);
+            theList.add(0, item);
+        }
         return null;
     }
 

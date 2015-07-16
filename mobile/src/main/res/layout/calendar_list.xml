@@ -4,6 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="#f4f4f4" >
+    <Spinner
+        android:id="@+id/account_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/account"
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        />
 
     <ExpandableListView
         android:id="@+id/lvExp"

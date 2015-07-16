@@ -5,26 +5,22 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.app.Activity;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.lang.*;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by Ryan on 6/18/2015.
  */
-public class InsertEvent extends Activity {
+public class InsertEventActivity extends IActivity {
     Context context;
     int zYear, zMonth, zDay, zMinute, zHourOfDay;
     static final int zDialog = 0;
@@ -32,10 +28,6 @@ public class InsertEvent extends Activity {
 
     String action;
     Spinner actionSpinner;
-    String account;
-    Spinner accountSpinner;
-    ArrayAdapter<String> dataAdapter;
-    List<String> lables;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +52,9 @@ public class InsertEvent extends Activity {
             public void onClick(View v) {
                 try {
                     if (Credentials.isOnline()) {
-                        new InsertEventHelperAsync(InsertEvent.this).execute();
+                        new InsertEventHelperAsync(InsertEventActivity.this).execute();
                     } else {
-                        AlertDialogPopup.ShowDialogPopup("Alert", "No Network Connection Available.", InsertEvent.this);
+                        AlertDialogPopup.ShowDialogPopup("Alert", "No Network Connection Available.", InsertEventActivity.this);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -70,8 +62,10 @@ public class InsertEvent extends Activity {
             }
         });
 
-        if(Credentials.credential != null)
-            account = Credentials.credential.getSelectedAccountName();
+        if(Credentials.credential != null ) {
+            if(Account.account == null)
+                Account.account = Credentials.credential.getSelectedAccountName();
+        }
         else {
             Intent intent = new Intent(this,SigningOnActivity.class);
             startActivity(intent);
@@ -142,7 +136,7 @@ public class InsertEvent extends Activity {
                 setFalse = false;
             }else{eventEndDate.setText(zYear + "-" + zMonth + "-" + zDay);}
 
-            //Toast.makeText(InsertEvent.this,zYear + "-" + zMonth + "-" + zDay, Toast.LENGTH_LONG).show();
+            //Toast.makeText(InsertEventActivity.this,zYear + "-" + zMonth + "-" + zDay, Toast.LENGTH_LONG).show();
         }
     };
 
@@ -168,7 +162,7 @@ public class InsertEvent extends Activity {
      * user can pick an account.
      */
     private void refreshResults() {
-            new CalendarListAsync(InsertEvent.this).execute();
+            new CalendarListAsync(InsertEventActivity.this).execute();
     }
 
     public class ActionOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
@@ -189,7 +183,7 @@ public class InsertEvent extends Activity {
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
 
-            account = parent.getItemAtPosition(pos).toString();
+            Account.account = parent.getItemAtPosition(pos).toString();
         }
 
         @Override

@@ -10,10 +10,14 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class CalendarActivity extends Activity {
+public class CalendarActivity extends IActivity {
     CalendarView calendar;
     //TextView mResultsText;
     ExpandableListAdapter listAdapter;
@@ -35,34 +39,30 @@ public class CalendarActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_list);
-        /*LinearLayout activityLayout = new LinearLayout(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        activityLayout.setLayoutParams(lp);
-        activityLayout.setOrientation(LinearLayout.VERTICAL);
-        activityLayout.setPadding(16, 16, 16, 16);
-
-        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        mResultsText = new TextView(this);
-        mResultsText.setLayoutParams(tlp);
-        mResultsText.setPadding(16, 16, 16, 16);
-        mResultsText.setVerticalScrollBarEnabled(true);
-        mResultsText.setMovementMethod(new ScrollingMovementMethod());
-        activityLayout.addView(mResultsText);*/
-
-        //setContentView(activityLayout);
         ApplicationContextProvider.setContext(this);
-
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
-        //prepareListData();
-        /*listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-        expListView.setAdapter(listAdapter);*/
+
+        if(Credentials.credential != null ) {
+            if(Account.account == null)
+                Account.account = Credentials.credential.getSelectedAccountName();
+        }
+        else {
+            Intent intent = new Intent(this,SigningOnActivity.class);
+            startActivity(intent);
+        }
+        // Spinner Drop down elements
+        lables = new ArrayList<>();
+        // Creating adapter for spinner
+        dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+        // attaching data adapter to spinner
+        accountSpinner.setAdapter(dataAdapter);
+        accountSpinner.setOnItemSelectedListener(new AccountOnItemSelectedListener() );
     }
 
     /**
@@ -97,9 +97,35 @@ public class CalendarActivity extends Activity {
      */
     private void refreshResults() {
         if (Credentials.isOnline()) {
+            new CalendarListAsync(CalendarActivity.this).execute();
+        } else {
+            AlertDialogPopup.ShowDialogPopup("Alert", "No Network Connection Available.", this);
+        }
+
+    }
+
+    private void callAsyncTask(){
+        if (Credentials.isOnline()) {
             AsyncTask t = new CalendarApiHelperAsync(this).execute();
         } else {
             AlertDialogPopup.ShowDialogPopup("Alert", "No Network Connection Available.", this);
+        }
+    }
+
+    public class AccountOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+            boolean shouldRefresh = true;
+            if(Account.account == parent.getItemAtPosition(pos).toString())
+                shouldRefresh = false;
+            Account.account = parent.getItemAtPosition(pos).toString();
+            if(shouldRefresh)
+                callAsyncTask();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            // TODO Auto-generated method stub
         }
 
     }

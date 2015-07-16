@@ -21,7 +21,7 @@
             android:label="@string/title_activity_hello_world" >
         </activity>
         <activity
-            android:name=".InsertEvent"
+            android:name=".InsertEventActivity"
             android:label="@string/title_activity_insertEvent" >
         </activity>
         <activity

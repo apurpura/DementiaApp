@@ -1,29 +1,17 @@
 package com.example.apurp_000.dementiaapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.widget.EditText;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
-import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
-import com.google.api.services.calendar.model.EventReminder;
-import com.google.api.services.calendar.model.Events;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -32,14 +20,14 @@ import java.util.Map;
  * Placing the API calls in their own task ensures the UI stays responsive.
  */
 public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
-    private static InsertEvent mActivity;
+    private static InsertEventActivity mActivity;
     private static HttpTransport httpTransport;
 
     /**
      * Constructor.
      * @param activity SigningOnActivity that spawned this task.
      */
-    InsertEventHelperAsync(InsertEvent activity) {
+    InsertEventHelperAsync(InsertEventActivity activity) {
         this.mActivity = activity;
         try {
             httpTransport = AndroidHttp.newCompatibleTransport();
@@ -63,7 +51,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     }
 
     public void initializeEvent() throws IOException {
-        String calendarId = CalendarAPIAdapter.getCalendarList().get(mActivity.account);
+        String calendarId = CalendarAPIAdapter.getCalendarList().get(Account.account);
         EditText summary = (EditText) mActivity.findViewById(R.id.eventTitle);
         EditText location = (EditText) mActivity.findViewById(R.id.eventLocation);
         EditText description = (EditText) mActivity.findViewById(R.id.eventDescription);

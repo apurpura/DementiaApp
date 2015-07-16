@@ -42,6 +42,8 @@ public class AlarmService extends Service implements GoogleApiClient.ConnectionC
             json.put("Location", intent.getExtras().get("Location"));
         } catch (JSONException e) {
             e.printStackTrace();
+        }catch (NullPointerException n){
+            n.printStackTrace();
         }
         googleClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
