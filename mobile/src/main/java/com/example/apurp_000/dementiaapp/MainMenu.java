@@ -47,6 +47,8 @@ public class MainMenu extends Activity {
         Button triggerGame = (Button) findViewById(R.id.memoryAnalytics);
         triggerGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent intent = new Intent(MainMenu.this,MemoryRecallAnalytics.class);
+                startActivity(intent);
                 //new Intent(this,triggerGame.class);
             }
         });
