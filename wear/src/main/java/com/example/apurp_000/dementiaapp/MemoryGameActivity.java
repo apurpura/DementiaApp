@@ -1,6 +1,7 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.wearable.view.WatchViewStub;
@@ -562,7 +563,10 @@ public class MemoryGameActivity extends Activity {
     public void isBoardCleared(){
         if(iscard1x1Matched&&iscard1x2Matched&&iscard1x3Matched&&iscard1x4Matched&&iscard2x1Matched&&iscard2x2Matched&&iscard2x3Matched&&iscard2x4Matched&&iscard3x1Matched&&iscard3x2Matched&&iscard3x3Matched&&iscard3x4Matched&&iscard4x1Matched&&iscard4x2Matched&&iscard4x3Matched&&iscard4x4Matched){
 
-                finish();
+            //start Memory
+            startActivity(new Intent(getApplicationContext(), MemoryWinPage.class));
+            //close app
+            finish();
         }else {
             //keep playing
         }
@@ -609,6 +613,8 @@ public class MemoryGameActivity extends Activity {
 
                                     closeCardsForMatches();
                                     imageView.setImageResource(R.drawable.memorymatch);
+                                    //check for cleared board
+                                    isBoardCleared();
 
                                 } else {
 
@@ -630,8 +636,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                    //check for cleared board
-                     isBoardCleared();
+
             }
         });
     }
@@ -678,6 +683,8 @@ public class MemoryGameActivity extends Activity {
 
                                     closeCardsForMatches();
                                     imageView.setImageResource(R.drawable.memorymatch);
+                                    //check for cleared board
+                                    isBoardCleared();
 
 
                                 } else {
@@ -700,8 +707,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -753,6 +759,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -776,8 +784,7 @@ public class MemoryGameActivity extends Activity {
                 }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -827,6 +834,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -850,8 +859,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -901,6 +909,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -924,8 +934,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -975,6 +984,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -998,8 +1009,7 @@ public class MemoryGameActivity extends Activity {
                 }
             }, 800);
                                    }
-                //check for cleared board
-                isBoardCleared();
+
     }
 });
         }
@@ -1049,6 +1059,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -1072,8 +1084,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1123,6 +1134,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -1146,8 +1159,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1197,6 +1209,8 @@ public class MemoryGameActivity extends Activity {
 
                                 closeCardsForMatches();
                                 imageView.setImageResource(R.drawable.memorymatch);
+                                //check for cleared board
+                                isBoardCleared();
 
 
                             }else {
@@ -1220,8 +1234,7 @@ public class MemoryGameActivity extends Activity {
                             }
                         }, 800);
                     }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1268,6 +1281,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -1290,8 +1305,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1337,6 +1351,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -1360,8 +1376,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1406,6 +1421,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -1428,8 +1445,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1473,6 +1489,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -1496,8 +1514,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1540,6 +1557,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -1562,8 +1581,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1609,6 +1627,8 @@ public class MemoryGameActivity extends Activity {
 
                             closeCardsForMatches();
                             imageView.setImageResource(R.drawable.memorymatch);
+                            //check for cleared board
+                            isBoardCleared();
 
 
                         }else {
@@ -1631,8 +1651,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
@@ -1677,6 +1696,8 @@ public class MemoryGameActivity extends Activity {
 
                                     closeCardsForMatches();
                                     imageView.setImageResource(R.drawable.memorymatch);
+                                    //check for cleared board
+                                    isBoardCleared();
 
 
                                 } else {
@@ -1700,8 +1721,7 @@ public class MemoryGameActivity extends Activity {
                         }
                     }, 800);
                 }
-                //check for cleared board
-                isBoardCleared();
+
             }
         });
     }
