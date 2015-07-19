@@ -19,4 +19,5 @@
         <item>Female Dressed - Sequence</item>
     </string-array>
     <string name="title_activity_memory_recall_analytics">MemoryRecallAnalytics</string>
+    <string name="title_activity_analytic_chart_page">AnalyticChartPage</string>
 </resources>
