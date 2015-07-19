@@ -86,8 +86,6 @@ public class MemoryGameActivity extends Activity {
     //Make a boolean so if in timer it does not double click
     boolean inTimer = false;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

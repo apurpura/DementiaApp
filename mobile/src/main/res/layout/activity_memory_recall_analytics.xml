@@ -113,7 +113,8 @@
             android:id="@+id/staticPlayedLevel"
             android:layout_row="7"
             android:layout_column="2"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textColor="#443344"/>
 
         <TextView
             android:layout_width="wrap_content"

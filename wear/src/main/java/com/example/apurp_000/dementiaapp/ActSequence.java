@@ -7,15 +7,22 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 public class ActSequence extends Activity {
 
     private TextView mTextView;
     int currentPic = 0;
+    public String zStartTime;
+    public String zEndTime;
+    public String zCancelTime = "n/a";
+    GenerateTime zGetTimes = new GenerateTime();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_sequence);
+        zStartTime = zGetTimes.generateTimes();
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -27,6 +34,12 @@ public class ActSequence extends Activity {
             }
         });
     }
+    //Should the patient just cancel the activity
+    protected void onDestroy(){
+        super.onDestroy();
+        zCancelTime = zGetTimes.generateTimes();
+    }
+
     public void tapToConitinue(){
 
         ImageButton continueButton = (ImageButton)findViewById(R.id.imageButton6);
@@ -73,6 +86,8 @@ public class ActSequence extends Activity {
                            continueButton.setImageResource(R.drawable.finishedsequence);
                            break;
                        case 7:
+                           zEndTime = zGetTimes.generateTimes();
+                           generateAnalytics();
                            finish();
                            break;
 
@@ -83,4 +98,19 @@ public class ActSequence extends Activity {
             }
         });
     }
+    //Export the Analytics to the ActivityResults to be sent
+    public void generateAnalytics() {
+
+        String StartTime = zStartTime ;
+        String EndTime = zEndTime;
+        String CancelTime = zCancelTime;
+        String Level = "n/a";
+        String Score = "n/a";
+        String Action = "Dress Sequence";
+        String EventId = "FigureOutEvenID01";
+
+        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
+        new SendResultToMobile(zResults,this).start();
+    }
+
 }
