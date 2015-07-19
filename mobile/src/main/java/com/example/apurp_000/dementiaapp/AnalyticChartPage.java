@@ -17,11 +17,10 @@ import com.androidplot.xy.XYSeries;
 import com.androidplot.xy.*;
 import java.util.Arrays;
 
-public class AnalyticChartPage extends AppCompatActivity {
+public class AnalyticChartPage extends Activity {
 
     private XYPlot plot;
 
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         //get passed intent
         Intent intent = getIntent();
@@ -76,27 +75,6 @@ public class AnalyticChartPage extends AppCompatActivity {
         plot.getGraphWidget().setDomainLabelOrientation(-45);
 
 
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_memory_recall_analytics, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
     public void closeChartListener(){
         final Button exitchart = (Button)findViewById(R.id.closechartbutton);
