@@ -29,7 +29,6 @@ public class MemoryWinPage extends Activity {
             }
         });
 
-
     }
     public void changeText(){
         //change missed text hear when variable made
@@ -38,9 +37,6 @@ public class MemoryWinPage extends Activity {
         final ImageButton startGame = (ImageButton)findViewById(R.id.imageButtonMemoryWinPage);
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-
                 //Close Win Page
                 finish();
 

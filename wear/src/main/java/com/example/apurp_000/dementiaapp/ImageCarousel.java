@@ -6,6 +6,7 @@ package com.example.apurp_000.dementiaapp;
         import android.os.Handler;
         import android.widget.ImageSwitcher;
         import android.widget.ImageView;
+        import android.widget.TextView;
 
 /**
  * Created by Ryan on 6/24/2015.
@@ -19,6 +20,12 @@ public class ImageCarousel extends Activity {
             R.drawable.pic3,
             R.drawable.pic4
     };
+    String[] zTextIDs ={
+      "Abstract Art",
+      "Shark",
+      "Wolf",
+      "Parrot"
+    };
 
     int zImageCounter = 0;
     public String zStartTime;
@@ -31,8 +38,10 @@ public class ImageCarousel extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_carousel);
         zStartTime = zGetTimes.generateTimes();
-        //Pull the Image View variable from the XML Layout
+
+        //Pull the Image View and Text View variable from the XML Layout
         final ImageView zImageView = (ImageView) findViewById(R.id.image1);
+        final TextView zTextView = (TextView) findViewById(R.id.textView2);
 
         //Create a Countdown at the start for 5 minutes
         //End with sending Analytics and Closing Activity
@@ -50,6 +59,7 @@ public class ImageCarousel extends Activity {
         Runnable r = new Runnable() {
             public void run() {
                 zImageView.setImageResource(zImageIDs[zImageCounter]);
+                zTextView.setText(zTextIDs[zImageCounter]);
                 zImageCounter++;
                 if (zImageCounter >= zImageIDs.length) {
                     zImageCounter = 0;
