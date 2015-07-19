@@ -30,5 +30,7 @@ dependencies {
     compile 'com.google.api-client:google-api-client-android:1.20.0'
     compile 'com.google.api-client:google-api-client-gson:1.20.0'
     compile 'com.google.apis:google-api-services-calendar:v3-rev125-1.20.0'
+    //library
+    compile "com.androidplot:androidplot-core:0.6.1"
 }
 
