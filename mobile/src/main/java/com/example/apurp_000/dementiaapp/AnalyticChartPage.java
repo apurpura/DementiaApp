@@ -30,10 +30,17 @@ public class AnalyticChartPage extends Activity {
 
         //Change chart name depending on what activity it is in
         XYPlot plot = (XYPlot) findViewById(R.id.graphPlot);
+        //give value for debug incase dev launches analyticchartpage directly without going through memory recall analytics where a intent is passed
+        if(activityName!=null){
+            plot.setTitle(activityName +" chart");
+        }else{
+            plot.setTitle("Debug chart");
+        }
+
         //change label names the series lines
-       // plot.setDomainLabel("TestDomain");
-       // plot.setRangeLabel("TestRange");
-        plot.setTitle(activityName +" chart");
+        //plot.setDomainLabel("TestDomain");
+        //plot.setRangeLabel("TestRange");
+
 
 
         //return to menu on click
