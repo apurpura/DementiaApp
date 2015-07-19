@@ -86,10 +86,19 @@ public class MemoryGameActivity extends Activity {
     //Make a boolean so if in timer it does not double click
     boolean inTimer = false;
 
+    int zAttempts = 0;
+
+    public String zStartTime;
+    public String zEndTime;
+    public String zCancelTime = "n/a";
+    boolean notFinished = true;
+    GenerateTime zGetTimes = new GenerateTime();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_game);
+        zStartTime = zGetTimes.generateTimes();
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -107,13 +116,21 @@ public class MemoryGameActivity extends Activity {
                 //set up card listeners by position
                 setUpCardListeners();
 
-
             }
         });
 
 
     }
 
+    //Should the patient just cancel the activity
+    protected void onDestroy(){
+        if(notFinished){
+            zCancelTime = zGetTimes.generateTimes();
+            zEndTime = "n/a";
+            generateAnalytics();
+        }
+        super.onDestroy();
+    }
 
     public void setUpCardListeners(){
         cardListerSetUp1x1();
@@ -163,7 +180,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton1x1);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
-
+                zAttempts++;
                 break;
             case 2:
                 if(iscard1x2Matched) {
@@ -172,6 +189,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton1x2);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 3:
                 if(iscard1x3Matched) {
@@ -180,6 +198,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton1x3);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 4:
                 if(iscard1x4Matched) {
@@ -188,6 +207,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton1x4);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 5:
                 if(iscard2x1Matched) {
@@ -196,6 +216,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton2x1);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 6:
                 if(iscard2x2Matched) {
@@ -204,6 +225,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton2x2);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 7:
                 if(iscard2x3Matched) {
@@ -212,6 +234,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton2x3);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 8:
                 if(iscard2x4Matched) {
@@ -220,6 +243,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton2x4);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 9:
                 if(iscard3x1Matched) {
@@ -228,6 +252,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton3x1);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 10:
                 if(iscard3x2Matched) {
@@ -236,6 +261,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton3x2);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 11:
                 if(iscard3x3Matched) {
@@ -244,6 +270,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton3x3);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 12:
                 if(iscard3x4Matched) {
@@ -252,6 +279,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton3x4);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 13:
                 if(iscard4x1Matched) {
@@ -260,6 +288,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton4x1);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 14:
                 if(iscard4x2Matched) {
@@ -268,6 +297,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton4x2);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 15:
                 if(iscard4x3Matched) {
@@ -276,6 +306,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton4x3);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
             case 16:
                 if(iscard4x4Matched) {
@@ -284,6 +315,7 @@ public class MemoryGameActivity extends Activity {
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton4x4);
                     imageViewMatch1.setImageResource(R.drawable.cardback);
                 }
+                zAttempts++;
                 break;
         }
 
@@ -427,81 +459,97 @@ public class MemoryGameActivity extends Activity {
                     iscard1x1Matched = true;
                     ImageView imageViewMatch1 = (ImageView) findViewById(R.id.imageButton1x1);
                     imageViewMatch1.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 2:
                     iscard1x2Matched = true;
                     ImageView imageViewMatch2 = (ImageView) findViewById(R.id.imageButton1x2);
                     imageViewMatch2.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 3:
                     iscard1x3Matched = true;
                     ImageView imageViewMatch3 = (ImageView) findViewById(R.id.imageButton1x3);
                     imageViewMatch3.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 4:
                     iscard1x4Matched = true;
                     ImageView imageViewMatch4 = (ImageView) findViewById(R.id.imageButton1x4);
                     imageViewMatch4.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 5:
                     iscard2x1Matched = true;
                     ImageView imageViewMatch5 = (ImageView) findViewById(R.id.imageButton2x1);
                     imageViewMatch5.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 6:
                     iscard2x2Matched = true;
                     ImageView imageViewMatch6 = (ImageView) findViewById(R.id.imageButton2x2);
                     imageViewMatch6.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 7:
                     iscard2x3Matched = true;
                     ImageView imageViewMatch7 = (ImageView) findViewById(R.id.imageButton2x3);
                     imageViewMatch7.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 8:
                     iscard2x4Matched = true;
                     ImageView imageViewMatch8 = (ImageView) findViewById(R.id.imageButton2x4);
                     imageViewMatch8.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 9:
                     iscard3x1Matched = true;
                     ImageView imageViewMatch9 = (ImageView) findViewById(R.id.imageButton3x1);
                     imageViewMatch9.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 10:
                     iscard3x2Matched = true;
                     ImageView imageViewMatch10 = (ImageView) findViewById(R.id.imageButton3x2);
                     imageViewMatch10.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 11:
                     iscard3x3Matched = true;
                     ImageView imageViewMatch11 = (ImageView) findViewById(R.id.imageButton3x3);
                     imageViewMatch11.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 12:
                     iscard3x4Matched = true;
                     ImageView imageViewMatch12 = (ImageView) findViewById(R.id.imageButton3x4);
                     imageViewMatch12.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 13:
                     iscard4x1Matched = true;
                     ImageView imageViewMatch13 = (ImageView) findViewById(R.id.imageButton4x1);
                     imageViewMatch13.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 14:
                     iscard4x2Matched = true;
                     ImageView imageViewMatch14 = (ImageView) findViewById(R.id.imageButton4x2);
                     imageViewMatch14.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 15:
                     iscard4x3Matched = true;
                     ImageView imageViewMatch15 = (ImageView) findViewById(R.id.imageButton4x3);
                     imageViewMatch15.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
                 case 16:
                     iscard4x4Matched = true;
                     ImageView imageViewMatch16 = (ImageView) findViewById(R.id.imageButton4x4);
                     imageViewMatch16.setImageResource(R.drawable.memorymatch);
+                    zAttempts++;
                     break;
             }
         switch (cardB){
@@ -564,6 +612,9 @@ public class MemoryGameActivity extends Activity {
             //start Memory
             startActivity(new Intent(getApplicationContext(), MemoryWinPage.class));
             //close app
+            zEndTime = zGetTimes.generateTimes();
+            notFinished = false;
+            generateAnalytics();
             finish();
         }else {
             //keep playing
@@ -1722,6 +1773,20 @@ public class MemoryGameActivity extends Activity {
 
             }
         });
+    }
+
+    public void generateAnalytics() {
+
+        String StartTime = zStartTime ;
+        String EndTime = zEndTime;
+        String CancelTime = zCancelTime;
+        String Level = "n/a";
+        String Score = Integer.toString(zAttempts);
+        String Action = "Memory Game";
+        String EventId = "FigureOutEvenID04";
+
+        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
+        new SendResultToMobile(zResults,this).start();
     }
 
 }
