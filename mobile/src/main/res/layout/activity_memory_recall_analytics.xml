@@ -34,9 +34,10 @@
             android:layout_row="3"
             android:layout_column="1"
             android:textSize="10dp"
-            android:textColor="#6600FF"
+            android:textColor="@drawable/analytictitleselector"
             android:onClick="onClick"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:linksClickable="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -203,7 +204,7 @@
             android:layout_row="8"
             android:layout_column="1"
             android:textSize="10dp"
-            android:textColor="#6600FF"
+            android:textColor="@drawable/analytictitleselector"
             android:onClick="onClick"
             android:clickable="true"/>
 
@@ -348,7 +349,7 @@
             android:layout_row="15"
             android:layout_column="1"
             android:textSize="10dp"
-            android:textColor="#6600FF"
+            android:textColor="@drawable/analytictitleselector"
             android:onClick="onClick"
             android:clickable="true"/>
 
@@ -431,7 +432,7 @@
             android:layout_row="20"
             android:layout_column="1"
             android:textSize="10dp"
-            android:textColor="#6600FF"
+            android:textColor="@drawable/analytictitleselector"
             android:onClick="onClick"
             android:clickable="true"/>
 
@@ -514,7 +515,7 @@
             android:layout_row="25"
             android:layout_column="1"
             android:textSize="10dp"
-            android:textColor="#6600FF"
+            android:textColor="@drawable/analytictitleselector"
             android:onClick="onClick"
             android:clickable="true"/>
 

@@ -1,6 +1,7 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,10 +11,12 @@ import android.widget.TextView;
 
 public class MemoryRecallAnalytics extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_recall_analytics);
+
         //pop up chart when user click on title
         popUpTitleChartText();
     }
