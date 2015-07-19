@@ -190,7 +190,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel Time"
+            android:text="Last Cancel Time"
             android:id="@+id/staticCancelTimeSimon"
             android:layout_row="7"
             android:layout_column="7"

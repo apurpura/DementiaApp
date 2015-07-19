@@ -22,6 +22,10 @@ public class AnalyticChartPage extends Activity {
     private XYPlot plot;
 
     public void onCreate(Bundle savedInstanceState) {
+        //get passed intent
+        Intent intent = getIntent();
+        String m = intent.getStringExtra("text");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_xy_plot_example);
 

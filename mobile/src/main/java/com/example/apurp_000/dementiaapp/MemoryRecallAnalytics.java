@@ -50,8 +50,10 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
          simonTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent simonIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
+                simonIntent.putExtra("text", "simon");
                 //start Memory
-                 startActivity(new Intent(getApplicationContext(), AnalyticChartPage.class));
+                startActivity(simonIntent);
             }
         });
         //simon title
@@ -59,8 +61,10 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
         memoryTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent memoryIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
+                memoryIntent.putExtra("text", "memory");
                 //start Memory
-                startActivity(new Intent(getApplicationContext(), AnalyticChartPage.class));
+                startActivity(memoryIntent);
             }
         });
         //simon title
@@ -68,8 +72,10 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
         pillsTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent pillsIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
+                pillsIntent.putExtra("text", "pills");
                 //start Memory
-                startActivity(new Intent(getApplicationContext(), AnalyticChartPage.class));
+                startActivity(pillsIntent);
             }
         });
         //simon title
@@ -77,8 +83,10 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
         getDressedTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //start Memory
-                startActivity(new Intent(getApplicationContext(), AnalyticChartPage.class));
+                Intent dressedIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
+                dressedIntent.putExtra("text", "dressed");
+                //start dressed
+                startActivity(dressedIntent);
             }
         });
         //simon title
@@ -86,8 +94,12 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
         imageCarouselTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //start Memory
-                startActivity(new Intent(getApplicationContext(), AnalyticChartPage.class));
+
+                Intent carouselIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
+                carouselIntent.putExtra("text", "carousel");
+                //start Carousel
+                startActivity(carouselIntent);
+
             }
         });
     }
