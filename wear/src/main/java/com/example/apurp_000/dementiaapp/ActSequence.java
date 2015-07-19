@@ -16,6 +16,7 @@ public class ActSequence extends Activity {
     public String zStartTime;
     public String zEndTime;
     public String zCancelTime = "n/a";
+    boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
 
     @Override
@@ -36,8 +37,12 @@ public class ActSequence extends Activity {
     }
     //Should the patient just cancel the activity
     protected void onDestroy(){
+        if(notFinished){
+            zCancelTime = zGetTimes.generateTimes();
+            zEndTime = "n/a";
+            generateAnalytics();
+        }
         super.onDestroy();
-        zCancelTime = zGetTimes.generateTimes();
     }
 
     public void tapToConitinue(){
@@ -87,14 +92,11 @@ public class ActSequence extends Activity {
                            break;
                        case 7:
                            zEndTime = zGetTimes.generateTimes();
+                           notFinished = false;
                            generateAnalytics();
                            finish();
                            break;
-
                    }
-
-
-
             }
         });
     }

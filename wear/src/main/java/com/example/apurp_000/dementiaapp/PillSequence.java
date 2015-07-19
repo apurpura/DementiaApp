@@ -16,6 +16,7 @@ public class PillSequence extends Activity {
     public String zStartTime;
     public String zEndTime;
     public String zCancelTime = "n/a";
+    boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
 
     @Override
@@ -37,8 +38,12 @@ public class PillSequence extends Activity {
 
     //Should the patient just cancel the activity
     protected void onDestroy(){
+        if(notFinished){
+            zCancelTime = zGetTimes.generateTimes();
+            zEndTime = "n/a";
+            generateAnalytics();
+        }
         super.onDestroy();
-        zCancelTime = zGetTimes.generateTimes();
     }
 
     public void tapToConitinue(){
@@ -74,6 +79,7 @@ public class PillSequence extends Activity {
                     case 4:
                         zEndTime = zGetTimes.generateTimes();
                         generateAnalytics();
+                        notFinished = false;
                         finish();
                         break;
 
