@@ -51,7 +51,7 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent simonIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                simonIntent.putExtra("text", "simon");
+                simonIntent.putExtra("text", "Simon Game");
                 //start Memory
                 startActivity(simonIntent);
             }
@@ -62,7 +62,7 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent memoryIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                memoryIntent.putExtra("text", "memory");
+                memoryIntent.putExtra("text", "Memory Game");
                 //start Memory
                 startActivity(memoryIntent);
             }
@@ -73,7 +73,7 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent pillsIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                pillsIntent.putExtra("text", "pills");
+                pillsIntent.putExtra("text", "Pill Time");
                 //start Memory
                 startActivity(pillsIntent);
             }
@@ -84,7 +84,7 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent dressedIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                dressedIntent.putExtra("text", "dressed");
+                dressedIntent.putExtra("text", "Get Dressed");
                 //start dressed
                 startActivity(dressedIntent);
             }
@@ -96,7 +96,7 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent carouselIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                carouselIntent.putExtra("text", "carousel");
+                carouselIntent.putExtra("text", "Image Carousel");
                 //start Carousel
                 startActivity(carouselIntent);
 

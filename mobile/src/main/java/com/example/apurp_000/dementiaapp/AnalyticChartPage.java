@@ -2,16 +2,14 @@ package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.view.WindowManager;
+import android.widget.TextView;
+
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYSeries;
 import com.androidplot.xy.*;
@@ -20,16 +18,25 @@ import java.util.Arrays;
 public class AnalyticChartPage extends Activity {
 
     private XYPlot plot;
+     String activityName;
 
     public void onCreate(Bundle savedInstanceState) {
-        //get passed intent
+        //get passed intent - name of activity
         Intent intent = getIntent();
-        String m = intent.getStringExtra("text");
+        activityName = intent.getStringExtra("text");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.simple_xy_plot_example);
+        setContentView(R.layout.analytic_xy_plot_chart);
 
-        //close on click
+        //Change chart name depending on what activity it is in
+        XYPlot plot = (XYPlot) findViewById(R.id.graphPlot);
+        //change label names the series lines
+       // plot.setDomainLabel("TestDomain");
+       // plot.setRangeLabel("TestRange");
+        plot.setTitle(activityName +" chart");
+
+
+        //return to menu on click
         closeChartListener();
 
         // fun little snippet that prevents users from taking screenshots
@@ -38,7 +45,7 @@ public class AnalyticChartPage extends Activity {
                WindowManager.LayoutParams.FLAG_SECURE);
 
         // initialize our XYPlot reference:
-        plot = (XYPlot) findViewById(R.id.mySimpleXYPlot);
+        plot = (XYPlot) findViewById(R.id.graphPlot);
 
         // Create a couple arrays of y-values to plot:
         Number[] series1Numbers = {1, 8, 5, 2, 7, 4};
@@ -89,5 +96,6 @@ public class AnalyticChartPage extends Activity {
             }
         });
     }
+
 
 }

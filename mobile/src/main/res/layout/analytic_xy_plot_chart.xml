@@ -5,10 +5,10 @@
     android:weightSum="1">
 
     <com.androidplot.xy.XYPlot
-        android:id="@+id/mySimpleXYPlot"
+        android:id="@+id/graphPlot"
         android:layout_width="fill_parent"
         android:layout_height="410dp"
-        androidPlot.title="A Simple XY Plot"
+        androidPlot.title="Analytic Graph"
         androidPlot.domainLabel="Domain"
         androidPlot.rangeLabel="Range"
         androidPlot.titleWidget.labelPaint.textSize="@dimen/title_font_size"
