@@ -1,20 +1,15 @@
 package com.example.apurp_000.dementiaapp;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.googleapis.util.Utils;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.util.DateTime;
-import com.google.api.services.calendar.*;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.*;
 
@@ -24,9 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 
 
@@ -153,7 +146,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
-        List<Event> items = events.getItems();
+        List<com.google.api.services.calendar.model.Event> items = events.getItems();
 
         for (Event event : items) {
             String start = event.getStart().getDateTime().toString();

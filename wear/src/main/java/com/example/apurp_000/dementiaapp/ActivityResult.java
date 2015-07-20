@@ -22,4 +22,7 @@ public class ActivityResult {
         this.eventId = EventId;
     }
 
+
+
+
 }

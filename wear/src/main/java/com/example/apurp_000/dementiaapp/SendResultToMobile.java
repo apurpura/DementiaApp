@@ -33,6 +33,7 @@ public class SendResultToMobile implements GoogleApiClient.ConnectionCallbacks, 
             json.put("cancelTime", result.cancelTime);
             json.put("level", result.level);
             json.put("score", result.score);
+            //json.put("YourValue", result.YourValue);
         } catch (JSONException e) {
             e.printStackTrace();
         }catch (NullPointerException n){
@@ -55,7 +56,7 @@ public class SendResultToMobile implements GoogleApiClient.ConnectionCallbacks, 
     @Override
     public void onConnected(Bundle connectionHint){
         Log.d("onConnected", "connected about to send datalayer");
-        new SendToDataLayerThread("ToMobile", json.toString(), googleClient).start();
+        new SendToDataLayerThread("ActivityResult", json.toString(), googleClient).start();
         Log.d("onConnected", "sent to data layer");
     }
 

@@ -2,8 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:orientation="vertical"
-    tools:context=".MainActivity" tools:deviceIds="wear_square">
+    tools:context=".MainActivity" tools:deviceIds="wear_square"
+    android:background="#d3d3d3"
+    android:weightSum="1">
 
-    <TextView android:id="@+id/text" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="@string/hello_square" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/summary"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:layout_margin="5dp"
+        android:layout_weight="0.33" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/description"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        android:layout_weight="0.67"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:text="Close"
+        android:id="@+id/Close"
+        android:background="@color/blue" />
 </LinearLayout>

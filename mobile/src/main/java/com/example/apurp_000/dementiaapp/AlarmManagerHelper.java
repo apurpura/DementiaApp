@@ -2,15 +2,9 @@ package com.example.apurp_000.dementiaapp;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
-import com.google.api.services.calendar.model.Event;
-
-import java.util.Calendar;
-import java.util.List;
 
 public class AlarmManagerHelper extends BroadcastReceiver {
 

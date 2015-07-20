@@ -45,7 +45,7 @@ public class InsertEventActivity extends IActivity {
         //Execute Calendar Dialog Popup
         showDialog();
 
-        //Proceed to Publishing the Event to Calendar and Event DB
+        //Proceed to Publishing the EventModel to Calendar and EventModel DB
         Button publishEvent = (Button) findViewById(R.id.publishEvent);
         context = this;
         publishEvent.setOnClickListener(new View.OnClickListener() {

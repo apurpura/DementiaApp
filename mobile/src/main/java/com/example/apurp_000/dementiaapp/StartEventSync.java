@@ -2,7 +2,6 @@ package com.example.apurp_000.dementiaapp;
 
 import android.os.AsyncTask;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.EventDateTime;

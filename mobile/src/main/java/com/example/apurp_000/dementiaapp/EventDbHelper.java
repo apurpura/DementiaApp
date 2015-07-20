@@ -1,6 +1,5 @@
 package com.example.apurp_000.dementiaapp;
 
-import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,9 +10,7 @@ import android.provider.BaseColumns;
 import com.google.api.client.util.DateTime;
 //import com.google.api.services.calendar.model.EventDateTime;
 
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.*;
 
@@ -22,7 +19,7 @@ import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.*;
  */
 public class EventDbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
-    private static final String DICTIONARY_TABLE_NAME = "Event";
+    private static final String DICTIONARY_TABLE_NAME = "EventModel";
     private static final String DICTIONARY_TABLE_CREATE =
             "CREATE TABLE " + DICTIONARY_TABLE_NAME + " (" +
                     _ID + " integer Primary Key autoincrement not null, " +
@@ -34,7 +31,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
                     StartTime + " TEXT, " +
                     EndTime + " TEXT, " +
                     Action + " TEXT)";
-    private static final java.lang.String SQL_DELETE_ENTRIES = "DROP TABLE Event";
+    private static final java.lang.String SQL_DELETE_ENTRIES = "DROP TABLE EventModel";
 
     EventDbHelper(Context context) {
         super(context, DICTIONARY_TABLE_NAME, null, DATABASE_VERSION);
@@ -82,7 +79,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
             values.put(Action, action);
 
             SQLiteDatabase db = new EventDbHelper(context).getWritableDatabase();
-            db.insert("Event", null, values);
+            db.insert("EventModel", null, values);
             db.close();
 
             Integer theId = GetEvent(id, context).u_id;
@@ -106,7 +103,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
 
 
         Cursor c = db.query(
-                "Event",  // The table to query
+                "EventModel",  // The table to query
                 projection,                               // The columns to return
                 selection,                                // The columns for the WHERE clause
                 selectionArgs,                            // The values for the WHERE clause
