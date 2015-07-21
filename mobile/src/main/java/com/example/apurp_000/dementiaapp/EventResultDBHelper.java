@@ -16,16 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.Action;
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.CalendarId;
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.Description;
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.EndTime;
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.Id;
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.Location;
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.StartTime;
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.Summary;
-import static com.example.apurp_000.dementiaapp.EventDbHelper.Event._ID;
-
 import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.*;
 
 /**
@@ -88,7 +78,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
 
         }
         // Create a new map of values, where column names are the keys
-        if(result == "") {
+        if(result == "" || result == null) {
             ContentValues values = new ContentValues();
             values.put(EventId, eventId);
             values.put(StartTime, startTime);
@@ -99,7 +89,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
             values.put(Action, action);
             values.put(CalendarId, calendarId);
 
-            SQLiteDatabase db = new EventDbHelper(context).getWritableDatabase();
+            SQLiteDatabase db = new EventResultDBHelper(context).getWritableDatabase();
             db.insert("EventResult", null, values);
             db.close();
         }
@@ -108,7 +98,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
     public HashMap<String, List<EventResult>> GetEventResults(Context context) {
 
         HashMap<String, List<EventResult>> results = new HashMap<String, List<EventResult>>();
-        SQLiteDatabase db = new EventDbHelper(context).getReadableDatabase();
+        SQLiteDatabase db = new EventResultDBHelper(context).getReadableDatabase();
 
         String[] projection = {
                 EventId,StartTime,EndTime,CancelTime,Level,Score,Action,CalendarId
@@ -146,32 +136,32 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                         EventResult er = new EventResult();
                         // Get version from Curso
                         String startTime = c.getString(c.getColumnIndex("StartTime"));
-                        if (startTime != "" & startTime.toLowerCase() != "n/a")
+                        if (!startTime.equals("") && !startTime.toLowerCase().equals("n/a") && startTime != null)
                             try {
                                 er.startTime = new SimpleDateFormat("MMM d, yyyy HH:mm:ss a").parse(startTime);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                         String endTime = c.getString(c.getColumnIndex("EndTime"));
-                        if (endTime != "" & endTime.toLowerCase() != "n/a")
+                        if (!endTime.equals("") && !endTime.toLowerCase().equals("n/a"))
                             try {
                                 er.endTime = new SimpleDateFormat("MMM d, yyyy HH:mm:ss a").parse(endTime);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                         String cancelTime = c.getString(c.getColumnIndex("CancelTime"));
-                        if (cancelTime != "" & cancelTime.toLowerCase() != "n/a")
+                        if (!cancelTime.equals("") && !cancelTime.toLowerCase().equals("n/a") && cancelTime != null)
                             try {
                                 er.cancelTime = new SimpleDateFormat("MMM d, yyyy HH:mm:ss a").parse(cancelTime);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                         String level = c.getString(c.getColumnIndex("Level"));
-                        if (level != "" & level.toLowerCase() != "n/a")
-                            er.level = Integer.getInteger(level);
+                        if (!level.equals("") && !level.toLowerCase().equals("n/a") && level != null)
+                            er.level = Integer.parseInt(level);
                         String score = c.getString(c.getColumnIndex("Score"));
-                        if (score != "" & score.toLowerCase() != "n/a")
-                            er.score = Integer.getInteger(score);
+                        if (!score.equals("") && !score.toLowerCase().equals("n/a") && score != null)
+                            er.score = Integer.parseInt(score);
                         er.action = c.getString(c.getColumnIndex("Action"));
                         er.eventId = c.getString(c.getColumnIndex("EventId"));
                         er.calendarId = c.getString(c.getColumnIndex("CalendarId"));
@@ -192,7 +182,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
 
     public EventResult GetEventResult(String eventId, Context context) {
         EventResult er = new EventResult();
-        SQLiteDatabase db = new EventDbHelper(context).getReadableDatabase();
+        SQLiteDatabase db = new EventResultDBHelper(context).getReadableDatabase();
 
         String[] projection = {
                 EventId,StartTime,EndTime,CancelTime,Level,Score,Action, CalendarId

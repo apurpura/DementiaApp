@@ -14,7 +14,8 @@
     <string-array name="actions_array">
         <item>Text Message</item>
         <item>Image Carousel</item>
-        <item>Simon Says - Memory Game</item>
+        <item>Simon Says Game</item>
+        <item>Memory Matching Game</item>
         <item>Pills - Sequence</item>
         <item>Female Dressed - Sequence</item>
     </string-array>

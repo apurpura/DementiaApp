@@ -41,7 +41,7 @@ public class MessageListener extends WearableListenerService {
                 case "Image Carousel":
                     startCarousel();
                     break;
-                case "Simon Says - Memory Game":
+                case "Simon Says Game":
                     simonSaysActivity();
                     break;
                 case "Pills - Sequence":
@@ -49,6 +49,9 @@ public class MessageListener extends WearableListenerService {
                     break;
                 case "Female Dressed - Sequence":
                     actSequence();
+                    break;
+                case "Memory Matching Game":
+                    MemoryMatchingActivity();
                     break;
             }
         } catch (JSONException e) {
@@ -83,12 +86,21 @@ public class MessageListener extends WearableListenerService {
         this.startActivity(messageIntent);
     }
 
-    private void startCarousel(){
+    private void startCarousel() {
         Log.d("activatingIntent", "MainActivityIntent");
         Intent messageIntent = new Intent(this, ImageCarousel.class);
         messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(messageIntent);
     }
+
+    private void MemoryMatchingActivity(){
+        Log.d("activatingIntent", "MainActivityIntent");
+        Intent messageIntent = new Intent(this, MemoryGameStartPage.class);
+        messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(messageIntent);
+    }
+
+
 
 
 }
