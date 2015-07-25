@@ -610,11 +610,21 @@ public class MemoryGameActivity extends Activity {
         if(iscard1x1Matched&&iscard1x2Matched&&iscard1x3Matched&&iscard1x4Matched&&iscard2x1Matched&&iscard2x2Matched&&iscard2x3Matched&&iscard2x4Matched&&iscard3x1Matched&&iscard3x2Matched&&iscard3x3Matched&&iscard3x4Matched&&iscard4x1Matched&&iscard4x2Matched&&iscard4x3Matched&&iscard4x4Matched){
 
             //start Memory
-            startActivity(new Intent(getApplicationContext(), MemoryWinPage.class));
+            // startActivity(new Intent(getApplicationContext(), MemoryWinPage.class));
+            String endPageMissed = String.valueOf(zAttempts);
+
+            // start end page
+            Intent memoryGameIntent = new Intent(getApplicationContext(), MemoryWinPage.class);
+            memoryGameIntent.putExtra("text", endPageMissed);
+            //start memory end page
+            startActivity(memoryGameIntent);
+
             //close app
             zEndTime = zGetTimes.generateTimes();
             notFinished = false;
             generateAnalytics();
+
+            //end app
             finish();
         }else {
             //keep playing

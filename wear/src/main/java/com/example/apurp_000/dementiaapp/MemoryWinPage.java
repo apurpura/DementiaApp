@@ -11,9 +11,15 @@ import android.widget.TextView;
 public class MemoryWinPage extends Activity {
 
     private TextView mTextView;
+    String memoryScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //get passed intent - name of activity
+        Intent intent = getIntent();
+        memoryScore = intent.getStringExtra("text");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_win_page);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
@@ -31,7 +37,14 @@ public class MemoryWinPage extends Activity {
 
     }
     public void changeText(){
-        //change missed text hear when variable made
+        if(memoryScore != null) {
+            final TextView mTextView = (TextView) findViewById(R.id.textView3);
+            mTextView.setText(memoryScore);
+        }else
+        {
+            final TextView mTextView = (TextView) findViewById(R.id.textView3);
+            mTextView.setText("Debug");
+        }
     }
     public void onClickClose(){
         final ImageButton startGame = (ImageButton)findViewById(R.id.imageButtonMemoryWinPage);

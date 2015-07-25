@@ -19,13 +19,13 @@
             android:background="@color/white"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="74dp"
+            android:layout_width="40dp"
+            android:layout_height="81dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="  12"
             android:id="@+id/textView3"
             android:layout_gravity="center_horizontal|bottom"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:text="12" />
 
     </FrameLayout>
 </LinearLayout>
