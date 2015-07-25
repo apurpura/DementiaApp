@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="190dp"
         android:id="@+id/imageButton5"
-        android:src="@drawable/simonsaysstartpagebgjpg"
+        android:src="@drawable/simonsaysstartpagebg"
         android:contentDescription="startButon"
         android:background="@color/black" />
 

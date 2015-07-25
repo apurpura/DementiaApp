@@ -19,21 +19,13 @@
             android:background="@color/white"/>
 
         <TextView
-            android:layout_width="78dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="74dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="12"
+            android:text="  12"
             android:id="@+id/textView3"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="center_horizontal|bottom"
             android:textColor="@color/black" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="You Missed:"
-            android:id="@+id/staticMissed"
-            android:layout_gravity="left|center_vertical"
-            android:textColor="@color/black" />
     </FrameLayout>
 </LinearLayout>
