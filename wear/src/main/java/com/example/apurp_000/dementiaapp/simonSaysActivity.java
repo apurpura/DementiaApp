@@ -20,8 +20,8 @@ import java.util.Random;
 public class simonSaysActivity extends Activity {
 
     private TextView mTextView;
-    Handler handler = new Handler();
-    final ArrayList<Integer> testArray = new ArrayList<>(10);
+    Handler zHandler = new Handler();
+    final ArrayList<Integer> zAIArray = new ArrayList<>(10);
     final ArrayList<Integer> zPlayerArray = new ArrayList<>(10);
     List<Integer> zComparingList = new ArrayList<Integer>();
     List<Integer> zTrueList = new ArrayList<Integer>();
@@ -126,19 +126,19 @@ public class simonSaysActivity extends Activity {
             public void onClick(View v) {
                 final int zFinSpotInArray = zSpotInArray;
                 zPlayerArray.add(zFinSpotInArray, 1);
-                playerLogic();
+                zPlayerLogic();
                 onUserInteraction();{
-                    if (zPlayerArray.size() == testArray.size()){
-                        for (int a = 0; a < testArray.size(); a++) {
+                    if (zPlayerArray.size() == zAIArray.size()){
+                        for (int zLoop = 0; zLoop < zAIArray.size(); zLoop++) {
                             zComparingList.add(0);
                             zTrueList.add(1);
                         }
-                        for(int counter = 0; counter < testArray.size(); counter++) {
-                            if(zPlayerArray.get(counter).equals(testArray.get(counter))) {
-                                zComparingList.set(counter, 1);
+                        for(int zLoop = 0; zLoop < zAIArray.size(); zLoop++) {
+                            if(zPlayerArray.get(zLoop).equals(zAIArray.get(zLoop))) {
+                                zComparingList.set(zLoop, 1);
                             }
                         }
-                        if(zComparingList.equals(zTrueList)){
+                        if(zComparingList.equals(zTrueList) && zLevelCount != 10){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
                             zClearArrays();
@@ -167,19 +167,19 @@ public class simonSaysActivity extends Activity {
             public void onClick(View v) {
                 final int zFinSpotInArray = zSpotInArray;
                 zPlayerArray.add(zFinSpotInArray, 3);
-                playerLogic();
+                zPlayerLogic();
                 onUserInteraction();{
-                    if (zPlayerArray.size() == testArray.size()){
-                        for (int a = 0; a < testArray.size(); a++) {
+                    if (zPlayerArray.size() == zAIArray.size()){
+                        for (int zLoop = 0; zLoop < zAIArray.size(); zLoop++) {
                             zComparingList.add(0);
                             zTrueList.add(1);
                         }
-                        for(int counter = 0; counter < testArray.size(); counter++) {
-                            if(zPlayerArray.get(counter).equals(testArray.get(counter))) {
-                                zComparingList.set(counter, 1);
+                        for(int zLoop = 0; zLoop < zAIArray.size(); zLoop++) {
+                            if(zPlayerArray.get(zLoop).equals(zAIArray.get(zLoop))) {
+                                zComparingList.set(zLoop, 1);
                             }
                         }
-                        if(zComparingList.equals(zTrueList)){
+                        if(zComparingList.equals(zTrueList) && zLevelCount != 10){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
                             zClearArrays();
@@ -208,19 +208,19 @@ public class simonSaysActivity extends Activity {
             public void onClick(View v) {
                 final int zFinSpotInArray = zSpotInArray;
                 zPlayerArray.add(zFinSpotInArray, 2);
-                playerLogic();
+                zPlayerLogic();
                 onUserInteraction();{
-                    if (zPlayerArray.size() == testArray.size()){
-                        for (int a = 0; a < testArray.size(); a++) {
+                    if (zPlayerArray.size() == zAIArray.size()){
+                        for (int zLoop = 0; zLoop < zAIArray.size(); zLoop++) {
                             zComparingList.add(0);
                             zTrueList.add(1);
                         }
-                        for(int counter = 0; counter < testArray.size(); counter++) {
-                            if(zPlayerArray.get(counter).equals(testArray.get(counter))) {
-                                zComparingList.set(counter, 1);
+                        for(int zLoop = 0; zLoop < zAIArray.size(); zLoop++) {
+                            if(zPlayerArray.get(zLoop).equals(zAIArray.get(zLoop))) {
+                                zComparingList.set(zLoop, 1);
                             }
                         }
-                        if(zComparingList.equals(zTrueList)){
+                        if(zComparingList.equals(zTrueList) && zLevelCount != 10){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
                             zClearArrays();
@@ -249,19 +249,19 @@ public class simonSaysActivity extends Activity {
             public void onClick(View v) {
                 final int zFinSpotInArray = zSpotInArray;
                 zPlayerArray.add(zFinSpotInArray, 4);
-                playerLogic();
+                zPlayerLogic();
                 onUserInteraction();{
-                    if (zPlayerArray.size() == testArray.size()){
-                        for (int a = 0; a < testArray.size(); a++) {
+                    if (zPlayerArray.size() == zAIArray.size()){
+                        for (int zLoop = 0; zLoop < zAIArray.size(); zLoop++) {
                             zComparingList.add(0);
                             zTrueList.add(1);
                         }
-                        for(int counter = 0; counter < testArray.size(); counter++) {
-                            if(zPlayerArray.get(counter).equals(testArray.get(counter))) {
-                                zComparingList.set(counter, 1);
+                        for(int zLoop = 0; zLoop < zAIArray.size(); zLoop++) {
+                            if(zPlayerArray.get(zLoop).equals(zAIArray.get(zLoop))) {
+                                zComparingList.set(zLoop, 1);
                             }
                         }
-                        if(zComparingList.equals(zTrueList)){
+                        if(zComparingList.equals(zTrueList) && zLevelCount != 10){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
                             zClearArrays();
@@ -282,7 +282,7 @@ public class simonSaysActivity extends Activity {
         });
     }
 
-    public void playerLogic() {
+    public void zPlayerLogic() {
     zSpotInArray++;
     }
 
@@ -290,41 +290,38 @@ public class simonSaysActivity extends Activity {
 
         final int min = 1;
         final int max = 4;
-        int length = testArray.size();
+        int length = zAIArray.size() + zLevelCount;
         int count = 0;
 
-        if(length == 0)
-            length = testArray.size() + 1;
-
-        for (int loop = 0; loop < length; loop++) {
-            final int zDelayTimer = 5000;
-            final int zFinalCount = loop;
-            handler.postDelayed(new Runnable() {
+        for (int loop = 0; loop <= length; loop++) {
+            final int zDelayTimer = 4000;
+            final int zFinalCount = count;
+            zHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Random r = new Random();
-                    int i1 = r.nextInt(max - min + 1) + min;
-                    testArray.add(zFinalCount, i1);
-                    switch (i1) {
+                    Random zRandom = new Random();
+                    int zButtonSelect = zRandom.nextInt(max - min + 1) + min;
+                    zAIArray.add(zFinalCount, zButtonSelect);
+                    switch (zButtonSelect) {
                         case 1:
                             final ImageButton greenButton = (ImageButton) findViewById(R.id.imageButton);
                             greenButton.setImageState(new int[]{android.R.attr.state_pressed}, true);
-                            handler.postDelayed(r1, zDelayTimer);
+                            zHandler.postDelayed(r1, zDelayTimer);
                             break;
                         case 2:
                             final ImageButton yellowButton = (ImageButton) findViewById(R.id.imageButton2);
                             yellowButton.setImageState(new int[]{android.R.attr.state_pressed}, true);
-                            handler.postDelayed(r2, zDelayTimer);
+                            zHandler.postDelayed(r2, zDelayTimer);
                             break;
                         case 3:
                             final ImageButton redButton = (ImageButton) findViewById(R.id.imageButton3);
                             redButton.setImageState(new int[]{android.R.attr.state_pressed}, true);
-                            handler.postDelayed(r3, zDelayTimer);
+                            zHandler.postDelayed(r3, zDelayTimer);
                             break;
                         case 4:
                             final ImageButton blueButton = (ImageButton) findViewById(R.id.imageButton4);
                             blueButton.setImageState(new int[]{android.R.attr.state_pressed}, true);
-                            handler.postDelayed(r4, zDelayTimer);
+                            zHandler.postDelayed(r4, zDelayTimer);
                             break;
                     }
                 }
@@ -369,6 +366,7 @@ public class simonSaysActivity extends Activity {
         zComparingList.clear();
         zTrueList.clear();
         zPlayerArray.clear();
+        zAIArray.clear();
         zSpotInArray = 0;
     }
 
