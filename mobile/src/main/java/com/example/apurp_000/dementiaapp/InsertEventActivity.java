@@ -167,7 +167,7 @@ public class InsertEventActivity extends IActivity {
                 setFalse = false;
                 } if (zDay < 10) {eventStartDate.setText(zYear + "-" + zMonth + "-0" + zDay);
                 zStartDate = eventStartDate.getText().toString();
-                setFalse = false;} if (zDay < 10 && zMonth <10)
+                setFalse = false;} if (zDay < 10 && zMonth < 10)
                 {eventStartDate.setText(zYear + "-0" + zMonth + "-0" + zDay);
                 zStartDate = eventStartDate.getText().toString();
                 setFalse = false;
@@ -182,7 +182,7 @@ public class InsertEventActivity extends IActivity {
                     zEndDate = eventEndDate.getText().toString();
                 } if (zDay < 10) {eventEndDate.setText(zYear + "-" + zMonth + "-0" + zDay);
                     zEndDate = eventEndDate.getText().toString();
-                    } if (zDay < 10 && zMonth <10)
+                    } if (zDay < 10 && zMonth < 10)
                 {eventEndDate.setText(zYear + "-0" + zMonth + "-0" + zDay);
                     zEndDate = eventEndDate.getText().toString();
                 }
@@ -204,11 +204,11 @@ public class InsertEventActivity extends IActivity {
             EditText eventStartTime = (EditText)findViewById(R.id.startTimeView);
             EditText eventEndTime = (EditText)findViewById(R.id.endTimeView);
             if(setFalse)
-            {if(zMinute<10){eventStartTime.setText(zHourOfDay + ":0" + zMinute + ":" + "00");
+            {if(zMinute < 10){eventStartTime.setText(zHourOfDay + ":0" + zMinute + ":" + "00");
                 zStartTime = eventStartTime.getText().toString();
-                setFalse = false;}if(zHourOfDay<10){eventStartTime.setText("0" + zHourOfDay + ":" + zMinute + ":" + "00");
+                setFalse = false;}if(zHourOfDay < 10){eventStartTime.setText("0" + zHourOfDay + ":" + zMinute + ":" + "00");
                 zStartTime = eventStartTime.getText().toString();
-                setFalse = false;}if(zMinute<10 && zHourOfDay < 10){eventStartTime.setText("0" + zHourOfDay + ":0" + zMinute + ":" + "00");
+                setFalse = false;}if(zMinute < 10 && zHourOfDay < 10){eventStartTime.setText("0" + zHourOfDay + ":0" + zMinute + ":" + "00");
                 zStartTime = eventStartTime.getText().toString();
                 setFalse = false;
             }else{
