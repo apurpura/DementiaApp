@@ -1,31 +1,18 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 //import java.util.logging.Handler;
 
 
@@ -34,9 +21,9 @@ public class simonSaysActivity extends Activity {
     private TextView mTextView;
     Handler handler = new Handler();
     final ArrayList<Integer> testArray = new ArrayList<>(10);
-    final ArrayList<Integer> playerArray = new ArrayList<>(10);
-    List<Integer> comparingList = new ArrayList<Integer>();
-    List<Integer> trueList = new ArrayList<Integer>();
+    final ArrayList<Integer> zPlayerArray = new ArrayList<>(10);
+    List<Integer> zComparingList = new ArrayList<Integer>();
+    List<Integer> zTrueList = new ArrayList<Integer>();
     public int zSpotInArray = 0, zLevelCount = 0;
 
     public String zStartTime;
@@ -128,20 +115,20 @@ public class simonSaysActivity extends Activity {
         greenButton3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final int zFinSpotInArray = zSpotInArray;
-                playerArray.add(zFinSpotInArray, 1);
+                zPlayerArray.add(zFinSpotInArray, 1);
                 playerLogic();
                 onUserInteraction();{
-                    if (playerArray.size() == testArray.size()){
+                    if (zPlayerArray.size() == testArray.size()){
                         for (int a = 0; a < testArray.size(); a++) {
-                            comparingList.add(0);
-                            trueList.add(1);
+                            zComparingList.add(0);
+                            zTrueList.add(1);
                         }
                         for(int counter = 0; counter < testArray.size(); counter++) {
-                            if(playerArray.get(counter).equals(testArray.get(counter))) {
-                                comparingList.set(counter,1);
+                            if(zPlayerArray.get(counter).equals(testArray.get(counter))) {
+                                zComparingList.set(counter, 1);
                             }
                         }
-                        if(comparingList.equals(trueList)){
+                        if(zComparingList.equals(zTrueList)){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
                             zClearArrays();
@@ -151,7 +138,7 @@ public class simonSaysActivity extends Activity {
                                 //generateAnalytics();
                                 notFinished = false;
                                 finish(); }
-                }
+                    }
                 };
                 //vibrate 1 sec
                 //greenVibrator.vibrate(10000);
@@ -169,20 +156,20 @@ public class simonSaysActivity extends Activity {
         redButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final int zFinSpotInArray = zSpotInArray;
-                playerArray.add(zFinSpotInArray, 3);
+                zPlayerArray.add(zFinSpotInArray, 3);
                 playerLogic();
                 onUserInteraction();{
-                    if (playerArray.size() == testArray.size()){
+                    if (zPlayerArray.size() == testArray.size()){
                         for (int a = 0; a < testArray.size(); a++) {
-                            comparingList.add(0);
-                            trueList.add(1);
+                            zComparingList.add(0);
+                            zTrueList.add(1);
                         }
                         for(int counter = 0; counter < testArray.size(); counter++) {
-                            if(playerArray.get(counter).equals(testArray.get(counter))) {
-                                comparingList.set(counter,1);
+                            if(zPlayerArray.get(counter).equals(testArray.get(counter))) {
+                                zComparingList.set(counter, 1);
                             }
                         }
-                        if(comparingList.equals(trueList)){
+                        if(zComparingList.equals(zTrueList)){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
                             zClearArrays();
@@ -210,20 +197,20 @@ public class simonSaysActivity extends Activity {
         yellowButton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final int zFinSpotInArray = zSpotInArray;
-                playerArray.add(zFinSpotInArray, 2);
+                zPlayerArray.add(zFinSpotInArray, 2);
                 playerLogic();
                 onUserInteraction();{
-                    if (playerArray.size() == testArray.size()){
+                    if (zPlayerArray.size() == testArray.size()){
                         for (int a = 0; a < testArray.size(); a++) {
-                            comparingList.add(0);
-                            trueList.add(1);
+                            zComparingList.add(0);
+                            zTrueList.add(1);
                         }
                         for(int counter = 0; counter < testArray.size(); counter++) {
-                            if(playerArray.get(counter).equals(testArray.get(counter))) {
-                                comparingList.set(counter,1);
+                            if(zPlayerArray.get(counter).equals(testArray.get(counter))) {
+                                zComparingList.set(counter, 1);
                             }
                         }
-                        if(comparingList.equals(trueList)){
+                        if(zComparingList.equals(zTrueList)){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
                             zClearArrays();
@@ -251,20 +238,20 @@ public class simonSaysActivity extends Activity {
         blueButton4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final int zFinSpotInArray = zSpotInArray;
-                playerArray.add(zFinSpotInArray, 4);
+                zPlayerArray.add(zFinSpotInArray, 4);
                 playerLogic();
                 onUserInteraction();{
-                    if (playerArray.size() == testArray.size()){
+                    if (zPlayerArray.size() == testArray.size()){
                         for (int a = 0; a < testArray.size(); a++) {
-                            comparingList.add(0);
-                            trueList.add(1);
+                            zComparingList.add(0);
+                            zTrueList.add(1);
                         }
                         for(int counter = 0; counter < testArray.size(); counter++) {
-                            if(playerArray.get(counter).equals(testArray.get(counter))) {
-                                comparingList.set(counter,1);
+                            if(zPlayerArray.get(counter).equals(testArray.get(counter))) {
+                                zComparingList.set(counter, 1);
                             }
                         }
-                        if(comparingList.equals(trueList)){
+                        if(zComparingList.equals(zTrueList)){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
                             zClearArrays();
@@ -300,37 +287,34 @@ public class simonSaysActivity extends Activity {
             length = testArray.size() + 1;
 
         for (int loop = 0; loop < length; loop++) {
-            final int delayTimer = 5000;
-            final int zfinalCount = loop;
+            final int zDelayTimer = 5000;
+            final int zFinalCount = loop;
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Random r = new Random();
                     int i1 = r.nextInt(max - min + 1) + min;
-                    testArray.add(zfinalCount, i1);
+                    testArray.add(zFinalCount, i1);
                     switch (i1) {
                         case 1:
                             final ImageButton greenButton = (ImageButton) findViewById(R.id.imageButton);
                             greenButton.setImageState(new int[]{android.R.attr.state_pressed}, true);
-                            handler.postDelayed(r1, delayTimer);
-                            //greenButton.setImageResource(R.drawable.ssgreenup);
+                            handler.postDelayed(r1, zDelayTimer);
                             break;
                         case 2:
                             final ImageButton yellowButton = (ImageButton) findViewById(R.id.imageButton2);
                             yellowButton.setImageState(new int[]{android.R.attr.state_pressed}, true);
-                            handler.postDelayed(r2, delayTimer);
-                            //yellowButton.setImageResource(R.drawable.ssyellowup);
+                            handler.postDelayed(r2, zDelayTimer);
                             break;
                         case 3:
                             final ImageButton redButton = (ImageButton) findViewById(R.id.imageButton3);
                             redButton.setImageState(new int[]{android.R.attr.state_pressed}, true);
-                            handler.postDelayed(r3, delayTimer);
-                            //redButton.setImageResource(R.drawable.ssredup);
+                            handler.postDelayed(r3, zDelayTimer);
                             break;
                         case 4:
                             final ImageButton blueButton = (ImageButton) findViewById(R.id.imageButton4);
                             blueButton.setImageState(new int[]{android.R.attr.state_pressed}, true);
-                            handler.postDelayed(r4, delayTimer);
+                            handler.postDelayed(r4, zDelayTimer);
                             break;
                     }
                 }
@@ -344,7 +328,6 @@ public class simonSaysActivity extends Activity {
         public void run() {
             final ImageButton greenButton = (ImageButton) findViewById(R.id.imageButton);
             greenButton.setImageState(new int[]{android.R.attr.drawable}, true);
-            //handler.postDelayed(this,4000);
         }
     };
 
@@ -353,7 +336,6 @@ public class simonSaysActivity extends Activity {
         public void run() {
             final ImageButton yellowButton = (ImageButton) findViewById(R.id.imageButton2);
             yellowButton.setImageState(new int[]{android.R.attr.drawable}, true);
-            //handler.postDelayed(this,4000);
         }
     };
 
@@ -362,7 +344,6 @@ public class simonSaysActivity extends Activity {
         public void run() {
             final ImageButton redButton = (ImageButton) findViewById(R.id.imageButton3);
             redButton.setImageState(new int[]{android.R.attr.drawable}, true);
-            //handler.postDelayed(this,4000);
         }
     };
 
@@ -371,14 +352,13 @@ public class simonSaysActivity extends Activity {
         public void run() {
             final ImageButton blueButton = (ImageButton) findViewById(R.id.imageButton4);
             blueButton.setImageState(new int[]{android.R.attr.drawable}, true);
-            //handler.postDelayed(this,4000);
         }
     };
 
     public void zClearArrays (){
-        comparingList.clear();
-        trueList.clear();
-        playerArray.clear();
+        zComparingList.clear();
+        zTrueList.clear();
+        zPlayerArray.clear();
         zSpotInArray = 0;
     }
 
@@ -395,7 +375,6 @@ public class simonSaysActivity extends Activity {
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
         new SendResultToMobile(zResults,this).start();
     }
-
 
 }
 
