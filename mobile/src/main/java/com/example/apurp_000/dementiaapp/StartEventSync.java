@@ -37,6 +37,7 @@ public class StartEventSync extends AsyncTask<Void, Void, Void> {
     }
 
     public static void startAlarm(){
+        Credentials.signonActivity.refreshCalendarService();
         String id = Integer.toString(new Random().nextInt());
         String calendarId = null;
         try {

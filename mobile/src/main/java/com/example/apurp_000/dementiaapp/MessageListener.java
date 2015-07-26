@@ -21,6 +21,7 @@ public class MessageListener extends WearableListenerService {
     public void onMessageReceived(MessageEvent messageEvent) {
         Log.d("onMessageReceive", "made it");
         String path = messageEvent.getPath();
+        Credentials.signonActivity.refreshCalendarService();
         if( path.equalsIgnoreCase("activityresult") ) {
             String message = new String(messageEvent.getData());
              try {

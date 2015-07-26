@@ -27,6 +27,7 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Credentials.signonActivity.refreshCalendarService();
         setContentView(R.layout.activity_memory_recall_analytics);
         EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
         Map<String, List<EventResult>> er = db.GetEventResults(Credentials.signonActivity);

@@ -38,7 +38,7 @@ public class SigningOnActivity extends Activity {
      * Note: Do not confuse this class with API library's model classes, which
      * represent specific data structures.
      */
-    com.google.api.services.calendar.Calendar calendarService;
+    com.google.api.services.calendar.Calendar  calendarService;
 
     GoogleAccountCredential credential;
     private TextView mStatusText;
@@ -83,8 +83,13 @@ public class SigningOnActivity extends Activity {
         mResultsText.setVerticalScrollBarEnabled(true);
         mResultsText.setMovementMethod(new ScrollingMovementMethod());
         activityLayout.addView(mResultsText);
+        refreshCalendarService();
 
         setContentView(activityLayout);
+        ApplicationContextProvider.setContext(this);
+    }
+
+    public void refreshCalendarService(){
 
         // Initialize credentials and service object.
         SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
@@ -97,7 +102,6 @@ public class SigningOnActivity extends Activity {
                 transport, jsonFactory, credential)
                 .setApplicationName("Google Calendar API Android Quickstart")
                 .build();
-        ApplicationContextProvider.setContext(this);
     }
 
     /**

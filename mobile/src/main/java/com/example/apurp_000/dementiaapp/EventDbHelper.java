@@ -126,6 +126,12 @@ public class EventDbHelper extends SQLiteOpenHelper {
         return m;
     }
 
+    public boolean deleteTitle(String id, Context context)
+    {
+        SQLiteDatabase db = new EventDbHelper(context).getWritableDatabase();
+        return db.delete(DICTIONARY_TABLE_NAME, Id + "=" + id, null) > 0;
+    }
+
 
 
 

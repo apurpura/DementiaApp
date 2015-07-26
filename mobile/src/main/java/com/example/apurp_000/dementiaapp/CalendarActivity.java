@@ -7,6 +7,8 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,22 +19,37 @@ import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+//import com.google.api.client.util.DateTime;
+
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class CalendarActivity extends IActivity {
     CalendarView calendar;
     //TextView mResultsText;
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    //ExpandableListAdapter listAdapter;
+   // ArrayAdapter<String> itemsAdapter;
+    // ListView expListView;
+    // List<String> listDataHeader;
+    public DateTime eventDate;
+    public DateTime eventDateMax;
+    //HashMap<String, List<String>> listDataChild;
+    public RecyclerAdapter rAdapter;
+    public RecyclerView rView;
 
 
     @Override
@@ -40,18 +57,24 @@ public class CalendarActivity extends IActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_list);
         ApplicationContextProvider.setContext(this);
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        //expListView = (ListView) findViewById(R.id.lvExp);
 
-        if(Credentials.credential != null ) {
-            if(Account.account == null)
-                Account.account = Credentials.credential.getSelectedAccountName();
-        }
-        else {
-            Intent intent = new Intent(this,SigningOnActivity.class);
-            startActivity(intent);
-        }
+        eventDate = new DateTime().withTimeAtStartOfDay();
+        eventDateMax = eventDate.plusDays(1).withTimeAtStartOfDay();
+
+        rView = (RecyclerView) findViewById(R.id.recyclerList);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rView.setLayoutManager(llm);
+        rAdapter = new RecyclerAdapter(new ArrayList<EventModel>());
+        rView.setAdapter(rAdapter);
+
+
+
+        Credentials.signonActivity.refreshCalendarService();
+
         // Spinner Drop down elements
-        lables = new ArrayList<>();
+        ArrayList<String> lables = new ArrayList<String>();
         // Creating adapter for spinner
         dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, lables);
@@ -62,7 +85,8 @@ public class CalendarActivity extends IActivity {
         accountSpinner = (Spinner) findViewById(R.id.account_spinner);
         // attaching data adapter to spinner
         accountSpinner.setAdapter(dataAdapter);
-        accountSpinner.setOnItemSelectedListener(new AccountOnItemSelectedListener() );
+        accountSpinner.setOnItemSelectedListener(new AccountOnItemSelectedListener());
+        initializeCalendar();
     }
 
     /**
@@ -72,22 +96,68 @@ public class CalendarActivity extends IActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Credentials.signonActivity.refreshCalendarService();
         if (Credentials.isGooglePlayServicesAvailable(this)) {
-            listDataHeader = new ArrayList<String>();
-            listDataChild = new HashMap<String, List<String>>();
-            listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-            expListView.setAdapter(listAdapter);
+            //listDataHeader = new ArrayList<String>();
+            //itemsAdapter =
+                   // new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listDataHeader);
+            //listDataChild = new HashMap<String, List<String>>();
+            //listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+            //expListView.setAdapter(itemsAdapter);
             refreshResults();
-            ExpandableListView listView = (ExpandableListView) findViewById(R.id.lvExp);
-            int count = listDataHeader.size();
-            for (int position = 1; position <= count; position++)
-                listView.expandGroup(position - 1);
-            this.listAdapter.refresh();
+            //ExpandableListView listView = (ExpandableListView) findViewById(R.id.lvExp);
+//            int count = listDataHeader.size();
+//            for (int position = 1; position <= count; position++)
+//                listView.expandGroup(position - 1);
         } else {
             String message = "\"Google Play Services required: \" +\n" +
                     "                    \"after installing, close and relaunch this app.\"";
             AlertDialogPopup.ShowDialogPopup("Alert", message, this);
         }
+    }
+
+    private void initializeCalendar() {
+        calendar = (CalendarView) findViewById(R.id.calendar);
+
+        // sets whether to show the week number.
+        calendar.setShowWeekNumber(false);
+
+        // sets the first day of week according to Calendar.
+        // here we set Monday as the first day of the Calendar
+        calendar.setFirstDayOfWeek(2);
+
+        //The background color for the selected week.
+        calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.green));
+
+        //sets the color for the dates of an unfocused month.
+        calendar.setUnfocusedMonthDateColor(getResources().getColor(R.color.transparent));
+
+        //sets the color for the separator line between weeks.
+        calendar.setWeekSeparatorLineColor(getResources().getColor(R.color.transparent));
+
+        //sets the color for the vertical bar shown at the beginning and at the end of the selected date.
+        calendar.setSelectedDateVerticalBar(R.color.darkgreen);
+
+        //sets the listener to be notified upon selected date change.
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            //show the selected date as a toast
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
+                Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                GregorianCalendar gc = new GregorianCalendar(TimeZone.getDefault());
+                gc.clear();
+                gc.set(year, month, day);
+                GregorianCalendar start = new GregorianCalendar (gc.get(Calendar.YEAR), gc.get(Calendar.MONTH), gc.get(Calendar.DAY_OF_MONTH), 0, 0);
+                GregorianCalendar end = new GregorianCalendar (gc.get(Calendar.YEAR), gc.get(Calendar.MONTH), gc.get(Calendar.DAY_OF_MONTH), 11, 59);
+                end.setTimeZone(TimeZone.getDefault());
+                start.setTimeZone(TimeZone.getDefault());
+                long left = start.getTimeInMillis();
+                eventDate = new DateTime(left);
+                long right = end.getTimeInMillis();
+                eventDateMax = new DateTime(right);
+                callAsyncTask();
+            }
+        });
     }
 
     /**

@@ -32,6 +32,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     private static HttpTransport httpTransport;
     private static final String PREFS_NAME = "CalendarPref";
     private static final String PREFS_KEY = "SyncToken";
+    private ArrayList<EventModel> eList;
 
     /**
      * Constructor.
@@ -39,6 +40,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
      */
     CalendarApiHelperAsync(CalendarActivity activity) {
         this.mActivity = activity;
+        eList = new ArrayList<EventModel>();
         try {
             httpTransport = AndroidHttp.newCompatibleTransport();
         } catch (Exception e) {
@@ -64,6 +66,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
+            Credentials.signonActivity.refreshCalendarService();
             String calendarId = CalendarAPIAdapter.getCalendarList().get(Account.account);
             try {
 
@@ -71,9 +74,6 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            updateResultsText();
-
-
         } catch (final GooglePlayServicesAvailabilityIOException availabilityException) {
            Credentials.showGooglePlayServicesAvailabilityErrorDialog(
                    availabilityException.getConnectionStatusCode(), mActivity);
@@ -94,12 +94,12 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mActivity.listDataHeader == null) {
-                    AlertDialogPopup.ShowDialogPopup("Error", "An error was accountered retrieving data!", mActivity);
-                } else if (mActivity.listDataHeader.size() == 0) {
-                    AlertDialogPopup.ShowDialogPopup("Alert", "No events found", mActivity);
+                if (eList.size() == 0) {
+                    AlertDialogPopup.ShowDialogPopup("Alert", "No events found. Please insert events or choose another day.", mActivity);
                 }
-                mActivity.listAdapter.refresh();
+                //mActivity.itemsAdapter.notifyDataSetChanged();
+                RecyclerAdapter rAdapter = new RecyclerAdapter(eList);
+                mActivity.rView.setAdapter(rAdapter);
             }
         });
     }
@@ -139,51 +139,64 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
      * @throws IOException
      */
     private void getDataFromApi(String calendarId) throws IOException, ParseException {
-        DateTime now = new DateTime(System.currentTimeMillis());
-        List<String> eventStrings = new ArrayList<String>();
-        Events events = Credentials.signonActivity.calendarService.events().list(calendarId)
-                .setTimeMin(now)
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<com.google.api.services.calendar.model.Event> items = events.getItems();
+        String pageToken = null;
+       // mActivity.listDataHeader.clear();
+        DateTime begin = new DateTime(mActivity.eventDate.getMillis());
+        DateTime end = new DateTime(mActivity.eventDateMax.getMillis());
+        String tz = mActivity.eventDate.getZone().toString();
 
-        for (Event event : items) {
-            String start = event.getStart().getDateTime().toString();
-            String fulltime = start;
-            String entireDate = start;
-            int index = start.indexOf("T");
-            String time = start.substring(index + 1, start.length() - 1);
-            start = start.substring(0, index);
-            DateFormat formatter1;
-            formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-            start = DateFormat.getDateInstance().format(formatter1.parse(start));
-            String summary =  event.getSummary();
+        DateFormat formatter;
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        formatter.setTimeZone(TimeZone.getTimeZone(tz));
+        String eventStart = DateFormat.getDateInstance().format(formatter.parse(begin.toString()));
+        do {
+            Events events = Credentials.signonActivity.calendarService.events().list(calendarId)
+                    .setTimeMin(begin)
+                    //.setTimeMax(end)
+                    .setTimeZone(tz)
+                    .setOrderBy("startTime")
+                    .setSingleEvents(true)
+                    .setPageToken(pageToken)
+                    .setMaxResults(50)
+                    .execute();
+            List<com.google.api.services.calendar.model.Event> items = events.getItems();
+            for (Event event : items) {
+                String start = event.getStart().getDateTime().toString();
+                String fulltime = start;
+                String entireDate = start;
+                int index = start.indexOf("T");
+                String time = start.substring(index + 1, start.length() - 1);
+                start = start.substring(0, index);
+                start = DateFormat.getDateInstance().format(formatter.parse(start));
+                String summary = event.getSummary();
+                String description = event.getDescription();
 
-            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-            df.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date date = df.parse(time);
-            df.setTimeZone(TimeZone.getDefault());
-            String formattedDate = DateFormat.getTimeInstance().format(date);
-            String childLine = formattedDate + "     " + summary;
-            if(!mActivity.listDataHeader.contains(start)){
-                mActivity.listDataHeader.add(start);
-                ArrayList newList = new ArrayList<String>();
-                newList.add(childLine);
-                mActivity.listDataChild.put(start, newList);
+                String action = "";
+                if(event.getExtendedProperties() != null)
+                    action = event.getExtendedProperties().getShared().get("Action");
+
+
+                SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+                df.setTimeZone(TimeZone.getDefault());
+                Date date = df.parse(time);
+
+                String formattedDate = DateFormat.getTimeInstance().format(date);
+                if(start.equals(eventStart)) {
+                    EventModel m = new EventModel("", "", summary, description,
+                            "", formattedDate, "", action, 1);
+                    eList.add(m);
+                    //mActivity.listDataHeader.add(start + "       " + childLine);
+                }
             }
-            else{
-                List<String> theList = mActivity.listDataChild.get(start);
-                if(!theList.contains(childLine))
-                    theList.add(childLine);
-            }
-        }
-
+            pageToken = events.getNextPageToken();
+        } while (pageToken != null);
+        updateResultsText();
     }
 
     public static void UpdateEvents(String calendarId) throws IOException {
         // Construct the {@link Calendar.Events.List} request, but don't execute it yet.
-        Calendar.Events.List request = Credentials.signonActivity.calendarService.events().list(calendarId);
+        Credentials.signonActivity.refreshCalendarService();
+        Calendar.Events.List request = Credentials.signonActivity.calendarService.events().list(calendarId).setShowDeleted(true);
 
         // Load the sync token stored from the last execution, if any.
         String syncToken = getValue(Credentials.signonActivity);
@@ -217,13 +230,18 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                 System.out.println("No new events to sync.");
             } else {
                 for (Event event : items) {
-                    String action = "";
-                    if(event.getExtendedProperties() != null)
-                        action = event.getExtendedProperties().getShared().get("Action");
-                    if(event.getId() != null & event.getSummary() != null & event.getStart() != null & event.getEnd() != null) {
-                        new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
-                                event.getLocation(), event.getStart().getDateTime(), event.getEnd().getDateTime(), action
-                                , Credentials.signonActivity);
+                    if(event.getSummary() == null && event.getDescription() == null && event.getStart() == null){
+                        //delete from db
+                        AlarmManagerHelper.cancelAlarm(Credentials.signonActivity, event.getId());
+                    }else {
+                        String action = "";
+                        if (event.getExtendedProperties() != null)
+                            action = event.getExtendedProperties().getShared().get("Action");
+                        if (event.getId() != null & event.getSummary() != null & event.getStart() != null & event.getEnd() != null) {
+                            new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
+                                    event.getLocation(), event.getStart().getDateTime(), event.getEnd().getDateTime(), action
+                                    , Credentials.signonActivity);
+                        }
                     }
                 }
             }

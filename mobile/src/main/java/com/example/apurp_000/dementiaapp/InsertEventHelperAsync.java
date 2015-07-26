@@ -45,6 +45,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
+            Credentials.signonActivity.refreshCalendarService();
             initializeEvent();
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,14 +56,14 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     public void initializeEvent() throws IOException {
         String calendarId = CalendarAPIAdapter.getCalendarList().get(Account.account);
         EditText summary = (EditText) mActivity.findViewById(R.id.eventTitle);
-        EditText location = (EditText) mActivity.findViewById(R.id.eventLocation);
+        //don't need location ////EditText location = (EditText) mActivity.findViewById(R.id.eventLocation);
         EditText description = (EditText) mActivity.findViewById(R.id.eventDescription);
         Date zStartDateTime = mActivity.zGetStartDate();
         Date zEndDateTime = mActivity.zGetEndDate();
 
         Event event = new Event()
                 .setSummary(summary.getText().toString())
-                .setLocation(location.getText().toString())
+                .setLocation("MARA")
                 .setDescription(description.getText().toString());
 
         //DateTime startDateTime = new DateTime(System.currentTimeMillis() + 60000);
@@ -91,7 +92,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
 
         //insert in DB
         new EventDbHelper(mActivity).insertEventDB(id, calendarId, summary.getText().toString(), description.getText().toString(),
-                location.getText().toString(), start.getDateTime(), end.getDateTime(), mActivity.action
+                "MARA", start.getDateTime(), end.getDateTime(), mActivity.action
                 , mActivity);
 
         Intent intent = new Intent(mActivity, CalendarActivity.class);

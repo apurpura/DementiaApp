@@ -41,6 +41,7 @@ public class InsertEventActivity extends IActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
+        Credentials.signonActivity.refreshCalendarService();
 
         //Set date dialog to use current Year, Month and Day
         //Set time dialog to use current Hour of Day and Minute
@@ -71,14 +72,6 @@ public class InsertEventActivity extends IActivity {
             }
         });
 
-        if(Credentials.credential != null ) {
-            if(Account.account == null)
-                Account.account = Credentials.credential.getSelectedAccountName();
-        }
-        else {
-            Intent intent = new Intent(this,SigningOnActivity.class);
-            startActivity(intent);
-        }
         // Spinner Drop down elements
         lables = new ArrayList<>();
 
@@ -260,6 +253,7 @@ public Date zGetEndDate (){
     @Override
     protected void onResume(){
         super.onResume();
+        Credentials.signonActivity.refreshCalendarService();
         if (Credentials.isGooglePlayServicesAvailable(this)) {
             refreshResults();
         } else {

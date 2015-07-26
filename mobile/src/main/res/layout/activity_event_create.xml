@@ -22,10 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Description" />
-    <EditText android:id="@+id/eventLocation"
+
+   <!-- //we don't need location
+        <EditText android:id="@+id/eventLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Location" />
+        android:hint="Enter Location" />-->
     <Spinner
         android:id="@+id/actionSpinner"
         android:layout_width="match_parent"

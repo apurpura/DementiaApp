@@ -25,6 +25,7 @@ public class CalendarAPIAdapter {
 
     public String getCalendar() throws IOException {
         String id = "";
+        Credentials.signonActivity.refreshCalendarService();
         HashMap<String, String> calList = getCalendarList();
         if (!calList.containsKey(Credentials.credential.getSelectedAccountName())){
             com.google.api.services.calendar.model.Calendar calendar = new com.google.api.services.calendar.model.Calendar();
