@@ -165,6 +165,12 @@ public class InsertEventActivity extends IActivity {
                 eventStartDate.setText(zYear + "-0" + zMonth + "-" + zDay);
                 zStartDate = eventStartDate.getText().toString();
                 setFalse = false;
+                } if (zDay < 10) {eventStartDate.setText(zYear + "-" + zMonth + "-0" + zDay);
+                zStartDate = eventStartDate.getText().toString();
+                setFalse = false;} if (zDay < 10 && zMonth <10)
+                {eventStartDate.setText(zYear + "-0" + zMonth + "-0" + zDay);
+                zStartDate = eventStartDate.getText().toString();
+                setFalse = false;
                 }
                 else
                 eventStartDate.setText(zYear + "-" + zMonth + "-" + zDay);
@@ -173,6 +179,11 @@ public class InsertEventActivity extends IActivity {
             }else{
                 if (zMonth < 10) {
                     eventEndDate.setText(zYear + "-0" + zMonth + "-" + zDay);
+                    zEndDate = eventEndDate.getText().toString();
+                } if (zDay < 10) {eventEndDate.setText(zYear + "-" + zMonth + "-0" + zDay);
+                    zEndDate = eventEndDate.getText().toString();
+                    } if (zDay < 10 && zMonth <10)
+                {eventEndDate.setText(zYear + "-0" + zMonth + "-0" + zDay);
                     zEndDate = eventEndDate.getText().toString();
                 }
                 else
@@ -193,13 +204,27 @@ public class InsertEventActivity extends IActivity {
             EditText eventStartTime = (EditText)findViewById(R.id.startTimeView);
             EditText eventEndTime = (EditText)findViewById(R.id.endTimeView);
             if(setFalse)
-            {
-                eventStartTime.setText(zHourOfDay + ":" + zMinute + ":" + "00");
+            {if(zMinute<10){eventStartTime.setText(zHourOfDay + ":0" + zMinute + ":" + "00");
+                zStartTime = eventStartTime.getText().toString();
+                setFalse = false;}if(zHourOfDay<10){eventStartTime.setText("0" + zHourOfDay + ":" + zMinute + ":" + "00");
+                zStartTime = eventStartTime.getText().toString();
+                setFalse = false;}if(zMinute<10 && zHourOfDay < 10){eventStartTime.setText("0" + zHourOfDay + ":0" + zMinute + ":" + "00");
                 zStartTime = eventStartTime.getText().toString();
                 setFalse = false;
             }else{
+                eventStartTime.setText(zHourOfDay + ":" + zMinute + ":" + "00");
+                zStartTime = eventStartTime.getText().toString();
+                setFalse = false;}
+            }else{
+                if(zMinute < 10){eventEndTime.setText(zHourOfDay + ":0" + zMinute + ":" + "00");
+                    zEndTime = eventEndTime.getText().toString();
+                    }if(zHourOfDay < 10){eventEndTime.setText("0" + zHourOfDay + ":" + zMinute + ":" + "00");
+                    zEndTime = eventEndTime.getText().toString();
+                        }if(zMinute < 10 && zHourOfDay < 10){eventEndTime.setText("0" + zHourOfDay + ":0" + zMinute + ":" + "00");
+                        zEndTime = eventEndTime.getText().toString();
+                }else{
                 eventEndTime.setText(zHourOfDay + ":" + zMinute + ":" + "00");
-                zEndTime = eventEndTime.getText().toString();
+                zEndTime = eventEndTime.getText().toString();}
             }
         }
     };
