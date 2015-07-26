@@ -15,9 +15,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.google.api.client.util.DateTime;
+
 import java.lang.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Ryan on 6/18/2015.
@@ -140,7 +145,7 @@ public class InsertEventActivity extends IActivity {
             return new DatePickerDialog(this,dpickerListner,zYear,zMonth,zDay);
         else {
             if (id == zTimeDialog)
-            return new TimePickerDialog(this, tPickerListen, zHourOfDay, zMinute, true);
+            return new TimePickerDialog(this, tPickerListen, zHourOfDay, zMinute, false);
         }
         return null;
     }
@@ -156,13 +161,24 @@ public class InsertEventActivity extends IActivity {
             EditText eventStartDate = (EditText)findViewById(R.id.startView);
             EditText eventEndDate = (EditText)findViewById(R.id.endView);
             if(setFalse)
-            {
+            {   if (zMonth < 10) {
+                eventStartDate.setText(zYear + "-0" + zMonth + "-" + zDay);
+                zStartDate = eventStartDate.getText().toString();
+                setFalse = false;
+                }
+                else
                 eventStartDate.setText(zYear + "-" + zMonth + "-" + zDay);
                 zStartDate = eventStartDate.getText().toString();
                 setFalse = false;
             }else{
-                eventEndDate.setText(zYear + "-" + zMonth + "-" + zDay);
-                zEndDate = eventEndDate.getText().toString();
+                if (zMonth < 10) {
+                    eventEndDate.setText(zYear + "-0" + zMonth + "-" + zDay);
+                    zEndDate = eventEndDate.getText().toString();
+                }
+                else
+                    eventEndDate.setText(zYear + "-" + zMonth + "-" + zDay);
+                    zEndDate = eventEndDate.getText().toString();
+
             }
             //Toast.makeText(InsertEventActivity.this,zYear + "-" + zMonth + "-" + zDay, Toast.LENGTH_LONG).show();
         }
@@ -188,14 +204,29 @@ public class InsertEventActivity extends IActivity {
         }
     };
 
-public String zGetStartDate (){
-        String zEventStartDateTime = zStartDate + "T" + zStartTime;
-        return zEventStartDateTime;
+public Date zGetStartDate (){
+    SimpleDateFormat zSDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    Date zEventStartDateTime = null;
+    try {
+        zEventStartDateTime = zSDF.parse(zStartDate + "T" + zStartTime);
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
+
+    return zEventStartDateTime;
     };
-public String zGetEndDate (){
-        String zEventEndDateTime = zEndDate + "T" + zEndTime;
-        return zEventEndDateTime;
-    };
+
+public Date zGetEndDate (){
+    SimpleDateFormat zEDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    Date zEventEndDateTime = null;
+    try {
+        zEventEndDateTime = zEDF.parse(zEndDate + "T" + zEndTime);
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
+
+    return zEventEndDateTime;
+};
 
     /**
      * Called whenever this activity is pushed to the foreground, such as after

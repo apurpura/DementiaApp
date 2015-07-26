@@ -11,8 +11,10 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 
 /**
@@ -51,28 +53,27 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     }
 
     public void initializeEvent() throws IOException {
-        InsertEventActivity zInsertEventObject = new InsertEventActivity();
         String calendarId = CalendarAPIAdapter.getCalendarList().get(Account.account);
         EditText summary = (EditText) mActivity.findViewById(R.id.eventTitle);
         EditText location = (EditText) mActivity.findViewById(R.id.eventLocation);
         EditText description = (EditText) mActivity.findViewById(R.id.eventDescription);
-        String zStartDateTime = zInsertEventObject.zGetStartDate();
-        String zEndDateTime = zInsertEventObject.zGetEndDate();
+        Date zStartDateTime = mActivity.zGetStartDate();
+        Date zEndDateTime = mActivity.zGetEndDate();
 
         Event event = new Event()
                 .setSummary(summary.getText().toString())
                 .setLocation(location.getText().toString())
                 .setDescription(description.getText().toString());
 
-        DateTime startDateTime = new DateTime(System.currentTimeMillis() + 60000);
-        //DateTime startDateTime = new DateTime(zStartDateTime);
+        //DateTime startDateTime = new DateTime(System.currentTimeMillis() + 60000);
+        DateTime startDateTime = new DateTime(zStartDateTime);
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime)
                 .setTimeZone("America/Los_Angeles");
         event.setStart(start);
 
-        DateTime endDateTime = new DateTime(System.currentTimeMillis() + 720000);
-        //DateTime endDateTime = new DateTime(zEndDateTime);
+        //DateTime endDateTime = new DateTime(System.currentTimeMillis() + 720000);
+        DateTime endDateTime = new DateTime(zEndDateTime);
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime)
                 .setTimeZone("America/Los_Angeles");
