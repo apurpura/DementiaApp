@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -34,7 +35,15 @@ public class simonSaysActivity extends Activity {
     Handler handler = new Handler();
     final ArrayList<Integer> testArray = new ArrayList<>(10);
     final ArrayList<Integer> playerArray = new ArrayList<>(10);
+    List<Integer> comparingList = new ArrayList<Integer>();
+    List<Integer> trueList = new ArrayList<Integer>();
     public int zSpotInArray = 0, zLevelCount = 0;
+
+    public String zStartTime;
+    public String zEndTime;
+    public String zCancelTime = "n/a";
+    boolean notFinished = true;
+    GenerateTime zGetTimes = new GenerateTime();
 
     //sound - implement when speakers are avail
     //MediaPlayer yellowMediaPlayer;
@@ -54,6 +63,7 @@ public class simonSaysActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        zStartTime = zGetTimes.generateTimes();
         setContentView(R.layout.activity_simon_says);
         /*
         sound - implement when speakers are avail
@@ -77,10 +87,10 @@ public class simonSaysActivity extends Activity {
             public void onLayoutInflated(WatchViewStub stub) {
                 //UI
                 mTextView = (TextView) stub.findViewById(R.id.text);
-                onClickBlue(0);
-                onClickGreen(0);
-                onClickRed(0);
-                onClickYellow(0);
+                onClickBlue();
+                onClickGreen();
+                onClickRed();
+                onClickYellow();
             }
         });
     }
@@ -96,25 +106,51 @@ public class simonSaysActivity extends Activity {
             @Override
             public void onFinish() {
                 Toast.makeText(getBaseContext(), "Repeat After Simon", Toast.LENGTH_SHORT).show();
-                SimonAI(zLevelCount);
+                SimonAI();
             }
         }.start();
     }
 
-    protected void onClickGreen(int zSpotInArray) {
+    //Should the patient just cancel the activity
+    protected void onDestroy(){
+        if(notFinished){
+            zCancelTime = zGetTimes.generateTimes();
+            zEndTime = "n/a";
+            //here dave
+            //generateAnalytics();
+        }
+        super.onDestroy();
+    }
+
+    protected void onClickGreen() {
 
         final ImageButton greenButton3 = (ImageButton) findViewById(R.id.imageButton);
-        final int zFinSpotInArray = zSpotInArray;
         greenButton3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                final int zFinSpotInArray = zSpotInArray;
                 playerArray.add(zFinSpotInArray, 1);
                 playerLogic();
                 onUserInteraction();{
                     if (playerArray.size() == testArray.size()){
-                        if(playerArray.containsAll(testArray)){
+                        for (int a = 0; a < testArray.size(); a++) {
+                            comparingList.add(0);
+                            trueList.add(1);
+                        }
+                        for(int counter = 0; counter < testArray.size(); counter++) {
+                            if(playerArray.get(counter).equals(testArray.get(counter))) {
+                                comparingList.set(counter,1);
+                            }
+                        }
+                        if(comparingList.equals(trueList)){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
-                            onResume();}
+                            zClearArrays();
+                            onResume();}else{
+                                zEndTime = zGetTimes.generateTimes();
+                                //here dave
+                                //generateAnalytics();
+                                notFinished = false;
+                                finish(); }
                 }
                 };
                 //vibrate 1 sec
@@ -125,21 +161,37 @@ public class simonSaysActivity extends Activity {
         });
     }
 
-    protected void onClickRed(int zSpotInArray) {
+    protected void onClickRed() {
 
         final ImageButton redButton = (ImageButton) findViewById(R.id.imageButton3);
-        final int zFinSpotInArray = zSpotInArray;
+
         //Proceed to Publishing the Event to Calendar and Event DB
         redButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                final int zFinSpotInArray = zSpotInArray;
                 playerArray.add(zFinSpotInArray, 3);
                 playerLogic();
                 onUserInteraction();{
                     if (playerArray.size() == testArray.size()){
-                        if(playerArray.containsAll(testArray)){
+                        for (int a = 0; a < testArray.size(); a++) {
+                            comparingList.add(0);
+                            trueList.add(1);
+                        }
+                        for(int counter = 0; counter < testArray.size(); counter++) {
+                            if(playerArray.get(counter).equals(testArray.get(counter))) {
+                                comparingList.set(counter,1);
+                            }
+                        }
+                        if(comparingList.equals(trueList)){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
-                            onResume();}
+                            zClearArrays();
+                            onResume();}else{
+                            zEndTime = zGetTimes.generateTimes();
+                            //here dave
+                            //generateAnalytics();
+                            notFinished = false;
+                            finish(); }
                     }
                 };
                 //vibrate 1.5 sec
@@ -150,22 +202,37 @@ public class simonSaysActivity extends Activity {
         });
     }
 
-    protected void onClickYellow(int zSpotInArray) {
+    protected void onClickYellow() {
 
         final ImageButton yellowButton2 = (ImageButton) findViewById(R.id.imageButton2);
-        final int zFinSpotInArray = zSpotInArray;
 
         //Proceed to Publishing the Event to Calendar and Event DB
         yellowButton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                final int zFinSpotInArray = zSpotInArray;
                 playerArray.add(zFinSpotInArray, 2);
                 playerLogic();
                 onUserInteraction();{
                     if (playerArray.size() == testArray.size()){
-                        if(playerArray.containsAll(testArray)){
+                        for (int a = 0; a < testArray.size(); a++) {
+                            comparingList.add(0);
+                            trueList.add(1);
+                        }
+                        for(int counter = 0; counter < testArray.size(); counter++) {
+                            if(playerArray.get(counter).equals(testArray.get(counter))) {
+                                comparingList.set(counter,1);
+                            }
+                        }
+                        if(comparingList.equals(trueList)){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
-                            onResume();}
+                            zClearArrays();
+                            onResume();}else{
+                            zEndTime = zGetTimes.generateTimes();
+                            //here dave
+                            //generateAnalytics();
+                            notFinished = false;
+                            finish(); }
                     }
                 };
                 //vibrate 2 sec
@@ -177,21 +244,36 @@ public class simonSaysActivity extends Activity {
         });
     }
 
-    public void onClickBlue(int zSpotInArray) {
+    public void onClickBlue() {
         final ImageButton blueButton4 = (ImageButton) findViewById(R.id.imageButton4);
-        final int zFinSpotInArray = zSpotInArray;
 
         //Proceed to Publishing the Event to Calendar and Event DB
         blueButton4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                final int zFinSpotInArray = zSpotInArray;
                 playerArray.add(zFinSpotInArray, 4);
                 playerLogic();
                 onUserInteraction();{
                     if (playerArray.size() == testArray.size()){
-                        if(playerArray.containsAll(testArray)){
+                        for (int a = 0; a < testArray.size(); a++) {
+                            comparingList.add(0);
+                            trueList.add(1);
+                        }
+                        for(int counter = 0; counter < testArray.size(); counter++) {
+                            if(playerArray.get(counter).equals(testArray.get(counter))) {
+                                comparingList.set(counter,1);
+                            }
+                        }
+                        if(comparingList.equals(trueList)){
                             zLevelCount++;
                             Toast.makeText(getBaseContext(), "Nice Job!", Toast.LENGTH_SHORT).show();
-                            onResume();}
+                            zClearArrays();
+                            onResume();}else{
+                            zEndTime = zGetTimes.generateTimes();
+                            //here dave
+                            //generateAnalytics();
+                            notFinished = false;
+                            finish(); }
                     }
                 };
                 //vibrate 2.5 sec
@@ -207,14 +289,17 @@ public class simonSaysActivity extends Activity {
     zSpotInArray++;
     }
 
-    public void SimonAI(int LevelCount){
+    public void SimonAI(){
 
         final int min = 1;
         final int max = 4;
         int length = testArray.size();
         int count = 0;
 
-        for (int loop = 0; loop <= length; loop++) {
+        if(length == 0)
+            length = testArray.size() + 1;
+
+        for (int loop = 0; loop < length; loop++) {
             final int delayTimer = 5000;
             final int zfinalCount = loop;
             handler.postDelayed(new Runnable() {
@@ -251,8 +336,7 @@ public class simonSaysActivity extends Activity {
                 }
             }, 5000 * (count + 1));
             count++;
-            zSpotInArray = 0;
-        }
+        };
     }
 
     final Runnable r1 = new Runnable() {
@@ -290,5 +374,28 @@ public class simonSaysActivity extends Activity {
             //handler.postDelayed(this,4000);
         }
     };
+
+    public void zClearArrays (){
+        comparingList.clear();
+        trueList.clear();
+        playerArray.clear();
+        zSpotInArray = 0;
+    }
+
+    public void generateAnalytics() {
+
+        String StartTime = zStartTime ;
+        String EndTime = zEndTime;
+        String CancelTime = zCancelTime;
+        String Level = Integer.toString(zLevelCount);
+        String Score = "n/a";
+        String Action = "Simon Says";
+        String EventId = "FigureOutEvenID06";
+
+        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
+        new SendResultToMobile(zResults,this).start();
+    }
+
+
 }
 
