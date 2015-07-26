@@ -5,5 +5,4 @@
     <item android:state_focused="true" android:drawable="@drawable/ssblueup"></item>
     <item android:drawable="@drawable/ssblueup"></item>
 
-
 </selector>

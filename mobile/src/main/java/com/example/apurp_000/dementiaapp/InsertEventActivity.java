@@ -2,6 +2,7 @@ package com.example.apurp_000.dementiaapp;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import java.lang.*;
 import java.util.ArrayList;
@@ -23,7 +25,9 @@ import java.util.Calendar;
 public class InsertEventActivity extends IActivity {
     Context context;
     int zYear, zMonth, zDay, zMinute, zHourOfDay;
-    static final int zDialog = 0;
+    String zStartDate, zStartTime, zEndDate, zEndTime;
+    static final int zDateDialog = 0;
+    static final int zTimeDialog = 1;
     boolean setFalse = false;
 
     String action;
@@ -99,7 +103,7 @@ public class InsertEventActivity extends IActivity {
         eventStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(zDialog);
+                showDialog(zDateDialog);
                 setFalse = true;
             }
         });
@@ -108,16 +112,37 @@ public class InsertEventActivity extends IActivity {
         eventEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(zDialog);
+                showDialog(zDateDialog);
+            }
+        });
+
+        EditText eventStartTime = (EditText)findViewById(R.id.startTimeView);
+        eventStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(zTimeDialog);
+                setFalse = true;
+            }
+        });
+
+        EditText eventEndTime = (EditText)findViewById(R.id.endTimeView);
+        eventEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(zTimeDialog);
             }
         });
     }
     //Shows the Date Picker Dialog Calendar
     @Override
     protected Dialog onCreateDialog(int id) {
-        if(id == zDialog)
+        if(id == zDateDialog)
             return new DatePickerDialog(this,dpickerListner,zYear,zMonth,zDay);
-        else return null;
+        else {
+            if (id == zTimeDialog)
+            return new TimePickerDialog(this, tPickerListen, zHourOfDay, zMinute, true);
+        }
+        return null;
     }
 
     //Create the Listener for the dates selected, then evalutes what text field to
@@ -133,11 +158,43 @@ public class InsertEventActivity extends IActivity {
             if(setFalse)
             {
                 eventStartDate.setText(zYear + "-" + zMonth + "-" + zDay);
+                zStartDate = eventStartDate.getText().toString();
                 setFalse = false;
-            }else{eventEndDate.setText(zYear + "-" + zMonth + "-" + zDay);}
-
+            }else{
+                eventEndDate.setText(zYear + "-" + zMonth + "-" + zDay);
+                zEndDate = eventEndDate.getText().toString();
+            }
             //Toast.makeText(InsertEventActivity.this,zYear + "-" + zMonth + "-" + zDay, Toast.LENGTH_LONG).show();
         }
+    };
+
+    private TimePickerDialog.OnTimeSetListener tPickerListen = new TimePickerDialog.OnTimeSetListener(){
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            zMinute = minute;
+            zHourOfDay = hourOfDay;
+            EditText eventStartTime = (EditText)findViewById(R.id.startTimeView);
+            EditText eventEndTime = (EditText)findViewById(R.id.endTimeView);
+            if(setFalse)
+            {
+                eventStartTime.setText(zHourOfDay + ":" + zMinute + ":" + "00");
+                zStartTime = eventStartTime.getText().toString();
+                setFalse = false;
+            }else{
+                eventEndTime.setText(zHourOfDay + ":" + zMinute + ":" + "00");
+                zEndTime = eventEndTime.getText().toString();
+            }
+        }
+    };
+
+public String zGetStartDate (){
+        String zEventStartDateTime = zStartDate + "T" + zStartTime;
+        return zEventStartDateTime;
+    };
+public String zGetEndDate (){
+        String zEventEndDateTime = zEndDate + "T" + zEndTime;
+        return zEventEndDateTime;
     };
 
     /**

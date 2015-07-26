@@ -51,10 +51,13 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     }
 
     public void initializeEvent() throws IOException {
+        InsertEventActivity zInsertEventObject = new InsertEventActivity();
         String calendarId = CalendarAPIAdapter.getCalendarList().get(Account.account);
         EditText summary = (EditText) mActivity.findViewById(R.id.eventTitle);
         EditText location = (EditText) mActivity.findViewById(R.id.eventLocation);
         EditText description = (EditText) mActivity.findViewById(R.id.eventDescription);
+        String zStartDateTime = zInsertEventObject.zGetStartDate();
+        String zEndDateTime = zInsertEventObject.zGetEndDate();
 
         Event event = new Event()
                 .setSummary(summary.getText().toString())
@@ -62,12 +65,14 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
                 .setDescription(description.getText().toString());
 
         DateTime startDateTime = new DateTime(System.currentTimeMillis() + 60000);
+        //DateTime startDateTime = new DateTime(zStartDateTime);
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime)
                 .setTimeZone("America/Los_Angeles");
         event.setStart(start);
 
         DateTime endDateTime = new DateTime(System.currentTimeMillis() + 720000);
+        //DateTime endDateTime = new DateTime(zEndDateTime);
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime)
                 .setTimeZone("America/Los_Angeles");
