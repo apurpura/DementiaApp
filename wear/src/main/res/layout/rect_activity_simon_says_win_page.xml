@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical"
+    tools:context="com.example.apurp_000.dementiaapp.SimonSaysWinPage"
+    tools:deviceIds="wear_square">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:layout_width="214dp"
+            android:layout_height="match_parent"
+            android:id="@+id/simonWinButton"
+            android:layout_gravity="center"
+            android:src="@drawable/simonsaysendpage"
+            android:contentDescription="SimonWintButon"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="92dp"
+            android:layout_height="65dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/simonWinText"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:text="12" />
+    </FrameLayout>
+</LinearLayout>

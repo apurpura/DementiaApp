@@ -1,6 +1,7 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -100,10 +101,19 @@ public class simonSaysActivity extends Activity {
 
     //Should the patient just cancel the activity
     protected void onDestroy(){
+        //get level for score to pass to win page
+        String endPageLevelCount = String.valueOf(zLevelCount);
+
+        // start end page and pass score
+        Intent simonGameIntent = new Intent(getApplicationContext(), SimonSaysWinPage.class);
+        simonGameIntent.putExtra("text", endPageLevelCount);
+        //launch simon end page
+        startActivity(simonGameIntent);
+
         if(notFinished){
             zCancelTime = zGetTimes.generateTimes();
             zEndTime = "n/a";
-            //here dave
+
             //generateAnalytics();
         }
         super.onDestroy();
