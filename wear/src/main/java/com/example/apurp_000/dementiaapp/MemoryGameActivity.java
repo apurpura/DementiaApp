@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -105,6 +106,9 @@ public class MemoryGameActivity extends Activity {
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
 
+                //give sinstructions
+                Toast.makeText(getBaseContext(), "Match Two Images Alike By Tapping On Card", Toast.LENGTH_SHORT).show();
+
                 //shuffle layout
                 List<Integer> shuffleList = Arrays.asList(cardDefaultLayout);
                 Collections.shuffle(shuffleList);
@@ -172,6 +176,9 @@ public class MemoryGameActivity extends Activity {
 
     }
     public void reflipCardBacks(){
+        //toast for good job
+       // Toast.makeText(getBaseContext(), "Sorry That Is Not A Match", Toast.LENGTH_SHORT).show();
+
         switch(cardA){
             case 1:
                 if(iscard1x1Matched) {
@@ -453,6 +460,9 @@ public class MemoryGameActivity extends Activity {
 
     }
     public void closeCardsForMatches(){
+
+        //toast to say they matched the cards
+        //Toast.makeText(getBaseContext(), "You Got A Match", Toast.LENGTH_SHORT).show();
 
             switch(cardA){
                 case 1:
