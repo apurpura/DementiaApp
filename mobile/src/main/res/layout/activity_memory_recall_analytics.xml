@@ -14,7 +14,8 @@
         android:layout_height="match_parent"
         android:id="@+id/grid"
         android:columnCount="12"
-        android:rowCount="30">
+        android:rowCount="50"
+        android:background="@drawable/uibluegradientbg">
 
 
      <!--   <TextView
