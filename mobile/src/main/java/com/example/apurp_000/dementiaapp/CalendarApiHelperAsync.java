@@ -3,6 +3,7 @@ package com.example.apurp_000.dementiaapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
@@ -32,7 +33,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     private static HttpTransport httpTransport;
     private static final String PREFS_NAME = "CalendarPref";
     private static final String PREFS_KEY = "SyncToken";
-    private ArrayList<EventModel> eList;
+    public static ArrayList<EventModel> eList;
 
     /**
      * Constructor.
@@ -96,8 +97,9 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
             public void run() {
                 if (eList.size() == 0) {
                     AlertDialogPopup.ShowDialogPopup("Alert", "No events found. Please insert events or choose another day.", mActivity);
+                }else {
+                    Toast.makeText(mActivity, "Swipe card left to delete event.", Toast.LENGTH_LONG).show();
                 }
-                //mActivity.itemsAdapter.notifyDataSetChanged();
                 RecyclerAdapter rAdapter = new RecyclerAdapter(eList);
                 mActivity.rView.setAdapter(rAdapter);
             }
@@ -149,6 +151,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
         formatter = new SimpleDateFormat("yyyy-MM-dd");
         formatter.setTimeZone(TimeZone.getTimeZone(tz));
         String eventStart = DateFormat.getDateInstance().format(formatter.parse(begin.toString()));
+        eList.clear();
         do {
             Events events = Credentials.signonActivity.calendarService.events().list(calendarId)
                     .setTimeMin(begin)
@@ -170,6 +173,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                 start = DateFormat.getDateInstance().format(formatter.parse(start));
                 String summary = event.getSummary();
                 String description = event.getDescription();
+                String id = event.getId();
 
                 String action = "";
                 if(event.getExtendedProperties() != null)
@@ -182,7 +186,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
 
                 String formattedDate = DateFormat.getTimeInstance().format(date);
                 if(start.equals(eventStart)) {
-                    EventModel m = new EventModel("", "", summary, description,
+                    EventModel m = new EventModel(id, "", summary, description,
                             "", formattedDate, "", action, 1);
                     eList.add(m);
                     //mActivity.listDataHeader.add(start + "       " + childLine);
@@ -231,8 +235,19 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
             } else {
                 for (Event event : items) {
                     if(event.getSummary() == null && event.getDescription() == null && event.getStart() == null){
-                        //delete from db
-                        AlarmManagerHelper.cancelAlarm(Credentials.signonActivity, event.getId());
+                        //delete db entry
+                        try {
+                            new EventDbHelper(Credentials.signonActivity).delete(event.getId(), Credentials.signonActivity);
+                        }catch(Exception ee){
+                            //there wasn't anything in the db
+                        }
+                        //delete the alarm if it exists
+                        try {
+                            AlarmManagerHelper.cancelAlarm(Credentials.signonActivity, event.getId());
+                        }catch(Exception e){
+                            //tere wasn't an alarm
+                        }
+
                     }else {
                         String action = "";
                         if (event.getExtendedProperties() != null)

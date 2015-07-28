@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#f4f4f4" >
+    android:background="@drawable/uibluegradientbg">>
     <Spinner
         android:id="@+id/account_spinner"
         android:layout_width="fill_parent"

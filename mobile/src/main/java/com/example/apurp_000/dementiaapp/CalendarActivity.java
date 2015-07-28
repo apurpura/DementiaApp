@@ -69,6 +69,36 @@ public class CalendarActivity extends IActivity {
         rAdapter = new RecyclerAdapter(new ArrayList<EventModel>());
         rView.setAdapter(rAdapter);
 
+        SwipeDismissRecyclerViewTouchListener swipeTouchListener =
+                new SwipeDismissRecyclerViewTouchListener(rView,
+                        new SwipeDismissRecyclerViewTouchListener.SwipeListener() {
+                            @Override
+                            public boolean canSwipe(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    //mItems.remove(position);
+                                    ArrayList<EventModel> events=  CalendarApiHelperAsync.eList;
+                                    String eventId = events.get(position).Id;
+                                    new DeleteEventHelperAsyc(CalendarActivity.this,eventId ).execute();
+                                    events.remove(position);
+                                    RecyclerAdapter rAdapter = new RecyclerAdapter(events);
+                                    rView.setAdapter(rAdapter);
+                                }
+                                rAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                Toast.makeText(CalendarActivity.this, "Swipe card left to delete event.", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+        rView.addOnItemTouchListener(swipeTouchListener);
+
 
 
         Credentials.signonActivity.refreshCalendarService();
@@ -143,7 +173,6 @@ public class CalendarActivity extends IActivity {
             //show the selected date as a toast
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
-                Toast.makeText(getApplicationContext(), day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
                 GregorianCalendar gc = new GregorianCalendar(TimeZone.getDefault());
                 gc.clear();
                 gc.set(year, month, day);
