@@ -1,7 +1,9 @@
 package com.example.apurp_000.dementiaapp;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.widget.EditText;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -19,6 +21,7 @@ import java.util.TimeZone;
 /**
  * Created by apurpura on 7/27/2015.
  */
+@TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class DeleteEventHelperAsyc extends AsyncTask<Void, Void, Void> {
 
     private static CalendarActivity mActivity;

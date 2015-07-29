@@ -234,7 +234,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                 System.out.println("No new events to sync.");
             } else {
                 for (Event event : items) {
-                    if(event.getSummary() == null && event.getDescription() == null && event.getStart() == null){
+                    if(event.getStatus().equals("cancelled")){
                         //delete db entry
                         try {
                             new EventDbHelper(Credentials.signonActivity).delete(event.getId(), Credentials.signonActivity);
@@ -252,7 +252,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                         String action = "";
                         if (event.getExtendedProperties() != null)
                             action = event.getExtendedProperties().getShared().get("Action");
-                        if (event.getId() != null & event.getSummary() != null & event.getStart() != null & event.getEnd() != null) {
+                        if (event.getId() != null & event.getSummary() != null & event.getStart() != null) {
                             new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
                                     event.getLocation(), event.getStart().getDateTime(), event.getEnd().getDateTime(), action
                                     , Credentials.signonActivity);

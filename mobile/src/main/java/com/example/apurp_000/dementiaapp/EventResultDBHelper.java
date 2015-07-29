@@ -95,7 +95,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public HashMap<String, List<EventResult>> GetEventResults(Context context) {
+    public HashMap<String, List<EventResult>> GetEventResults(Context context, String calId) {
 
         HashMap<String, List<EventResult>> results = new HashMap<String, List<EventResult>>();
         SQLiteDatabase db = new EventResultDBHelper(context).getReadableDatabase();
@@ -104,13 +104,16 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                 EventId,StartTime,EndTime,CancelTime,Level,Score,Action,CalendarId
         };
 
+        String selection = CalendarId + " = ?";
+        String[] selectionArgs = {calId};
+
 
 
         Cursor c = db.query(
                 "EventResult",  // The table to query
                 projection,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
+                selection,                                // The columns for the WHERE clause
+                selectionArgs,                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 null                                 // The sort order

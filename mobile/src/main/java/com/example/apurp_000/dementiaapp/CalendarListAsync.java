@@ -33,6 +33,8 @@ public class CalendarListAsync extends AsyncTask<Void, Void, Void> {
             String item = theList.get(index);
             theList.remove(index);
             theList.add(0, item);
+        }else{
+            Account.account = Credentials.credential.getSelectedAccountName();
         }
         return null;
     }

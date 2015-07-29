@@ -11,133 +11,79 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.GridLayout.LayoutParams;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class MemoryRecallAnalytics extends AppCompatActivity {
-
+public class MemoryRecallAnalytics extends IActivity {
+    public GridLayout gv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Credentials.signonActivity.refreshCalendarService();
         setContentView(R.layout.activity_memory_recall_analytics);
-        EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
-        Map<String, List<EventResult>> er = db.GetEventResults(Credentials.signonActivity);
-        GridLayout gv = (GridLayout) findViewById(R.id.grid);
-        Integer actionRow = 3;
-        for (String key : er.keySet()) {
-            TextView action = new TextView(this);
-            action.setText(key);
-            action.setTextSize(14);
-            action.setTextColor(Color.BLUE);
-            GridLayout.Spec row4 = GridLayout.spec(actionRow);
-            GridLayout.Spec col4 = GridLayout.spec(0);
-            GridLayout.LayoutParams params = new GridLayout.LayoutParams(row4, col4);
+        gv = (GridLayout) findViewById(R.id.grid);
 
-            action.setLayoutParams(params);
-            gv.addView(action, params);
+        // Spinner Drop down elements
+        lables = new ArrayList<>();
 
+        // Creating adapter for spinner
+        dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
 
-           // <TextView
-            //android:layout_width="wrap_content"
-            //android:layout_height="wrap_content"
-            //android:text="Simon Says"
-            //android:id="@+id/simonSaysTitle"
-            //android:layout_row="3"
-            //android:layout_column="1"
-            //android:textSize="10dp"
-            //android:textColor="@drawable/analytictitleselector"
-            //android:onClick="onClick"
-            //android:clickable="true"
-            //android:linksClickable="true" />
-
-            List<EventResult> ls = er.get(key);
-            gv.setColumnCount(4);
-            gv.setRowCount(100);
-            actionRow++;
-                GridLayout.Spec row5 = GridLayout.spec(actionRow);
-                GridLayout.Spec col5 = GridLayout.spec(1);
-                GridLayout.LayoutParams params5 = new GridLayout.LayoutParams(row5, col5);
-                TextView startTime = new TextView(this);
-                startTime.setText("Last Start Time: ");
-                //endTime.setText(ls.get(ls.size() - 1).endTime.toString());
-                startTime.setTextSize(12);
-
-                startTime.setLayoutParams(params5);
-                gv.addView(startTime, params5);
-
-                TextView startDateTime = new TextView(this);
-                if(ls.get(ls.size() - 1).startTime != null)
-                    startDateTime.setText(DateFormat.getDateTimeInstance().format(ls.get(ls.size() - 1).startTime));
-                startDateTime.setTextSize(12);
-                GridLayout.Spec row1 = GridLayout.spec(actionRow);
-                GridLayout.Spec col1 = GridLayout.spec(2);
-                GridLayout.LayoutParams params3 = new GridLayout.LayoutParams(row1, col1);
-
-                startDateTime.setLayoutParams(params3);
-                gv.addView(startDateTime, params3);
-            actionRow++;
-                GridLayout.Spec row = GridLayout.spec(actionRow);
-                GridLayout.Spec col = GridLayout.spec(1);
-                GridLayout.LayoutParams params2 = new GridLayout.LayoutParams(row, col);
-                TextView endTime = new TextView(this);
-                endTime.setText("Last End Time: ");
-                //endTime.setText(ls.get(ls.size() - 1).endTime.toString());
-                endTime.setTextSize(12);
-
-                endTime.setLayoutParams(params2);
-                gv.addView(endTime, params2);
-
-                TextView endDateTime = new TextView(this);
-                if(ls.get(ls.size() - 1).endTime != null)
-                    endDateTime.setText(DateFormat.getDateTimeInstance().format(ls.get(ls.size() - 1).endTime));
-                endDateTime.setTextSize(12);
-                GridLayout.Spec row2 = GridLayout.spec(actionRow);
-                GridLayout.Spec col2 = GridLayout.spec(2);
-                GridLayout.LayoutParams params6 = new GridLayout.LayoutParams(row2, col2);
-
-                endDateTime.setLayoutParams(params6);
-                gv.addView(endDateTime, params6);
-            actionRow++;
-                GridLayout.Spec row7 = GridLayout.spec(actionRow);
-                GridLayout.Spec col7 = GridLayout.spec(1);
-                GridLayout.LayoutParams params7 = new GridLayout.LayoutParams(row7, col7);
-                TextView wc = new TextView(this);
-                wc.setText("Was Lsst Canceled: ");
-                //endTime.setText(ls.get(ls.size() - 1).endTime.toString());
-                wc.setTextSize(12);
-
-                wc.setLayoutParams(params7);
-                gv.addView(wc, params7);
-
-                TextView wcv = new TextView(this);
-                String wasCanceled = "NO";
-                if(ls.get(ls.size() - 1).cancelTime != null)
-                        wasCanceled = "YES";
-                wcv.setText(wasCanceled);
-                wcv.setTextSize(12);
-                GridLayout.Spec row8 = GridLayout.spec(actionRow);
-                GridLayout.Spec col8 = GridLayout.spec(2);
-                GridLayout.LayoutParams params8 = new GridLayout.LayoutParams(row8, col8);
-
-                wcv.setLayoutParams(params8);
-                gv.addView(wcv, params8);
-            actionRow++;
-        }
-
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+        // attaching data adapter to spinner
+        accountSpinner.setAdapter(dataAdapter);
+        accountSpinner.setOnItemSelectedListener(new AccountOnItemSelectedListener() );
 
 
         //pop up chart when user click on title
         //popUpTitleChartText();
     }
+
+
+
+    /**
+     * Called whenever this activity is pushed to the foreground, such as after
+     * a call to onCreate().
+     */
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Credentials.signonActivity.refreshCalendarService();
+        if (Credentials.isGooglePlayServicesAvailable(this)) {
+            refreshResults();
+        } else {
+            String message = "\"Google Play Services required: \" +\n" +
+                    "                    \"after installing, close and relaunch this app.\"";
+            AlertDialogPopup.ShowDialogPopup("Alert", message, this);
+        }
+        //new MemoryRecallAnalyticsHelperAsync(MemoryRecallAnalytics.this).execute();
+    }
+
+    /**
+     * Attempt to get a set of data from the Google Calendar API to display. If the
+     * email address isn't known yet, then call chooseAccount() method so the
+     * user can pick an account.
+     */
+    private void refreshResults() {
+        new CalendarListAsync(MemoryRecallAnalytics.this).execute();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -159,6 +105,25 @@ public class MemoryRecallAnalytics extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public class AccountOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+            boolean shouldRefresh = true;
+            if(Account.account == parent.getItemAtPosition(pos).toString())
+                shouldRefresh = false;
+            Account.account = parent.getItemAtPosition(pos).toString();
+            if(shouldRefresh)
+                new MemoryRecallAnalyticsHelperAsync(MemoryRecallAnalytics.this).execute();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            // TODO Auto-generated method stub
+        }
+
     }
 
 
