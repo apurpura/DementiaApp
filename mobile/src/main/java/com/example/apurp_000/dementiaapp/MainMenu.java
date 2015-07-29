@@ -33,14 +33,6 @@ public class MainMenu extends Activity {
             }
         });
 
-         /*Button call for triggering notifications.
-        * Need to address how the flow of this*/
-        Button triggerNotification = (Button) findViewById(R.id.triggerNotification);
-        triggerNotification.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-               //new Intent(this,triggerNotification.class);
-            }
-        });
         /*Button call for triggering games to start on wearable.
         * Need to push a game on the wearable and figure the flow
         * on notifying and opening the app how the flow of this*/
