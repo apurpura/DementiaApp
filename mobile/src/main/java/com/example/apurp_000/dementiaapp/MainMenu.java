@@ -15,6 +15,11 @@ public class MainMenu extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        setUpBtnlistners();
+    }
+    public void setUpBtnlistners(){
+
+
         /*Button call for viewing the calender of the logged in use.
         * Need to address how to change the calendar being viewed*/
         Button viewCalendar = (Button) findViewById(R.id.viewCalendar);
@@ -45,5 +50,4 @@ public class MainMenu extends Activity {
             }
         });
     }
-
 }
