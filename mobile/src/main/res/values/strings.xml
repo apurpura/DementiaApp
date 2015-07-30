@@ -21,4 +21,14 @@
     </string-array>
     <string name="title_activity_memory_recall_analytics">MemoryRecallAnalytics</string>
     <string name="title_activity_analytic_chart_page">AnalyticChartPage</string>
+
+    <!-- Hamburger Menu Options -->
+        <string-array name="hamburger_array">
+            <item>Main Menu</item>
+            <item>Log Out</item>
+            <item>Close</item>
+            <item>Rxample 1</item>
+            <item>Example 2</item>
+        </string-array>
+
 </resources>

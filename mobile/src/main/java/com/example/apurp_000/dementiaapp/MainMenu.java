@@ -11,10 +11,15 @@ import android.widget.Button;
  */
 public class MainMenu extends Activity {
 
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+
+
+        //listners for menu buttons
         setUpBtnlistners();
     }
     public void setUpBtnlistners(){
