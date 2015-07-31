@@ -2,7 +2,12 @@ package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +35,26 @@ public class MainMenu extends Activity {
         setUpBtnlistners();
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        for (int i=0; i<menu.size(); i++) {
+            MenuItem mi = menu.getItem(i);
+            String title = mi.getTitle().toString();
+            Spannable newTitle = new SpannableString(title);
+            newTitle.setSpan(new ForegroundColorSpan(Color.BLACK), 0, newTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mi.setTitle(newTitle);
+        }
+        return true;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.hamburger_menu, menu);
+        return true;
+    }
+
     public void setHamBtnlistners(){
 
         Button hamButton = (Button) findViewById(R.id.HamburgerButton);
@@ -51,7 +76,7 @@ public class MainMenu extends Activity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
 
-                        switch (item.getItemId()) {
+                      /*  switch (item.getItemId()) {
                             case R.id.item1:
                                 Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
                                 return true;
@@ -60,8 +85,8 @@ public class MainMenu extends Activity {
                                 return true;
                             case R.id.item3:
                                 Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
-                                return true;
-                        }
+                                return true;*/
+                   //     }
 
 
 
