@@ -11,6 +11,6 @@
         android:layout_height="197dp"
         android:id="@+id/imageButton9"
         android:layout_gravity="center"
-        android:background="@drawable/trophypage"
-        android:src="@drawable/goldtrophy"/>
+        android:background="@drawable/goldtrophypage"
+       />
 </FrameLayout>
