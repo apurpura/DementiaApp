@@ -12,10 +12,10 @@
     android:weightSum="1">
 
 
-     <ImageButton
+     <Button
          android:layout_width="65dp"
          android:layout_height="40dp"
-         android:id="@+id/spinnerHamburger"
+         android:id="@+id/HamburgerButton"
          android:background="@drawable/uihamburgerbtnselector"
          android:layout_alignParentEnd="true"
          android:layout_alignParentTop="true"

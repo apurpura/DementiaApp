@@ -33,4 +33,5 @@
     <string name="photoData">photoData</string>
     <string name="title_activity_memory_win_page">MemoryWinPage</string>
     <string name="title_activity_simon_says_win_page">SimonSaysWinPage</string>
+    <string name="title_activity_trophy_page">TrophyPage</string>
 </resources>

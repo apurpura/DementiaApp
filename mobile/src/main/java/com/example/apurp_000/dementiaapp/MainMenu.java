@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.MapsInitializer;
 
@@ -21,10 +23,54 @@ public class MainMenu extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        //set up hamburger menu btn
+       setHamBtnlistners();
 
-
-        //listners for menu buttons
+        //listners for main menu buttons
         setUpBtnlistners();
+    }
+
+    public void setHamBtnlistners(){
+
+        Button hamButton = (Button) findViewById(R.id.HamburgerButton);
+        hamButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                 //Pop UP Menu
+                PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
+
+                //inflater open menu
+                popupMenu.inflate(R.menu.hamburger_menu);
+
+
+                //show menu
+                 popupMenu.show();
+
+                //set up listners for the hamburger menu tiles
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+                            case R.id.item1:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.item2:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.item3:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                        }
+
+
+
+                        return false;
+                    }
+                });
+
+            }
+        });
     }
 
     public void setUpBtnlistners(){
