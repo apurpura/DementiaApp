@@ -9,9 +9,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/account"
-        android:layout_marginTop="20dip"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:textAlignment="center"
+        android:background="@drawable/uilargegreenbuttonselector"
+        android:textStyle="bold"
+        android:textColor="@drawable/uigreenbtntextseector"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
         />
 
 
@@ -19,7 +25,8 @@
         android:id="@+id/calendar"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
+        android:layout_height="250dp"
+        android:background="@android:color/white"/>
 
 
 

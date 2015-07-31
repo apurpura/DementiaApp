@@ -66,7 +66,7 @@ public class CalendarActivity extends IActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rView.setLayoutManager(llm);
-        rAdapter = new RecyclerAdapter(new ArrayList<EventModel>());
+        rAdapter = new RecyclerAdapter(new ArrayList<EventModel>(), CalendarActivity.this);
         rView.setAdapter(rAdapter);
 
         SwipeDismissRecyclerViewTouchListener swipeTouchListener =
@@ -85,7 +85,7 @@ public class CalendarActivity extends IActivity {
                                     String eventId = events.get(position).Id;
                                     new DeleteEventHelperAsyc(CalendarActivity.this,eventId ).execute();
                                     events.remove(position);
-                                    RecyclerAdapter rAdapter = new RecyclerAdapter(events);
+                                    RecyclerAdapter rAdapter = new RecyclerAdapter(events, CalendarActivity.this);
                                     rView.setAdapter(rAdapter);
                                 }
                                 rAdapter.notifyDataSetChanged();

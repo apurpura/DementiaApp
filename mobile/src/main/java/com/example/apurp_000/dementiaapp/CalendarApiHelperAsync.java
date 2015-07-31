@@ -100,7 +100,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                 }else {
                     Toast.makeText(mActivity, "Swipe card left to delete event.", Toast.LENGTH_LONG).show();
                 }
-                RecyclerAdapter rAdapter = new RecyclerAdapter(eList);
+                RecyclerAdapter rAdapter = new RecyclerAdapter(eList, mActivity);
                 mActivity.rView.setAdapter(rAdapter);
             }
         });

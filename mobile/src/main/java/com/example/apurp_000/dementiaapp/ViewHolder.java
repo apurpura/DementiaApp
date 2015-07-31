@@ -22,7 +22,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         titleText = (TextView) itemView.findViewById(R.id.title);
         contentText = (TextView) itemView.findViewById(R.id.content);
         eventPhoto = (ImageView) itemView.findViewById((R.id.event_photo));
-        eventPhoto.setImageResource(R.drawable.smally);
         timeText = (TextView) itemView.findViewById((R.id.time));
         actionText = (TextView) itemView.findViewById((R.id.action));
         card = (CardView) itemView;

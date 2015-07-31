@@ -7,7 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="10dp"
-    android:layout_margin="5dp">
+    card_view:cardPreventCornerOverlap="true"
+    android:layout_margin="5dp"
+    card_view:background="@drawable/rec"
+    card_view:cardBackgroundColor="#f0be28"
+    card_view:cardElevation="10dp"
+    card_view:cardUseCompatPadding="true"
+
+    >
 
     <RelativeLayout
         android:id="@+id/cardBackground"
@@ -21,7 +28,6 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:gravity="right"
-            android:background="#C2DFFF"
             android:layout_alignParentTop="true"
             android:layout_alignBottom="@+id/action" />
 
@@ -32,6 +38,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             />
 
         <TextView
@@ -40,7 +48,9 @@
             android:layout_height="wrap_content"
             android:text="Time"
             android:layout_marginRight="6dp"
+            android:layout_marginTop="4dp"
             android:gravity="right"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:layout_toRightOf="@+id/event_photo"
             android:layout_alignParentTop="true"
@@ -50,7 +60,7 @@
             android:id="@+id/action"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-
+            android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:layout_marginRight="6dp"
             android:text="Action"
@@ -63,8 +73,9 @@
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:text="Title"
+            android:textStyle="bold"
             android:gravity="center"
             android:textColor="@android:color/black"
             android:layout_below="@+id/action"
@@ -76,6 +87,7 @@
             android:layout_height="wrap_content"
             android:text="Content"
             android:gravity="center"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textSize="20dp"
             android:layout_below="@+id/title"
