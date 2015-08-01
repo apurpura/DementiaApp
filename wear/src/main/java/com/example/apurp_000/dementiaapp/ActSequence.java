@@ -1,6 +1,7 @@
 package com.example.apurp_000.dementiaapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
@@ -91,10 +92,58 @@ public class ActSequence extends Activity {
                            continueButton.setImageResource(R.drawable.finishedsequence);
                            break;
                        case 7:
+                           //Ryan fake variable
+                           Integer fakeEndTime = 3;
+
                            zEndTime = zGetTimes.generateTimes();
                            notFinished = false;
+                           //Ryan comment analytics for debug check
                            generateAnalytics();
-                           finish();
+
+                           if(fakeEndTime <= 3){
+
+                               String goldText = "gold";
+                               // start end page
+                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                               trophyIntent.putExtra("text", goldText);
+                               //start memory end page
+                               startActivity(trophyIntent);
+
+                               //finish
+                               finish();
+
+                           }else if (fakeEndTime <= 4){
+
+
+                               String silverText = "silver";
+                               // start end page
+                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                               trophyIntent.putExtra("text", silverText);
+                               //start memory end page
+                               startActivity(trophyIntent);
+
+                               //finish
+                               finish();
+
+                           }else if (fakeEndTime <= 5){
+
+
+                               String bronzeText = "bronze";
+                               // start end page
+                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                               trophyIntent.putExtra("text", bronzeText);
+                               //start memory end page
+                               startActivity(trophyIntent);
+
+                               //finish
+                               finish();
+
+                           }
+                           else {
+                               //no trophy
+                               finish();
+                           }
+
                            break;
                    }
             }

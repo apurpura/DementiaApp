@@ -9,8 +9,8 @@
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="197dp"
-        android:id="@+id/imageButton9"
+        android:id="@+id/trophyImageBtn"
         android:layout_gravity="center"
-        android:background="@drawable/goldtrophypage"
+        android:background="@drawable/trophypage"
        />
 </FrameLayout>

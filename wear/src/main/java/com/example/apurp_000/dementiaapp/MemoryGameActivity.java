@@ -632,7 +632,7 @@ public class MemoryGameActivity extends Activity {
             //close app
             zEndTime = zGetTimes.generateTimes();
             notFinished = false;
-            generateAnalytics();
+           generateAnalytics();
 
             //end app
             finish();

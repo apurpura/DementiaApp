@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+
 public class MemoryWinPage extends Activity {
 
     private TextView mTextView;
@@ -50,8 +52,48 @@ public class MemoryWinPage extends Activity {
         final ImageButton startGame = (ImageButton)findViewById(R.id.imageButtonMemoryWinPage);
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Close Win Page
-                finish();
+
+                //debug for trophy page
+                //memoryScore = "10";
+
+                int numberOfMisses=  Integer.parseInt(memoryScore);
+
+                if (numberOfMisses <= 15) {
+
+                    String goldText = "gold";
+                    // start end page
+                    Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                    trophyIntent.putExtra("text", goldText);
+                    //start memory end page
+                    startActivity(trophyIntent);
+
+                    finish();
+
+                }else if(numberOfMisses <= 20){
+                    String silverText = "silver";
+                    // start end page
+                    Intent trophyIntent = new Intent(getApplicationContext(),TrophyPage.class);
+                    trophyIntent.putExtra("text", silverText);
+                    //start memory end page
+                    startActivity(trophyIntent);
+
+                    finish();
+
+                }else if(numberOfMisses <= 30){
+                    String bronzeText = "bronze";
+                    // start end page
+                    Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                    trophyIntent.putExtra("text", bronzeText);
+                    //start memory end page
+                    startActivity(trophyIntent);
+
+                    finish();
+
+                }else {
+
+                    //Close Win Page with no trophy
+                    finish();
+                }
 
             }
         });

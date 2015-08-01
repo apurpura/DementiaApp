@@ -50,8 +50,48 @@ public class SimonSaysWinPage extends Activity {
         final ImageButton startGame = (ImageButton)findViewById(R.id.simonWinButton);
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Close Win Page
-                finish();
+
+                //debug for trophy page
+                //simonScore = "10";
+
+                int numberRight=  Integer.parseInt(simonScore);
+
+                if (numberRight >= 4) {
+
+                    String goldText = "gold";
+                    // start end page
+                    Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                    trophyIntent.putExtra("text", goldText);
+                    //start memory end page
+                    startActivity(trophyIntent);
+
+                    finish();
+
+                }else if(numberRight >= 3){
+                    String silverText = "silver";
+                    // start end page
+                    Intent trophyIntent = new Intent(getApplicationContext(),TrophyPage.class);
+                    trophyIntent.putExtra("text", silverText);
+                    //start memory end page
+                    startActivity(trophyIntent);
+
+                    finish();
+
+                }else if(numberRight >= 2){
+                    String bronzeText = "bronze";
+                    // start end page
+                    Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                    trophyIntent.putExtra("text", bronzeText);
+                    //start memory end page
+                    startActivity(trophyIntent);
+
+                    finish();
+
+                }else {
+
+                    //Close Win Page with no trophy
+                    finish();
+                }
 
             }
         });
