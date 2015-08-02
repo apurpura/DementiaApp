@@ -17,11 +17,11 @@
     <EditText android:id="@+id/eventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Title" />
+        android:hint="Enter Title *" />
     <EditText android:id="@+id/eventDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Description" />
+        android:hint="Enter Description *" />
 
    <!-- //we don't need location
         <EditText android:id="@+id/eventLocation"
@@ -47,14 +47,14 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Select Start Date"
+                android:hint="Start Date *"
                 android:id="@+id/startView"
                 android:layout_gravity="left|center_vertical" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Select End Date"
+                android:hint="Completion Date *"
                 android:id="@+id/endView"
                 android:layout_gravity="right|center_vertical" />
         </FrameLayout>
@@ -72,14 +72,14 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Select Start Time"
+                android:hint="Start Time *"
                 android:id="@+id/startTimeView"
                 android:layout_gravity="left|center_vertical" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Select End Time"
+                android:hint="Completion Time *"
                 android:id="@+id/endTimeView"
                 android:layout_gravity="right|center_vertical" />
         </FrameLayout>
@@ -108,6 +108,20 @@
         android:text="Publish"
         android:id="@+id/publishEvent"
         android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Fields with a * are Required"
+            android:id="@+id/textView" />
+    </LinearLayout>
 
 
 </LinearLayout>

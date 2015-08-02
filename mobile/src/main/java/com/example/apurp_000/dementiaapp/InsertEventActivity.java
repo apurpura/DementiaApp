@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.api.client.util.DateTime;
 
@@ -42,6 +43,8 @@ public class InsertEventActivity extends IActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
         Credentials.signonActivity.refreshCalendarService();
+        final EditText summary = (EditText)findViewById(R.id.eventTitle);
+        final EditText description = (EditText)findViewById(R.id.eventDescription);
 
         //Set date dialog to use current Year, Month and Day
         //Set time dialog to use current Hour of Day and Minute
@@ -60,15 +63,23 @@ public class InsertEventActivity extends IActivity {
         context = this;
         publishEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                try {
-                    if (Credentials.isOnline()) {
-                        new InsertEventHelperAsync(InsertEventActivity.this).execute();
-                    } else {
-                        AlertDialogPopup.ShowDialogPopup("Alert", "No Network Connection Available.", InsertEventActivity.this);
+                if(summary.getText().toString().equals("") && description.getText().toString().equals("")) {
+                    Toast.makeText(getBaseContext(), "Fill All Required Fields", Toast.LENGTH_SHORT).show();
+                }else if (summary.getText().toString().equals("")) {
+                    Toast.makeText(getBaseContext(), "Fill All Required Fields", Toast.LENGTH_SHORT).show();
+                }else if (description.getText().toString().equals("")) {
+                    Toast.makeText(getBaseContext(), "Fill All Required Fields", Toast.LENGTH_SHORT).show();
+                }else{
+                    try {
+                        if (Credentials.isOnline()) {
+                            new InsertEventHelperAsync(InsertEventActivity.this).execute();
+                        } else {
+                            AlertDialogPopup.ShowDialogPopup("Alert", "No Network Connection Available.", InsertEventActivity.this);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         });
 
