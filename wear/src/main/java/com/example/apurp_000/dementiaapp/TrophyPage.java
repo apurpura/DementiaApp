@@ -30,6 +30,17 @@ public class TrophyPage extends Activity {
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
 
+                if(trophyName != null){
+
+                    //dont do anything cause its populated
+                }else{
+
+                    //set debug so no null pointer error
+                    trophyName = "debug";
+
+
+                }
+
 
                 //change trophy on name
                 earnedTrophyChannge();
