@@ -27,6 +27,8 @@ public class UpdateEventsService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if(Credentials.signonActivity == null)
+            Credentials.signonActivity  = new SigningOnActivity();
         Credentials.signonActivity.refreshCalendarService();
         new StartEventSync(Credentials.signonActivity).execute();
         return super.onStartCommand(intent, flags, startId);

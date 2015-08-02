@@ -64,6 +64,11 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                 //GridLayout gv = mActivity.gv;
                 Integer actionRow = 3;
                 for (String key : er.keySet()) {
+
+                    mActivity.gv.setColumnCount(4);
+                    mActivity.gv.setRowCount(100);
+
+                    //action
                     TextView action = new TextView(mActivity);
                     action.setText(key);
                     action.setTextSize(14);
@@ -71,41 +76,69 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                     GridLayout.Spec row4 = GridLayout.spec(actionRow);
                     GridLayout.Spec col4 = GridLayout.spec(0);
                     GridLayout.LayoutParams params = new GridLayout.LayoutParams(row4, col4);
-
                     action.setLayoutParams(params);
-
-
                     mActivity.gv.addView(action, params);
 
-
-                    // <TextView
-                    //android:layout_width="wrap_content"
-                    //android:layout_height="wrap_content"
-                    //android:text="Simon Says"
-                    //android:id="@+id/simonSaysTitle"
-                    //android:layout_row="3"
-                    //android:layout_column="1"
-                    //android:textSize="10dp"
-                    //android:textColor="@drawable/analytictitleselector"
-                    //android:onClick="onClick"
-                    //android:clickable="true"
-                    //android:linksClickable="true" />
-
                     List<EventResult> ls = er.get(key);
-                    mActivity.gv.setColumnCount(4);
-                    mActivity.gv.setRowCount(100);
+                    EventResult evR = getEventWithScore(ls);
+                    if(evR.score > 0){
+                        //high score text
+                        actionRow++;
+                        GridLayout.Spec row11 = GridLayout.spec(actionRow);
+                        GridLayout.Spec col11 = GridLayout.spec(1);
+                        GridLayout.LayoutParams params11 = new GridLayout.LayoutParams(row11, col11);
+                        TextView hs = new TextView(mActivity);
+                        hs.setText("High Score: ");
+                        hs.setTextSize(12);
+                        hs.setLayoutParams(params11);
+                        mActivity.gv.addView(hs, params11);
+
+                        //high score value
+                        String hsv = getHighestScore(ls);
+                        TextView hcv = new TextView(mActivity);
+                        hcv.setText(hsv);
+                        hcv.setTextSize(12);
+                        GridLayout.Spec row12 = GridLayout.spec(actionRow);
+                        GridLayout.Spec col12 = GridLayout.spec(2);
+                        GridLayout.LayoutParams params12 = new GridLayout.LayoutParams(row12, col12);
+                        hcv.setLayoutParams(params12);
+                        mActivity.gv.addView(hcv, params12);
+
+                        //last scoretext
+                        actionRow++;
+                        GridLayout.Spec row9 = GridLayout.spec(actionRow);
+                        GridLayout.Spec col9 = GridLayout.spec(1);
+                        GridLayout.LayoutParams params9 = new GridLayout.LayoutParams(row9, col9);
+                        TextView st = new TextView(mActivity);
+                        st.setText("Last Score: ");
+                        st.setTextSize(12);
+                        st.setLayoutParams(params9);
+                        mActivity.gv.addView(st, params9);
+
+                        //last score value
+                        TextView lcv = new TextView(mActivity);
+                        Integer lastScore = ls.get(ls.size()-1).score;
+                        lcv.setText(lastScore.toString());
+                        lcv.setTextSize(12);
+                        GridLayout.Spec row10 = GridLayout.spec(actionRow);
+                        GridLayout.Spec col10 = GridLayout.spec(2);
+                        GridLayout.LayoutParams params10 = new GridLayout.LayoutParams(row10, col10);
+                        lcv.setLayoutParams(params10);
+                        mActivity.gv.addView(lcv, params10);
+
+                    }
+
+                    //Last start time text
                     actionRow++;
                     GridLayout.Spec row5 = GridLayout.spec(actionRow);
                     GridLayout.Spec col5 = GridLayout.spec(1);
                     GridLayout.LayoutParams params5 = new GridLayout.LayoutParams(row5, col5);
                     TextView startTime = new TextView(mActivity);
                     startTime.setText("Last Start Time: ");
-                    //endTime.setText(ls.get(ls.size() - 1).endTime.toString());
                     startTime.setTextSize(12);
-
                     startTime.setLayoutParams(params5);
                     mActivity.gv.addView(startTime, params5);
-
+                    //startDateTime
                     TextView startDateTime = new TextView(mActivity);
                     if (ls.get(ls.size() - 1).startTime != null)
                         startDateTime.setText(DateFormat.getDateTimeInstance().
@@ -117,21 +150,21 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                     GridLayout.Spec row1 = GridLayout.spec(actionRow);
                     GridLayout.Spec col1 = GridLayout.spec(2);
                     GridLayout.LayoutParams params3 = new GridLayout.LayoutParams(row1, col1);
-
                     startDateTime.setLayoutParams(params3);
                     mActivity.gv.addView(startDateTime, params3);
+
+                    //last end time text
                     actionRow++;
                     GridLayout.Spec row = GridLayout.spec(actionRow);
                     GridLayout.Spec col = GridLayout.spec(1);
                     GridLayout.LayoutParams params2 = new GridLayout.LayoutParams(row, col);
                     TextView endTime = new TextView(mActivity);
                     endTime.setText("Last End Time: ");
-                    //endTime.setText(ls.get(ls.size() - 1).endTime.toString());
                     endTime.setTextSize(12);
-
                     endTime.setLayoutParams(params2);
                     mActivity.gv.addView(endTime, params2);
 
+                    //endDateTime
                     TextView endDateTime = new TextView(mActivity);
                     if (ls.get(ls.size() - 1).endTime != null)
                         endDateTime.setText(DateFormat.getDateTimeInstance().
@@ -143,21 +176,21 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                     GridLayout.Spec row2 = GridLayout.spec(actionRow);
                     GridLayout.Spec col2 = GridLayout.spec(2);
                     GridLayout.LayoutParams params6 = new GridLayout.LayoutParams(row2, col2);
-
                     endDateTime.setLayoutParams(params6);
                     mActivity.gv.addView(endDateTime, params6);
+
+                    //was last cancelled text
                     actionRow++;
                     GridLayout.Spec row7 = GridLayout.spec(actionRow);
                     GridLayout.Spec col7 = GridLayout.spec(1);
                     GridLayout.LayoutParams params7 = new GridLayout.LayoutParams(row7, col7);
                     TextView wc = new TextView(mActivity);
-                    wc.setText("Was Lsst Canceled: ");
-                    //endTime.setText(ls.get(ls.size() - 1).endTime.toString());
+                    wc.setText("Was Last Canceled: ");
                     wc.setTextSize(12);
-
                     wc.setLayoutParams(params7);
                     mActivity.gv.addView(wc, params7);
 
+                    //was cancelled yes/no
                     TextView wcv = new TextView(mActivity);
                     String wasCanceled = "NO";
                     if (ls.get(ls.size() - 1).cancelTime != null)
@@ -167,12 +200,35 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                     GridLayout.Spec row8 = GridLayout.spec(actionRow);
                     GridLayout.Spec col8 = GridLayout.spec(2);
                     GridLayout.LayoutParams params8 = new GridLayout.LayoutParams(row8, col8);
-
                     wcv.setLayoutParams(params8);
                     mActivity.gv.addView(wcv, params8);
+
                     actionRow++;
                 }
             }});
+    }
+
+    protected String getHighestScore(List<EventResult> ls){
+        Integer highest = 0;
+        for(EventResult e : ls){
+            if(e.score > highest){
+                highest = e.score;
+            }
+        }
+        return highest.toString();
+    }
+
+    protected EventResult getEventWithScore(List<EventResult> ls){
+        EventResult er = ls.get(ls.size()-1);
+        if(er.score > 0)
+                return er;
+        for(int i = ls.size()-1; i < 0; i--){
+            if(ls.get(i).score > 0){
+                er = ls.get(i);
+                break;
+            }
+        }
+        return er;
     }
 
 

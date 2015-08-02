@@ -233,6 +233,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
             if (items.size() == 0) {
                 System.out.println("No new events to sync.");
             } else {
+                System.out.println(items.size() + " items to sync");
                 for (Event event : items) {
                     if(event.getStatus().equals("cancelled")){
                         //delete db entry

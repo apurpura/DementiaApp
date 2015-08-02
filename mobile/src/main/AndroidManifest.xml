@@ -32,9 +32,17 @@
             android:name=".CalendarActivity"
             android:label="@string/title_activity_calendar" >
         </activity>
+
+        <activity
+            android:name=".ImageTest"
+            android:label="ImageTest">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SigningOnActivity"
-            android:label="Google Calendar API Android Quickstart" >
+            android:label="Signing On" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
