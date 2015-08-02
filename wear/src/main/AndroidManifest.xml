@@ -30,6 +30,7 @@
         </service>
 
         <activity android:name=".ImageCarousel" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".simonSaysActivity"
             android:label="@string/title_activity_simon_says" >

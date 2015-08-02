@@ -3,12 +3,17 @@ package com.example.apurp_000.dementiaapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.wearable.view.WatchViewStub;
+import android.text.format.Time;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class PillSequence extends Activity {
 
@@ -17,6 +22,8 @@ public class PillSequence extends Activity {
     public String zStartTime;
     public String zEndTime;
     public String zCancelTime = "n/a";
+    Date zStart;
+    Date zEnd;
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
 
@@ -25,6 +32,7 @@ public class PillSequence extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pill_sequence);
         zStartTime = zGetTimes.generateTimes();
+        zStart = new Date();
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -80,15 +88,14 @@ public class PillSequence extends Activity {
                     case 4:
 
                         //Ryan fake variable
-                        Integer fakeEndTime = 4;
-
-
+                        //Integer fakeEndTime = 4;
+                        zEnd = new Date();
                         zEndTime = zGetTimes.generateTimes();
                         //ryan comment out analytics if gonna run to test time check
                         generateAnalytics();
                         notFinished = false;
 
-                        if(fakeEndTime <= 3){
+                        if(zTrophieTimes() <= 3){
 
                             String goldText = "gold";
                             // start end page
@@ -100,7 +107,7 @@ public class PillSequence extends Activity {
                             //finish
                             finish();
 
-                        }else if (fakeEndTime <= 4){
+                        }else if (zTrophieTimes() <= 4){
 
 
                             String silverText = "silver";
@@ -113,7 +120,7 @@ public class PillSequence extends Activity {
                             //finish
                             finish();
 
-                        }else if (fakeEndTime <= 5){
+                        }else if (zTrophieTimes() <= 5){
 
 
                             String bronzeText = "bronze";
@@ -152,6 +159,12 @@ public class PillSequence extends Activity {
 
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
         new SendResultToMobile(zResults,this).start();
+    }
+
+    public long zTrophieTimes(){
+        TimeUnit timeUnit = TimeUnit.MINUTES;
+        long diffInMillies = zEnd.getTime() - zStart.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
 
 }

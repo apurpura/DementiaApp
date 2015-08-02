@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class ActSequence extends Activity {
 
@@ -16,6 +18,8 @@ public class ActSequence extends Activity {
     int currentPic = 0;
     public String zStartTime;
     public String zEndTime;
+    Date zStart;
+    Date zEnd;
     public String zCancelTime = "n/a";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
@@ -25,6 +29,7 @@ public class ActSequence extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_sequence);
         zStartTime = zGetTimes.generateTimes();
+        zStart = new Date();
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -93,14 +98,14 @@ public class ActSequence extends Activity {
                            break;
                        case 7:
                            //Ryan fake variable
-                           Integer fakeEndTime = 3;
-
+                           //Integer fakeEndTime = 3;
+                           zEnd = new Date();
                            zEndTime = zGetTimes.generateTimes();
                            notFinished = false;
                            //Ryan comment analytics for debug check
                            generateAnalytics();
 
-                           if(fakeEndTime <= 3){
+                           if(zTrophieTimes() <= 3){
 
                                String goldText = "gold";
                                // start end page
@@ -112,7 +117,7 @@ public class ActSequence extends Activity {
                                //finish
                                finish();
 
-                           }else if (fakeEndTime <= 4){
+                           }else if (zTrophieTimes() <= 4){
 
 
                                String silverText = "silver";
@@ -125,7 +130,7 @@ public class ActSequence extends Activity {
                                //finish
                                finish();
 
-                           }else if (fakeEndTime <= 5){
+                           }else if (zTrophieTimes() <= 5){
 
 
                                String bronzeText = "bronze";
@@ -162,6 +167,12 @@ public class ActSequence extends Activity {
 
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
         new SendResultToMobile(zResults,this).start();
+    }
+
+    public long zTrophieTimes(){
+        TimeUnit timeUnit = TimeUnit.MINUTES;
+        long diffInMillies = zEnd.getTime() - zStart.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
 
 }

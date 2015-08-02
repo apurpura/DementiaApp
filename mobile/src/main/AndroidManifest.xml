@@ -41,6 +41,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ImageTest"
+            android:label="@string/title_activity_calendar" >
+        </activity>
+        <activity
             android:name=".SigningOnActivity"
             android:label="Signing On" >
             <intent-filter>
