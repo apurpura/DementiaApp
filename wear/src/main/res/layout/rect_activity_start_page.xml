@@ -15,6 +15,6 @@
         android:id="@+id/imageButton5"
         android:src="@drawable/simonsaysstartpagebg"
         android:contentDescription="startButon"
-        android:background="@color/white" />
+        android:background="#6dcff6" />
 
 </LinearLayout>

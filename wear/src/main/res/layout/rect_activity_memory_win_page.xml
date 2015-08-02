@@ -19,8 +19,8 @@
             android:background="@color/white"/>
 
         <TextView
-            android:layout_width="40dp"
-            android:layout_height="81dp"
+            android:layout_width="110dp"
+            android:layout_height="84dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/textView3"
             android:layout_gravity="center_horizontal|bottom"

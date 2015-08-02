@@ -20,7 +20,7 @@
 
         <TextView
             android:layout_width="92dp"
-            android:layout_height="65dp"
+            android:layout_height="56dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/simonWinText"
             android:layout_gravity="center"

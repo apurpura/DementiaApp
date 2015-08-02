@@ -17,6 +17,6 @@
             android:layout_gravity="center"
             android:src="@drawable/memorystartpage"
             android:contentDescription="MemoryStartButon"
-            android:background="@color/white"/>
+            android:background="#6dcff6"/>
     </FrameLayout>
 </LinearLayout>
