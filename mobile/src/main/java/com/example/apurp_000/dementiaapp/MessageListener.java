@@ -4,11 +4,14 @@ import android.util.Log;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
+import com.google.api.services.calendar.model.Event;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by apurpura on 7/16/2015.
@@ -26,13 +29,13 @@ public class MessageListener extends WearableListenerService {
             String message = new String(messageEvent.getData());
              try {
                  json = new JSONObject(message);
-                 String action = json.get("action").toString();
-                 String eventId = json.get("eventId").toString();
-                 String startTime = json.get("startTime").toString();
-                 String endTime = json.get("endTime").toString();
-                 String cancelTime = json.get("cancelTime").toString();
-                 String level = json.get("level").toString();
-                 String score = json.get("score").toString();
+                 String action = json.get("action").toString().trim();
+                 String eventId = json.get("eventId").toString().trim();
+                 String startTime = json.get("startTime").toString().trim();
+                 String endTime = json.get("endTime").toString().trim();
+                 String cancelTime = json.get("cancelTime").toString().trim();
+                 String level = json.get("level").toString().trim();
+                 String score = json.get("score").toString().trim();
                  Log.d("insertingEventResult db", "EventId: " + eventId + ",Action: " + action);
                  EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
                  String calendarId = new CalendarAPIAdapter(Credentials.signonActivity).getCalendarId(Credentials.credential.getSelectedAccount().toString());
@@ -44,10 +47,39 @@ public class MessageListener extends WearableListenerService {
                      }
                  }
                  db.insertEventResult(startTime,endTime,cancelTime,level,score,action,eventId, calendarId, Credentials.signonActivity);
-
+                 updateEventInCalendar(message, eventId);
              } catch (JSONException e) {
                       e.printStackTrace();
                   }
+        }
+    }
+
+    private void updateEventInCalendar(String json, String eventId) {
+        // Retrieve the event from the API
+        if (Credentials.signonActivity == null)
+            Credentials.signonActivity = new SigningOnActivity();
+        Credentials.signonActivity.refreshCalendarService();
+        Event ev = null;
+        for (String calId : CalendarAPIAdapter.getCalendarList().values()) {
+            try {
+                ev = Credentials.signonActivity.calendarService.events().get(calId, eventId).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (ev != null) {
+                //add the action to extendedProperties
+                Event.ExtendedProperties EP = new Event.ExtendedProperties();
+                Map<String, String> map = EP.getShared();
+                map.put("EventResult", json);
+                EP.setShared(map);
+                ev.setExtendedProperties(EP);
+                // Update the event
+                try {
+                    Event updatedEvent = Credentials.signonActivity.calendarService.events().update(calId, eventId, ev).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

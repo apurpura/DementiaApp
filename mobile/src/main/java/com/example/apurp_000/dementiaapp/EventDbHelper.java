@@ -10,6 +10,7 @@ import android.provider.BaseColumns;
 import com.google.api.client.util.DateTime;
 //import com.google.api.services.calendar.model.EventDateTime;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.*;
@@ -84,7 +85,11 @@ public class EventDbHelper extends SQLiteOpenHelper {
 
             Integer theId = GetEvent(id, context).u_id;
             EventModel e = new EventModel(id, calendarId, summary, description, location, startTime.toString(), endTime.toString(), action, theId);
-            AlarmManagerHelper.setAlarm(context, startTime.getValue(), e, "AlarmService");
+            HashMap<String, String> ls = CalendarAPIAdapter.getCalendarList();
+            String acctName = Credentials.credential.getSelectedAccountName();
+            String primary = ls.get(acctName);
+            if(calendarId.equals(primary))
+                AlarmManagerHelper.setAlarm(context, startTime.getValue(), e, "AlarmService");
         }
     }
 

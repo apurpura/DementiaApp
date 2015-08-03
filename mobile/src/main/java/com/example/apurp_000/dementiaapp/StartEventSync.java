@@ -46,7 +46,7 @@ public class StartEventSync extends AsyncTask<Void, Void, Void> {
             e.printStackTrace();
         }
         try {
-            CalendarApiHelperAsync.UpdateEvents(new CalendarAPIAdapter(Credentials.signonActivity).getCalendar());
+            CalendarApiHelperAsync.UpdateEvents();
         } catch (IOException e) {
             e.printStackTrace();
         }

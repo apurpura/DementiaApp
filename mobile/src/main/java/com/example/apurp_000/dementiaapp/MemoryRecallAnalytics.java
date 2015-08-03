@@ -127,65 +127,8 @@ public class MemoryRecallAnalytics extends IActivity {
     }
 
 
-    /*public void popUpTitleChartText() {
-        //simon title
-         TextView simonTitle = (TextView) findViewById(R.id.simonSaysTitle);
-         simonTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent simonIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                simonIntent.putExtra("text", "Simon Game");
-                //start Memory
-                startActivity(simonIntent);
-            }
-        });
-        //simon title
-        TextView memoryTitle = (TextView) findViewById(R.id.memoryGameTitle);
-        memoryTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent memoryIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                memoryIntent.putExtra("text", "Memory Game");
-                //start Memory
-                startActivity(memoryIntent);
-            }
-        });
-        //simon title
-        TextView pillsTitle = (TextView) findViewById(R.id.takePillsTitle);
-        pillsTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent pillsIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                pillsIntent.putExtra("text", "Pill Time");
-                //start Memory
-                startActivity(pillsIntent);
-            }
-        });
-        //simon title
-        TextView getDressedTitle = (TextView) findViewById(R.id.getDressedTitle);
-        getDressedTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent dressedIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                dressedIntent.putExtra("text", "Get Dressed");
-                //start dressed
-                startActivity(dressedIntent);
-            }
-        });
-        //simon title
-        TextView imageCarouselTitle = (TextView) findViewById(R.id.imageCarouselTitle);
-        imageCarouselTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent carouselIntent = new Intent(getApplicationContext(), AnalyticChartPage.class);
-                carouselIntent.putExtra("text", "Image Carousel");
-                //start Carousel
-                startActivity(carouselIntent);
 
-            }
-        });
-    }*/
 
 
 }

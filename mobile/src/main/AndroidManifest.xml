@@ -82,7 +82,8 @@
 
         <activity
             android:name=".AnalyticChartPage"
-            android:label="@string/title_activity_analytic_chart_page" >
+            android:label="@string/title_activity_analytic_chart_page"
+            android:screenOrientation="landscape">
         </activity>
     </application>
 

@@ -37,21 +37,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
         if(event != null) {
             viewHolder.titleText.setText("Summary: " + event.Summary);
             viewHolder.contentText.setText("Description: " + event.Description);
-            switch (event.Action) {
-                case "Text Message":  viewHolder.eventPhoto.setImageResource(R.drawable.mailthumb);
-                    break;
-                case "Image Carousel":  viewHolder.eventPhoto.setImageResource(R.drawable.carouselthumb);
-                    break;
-                case "Simon Says Game":  viewHolder.eventPhoto.setImageResource(R.drawable.simonthumb);
-                    break;
-                case "Memory Matching Game":  viewHolder.eventPhoto.setImageResource(R.drawable.memorythumb);
-                    break;
-                case "Pills - Sequence":  viewHolder.eventPhoto.setImageResource(R.drawable.pillthumb);
-                    break;
-                case "Female Dressed - Sequence":  viewHolder.eventPhoto.setImageResource(R.drawable.dressedthumb);
-                    break;
+            if (event.Action != null){
+                switch (event.Action) {
+                    case "Text Message":
+                        viewHolder.eventPhoto.setImageResource(R.drawable.mailthumb);
+                        break;
+                    case "Image Carousel":
+                        viewHolder.eventPhoto.setImageResource(R.drawable.carouselthumb);
+                        break;
+                    case "Simon Says Game":
+                        viewHolder.eventPhoto.setImageResource(R.drawable.simonthumb);
+                        break;
+                    case "Memory Matching Game":
+                        viewHolder.eventPhoto.setImageResource(R.drawable.memorythumb);
+                        break;
+                    case "Pills - Sequence":
+                        viewHolder.eventPhoto.setImageResource(R.drawable.pillthumb);
+                        break;
+                    case "Female Dressed - Sequence":
+                        viewHolder.eventPhoto.setImageResource(R.drawable.dressedthumb);
+                        break;
 
-            }
+                }
+             }
             viewHolder.timeText.setText(event.StartTime);
             viewHolder.actionText.setText(event.Action);
         }

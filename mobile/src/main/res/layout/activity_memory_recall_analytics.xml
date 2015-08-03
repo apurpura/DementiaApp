@@ -5,22 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/uibluegradientbg">
-<Spinner xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/account_spinner"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:prompt="@string/account"
-    android:layout_marginTop="5dip"
-    android:layout_marginLeft="5dip"
-    android:layout_marginRight="5dip"
-    android:textAlignment="center"
-    android:background="@drawable/uilargegreenbuttonselector"
-    android:textStyle="bold"
-    android:textColor="@drawable/uigreenbtntextseector"
-    android:paddingRight="20dp"
-    android:paddingLeft="20dp"
-    />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <Spinner xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/account_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/account"
+            android:layout_marginTop="5dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:textAlignment="center"
+            android:background="@drawable/uilargegreenbuttonselector"
+            android:textStyle="bold"
+            android:textColor="@drawable/uigreenbtntextseector"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_gravity="center_horizontal"
+        />
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:src="@drawable/analyticpagetitleimage"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="75dp"/>
+    </RelativeLayout>
 <ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -38,8 +51,7 @@
         android:layout_height="match_parent"
         android:id="@+id/grid"
         android:columnCount="12"
-        android:rowCount="50"
-        android:background="@drawable/uibluegradientbg">
+        android:rowCount="50">
 
 
 

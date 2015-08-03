@@ -3,6 +3,7 @@ package com.example.apurp_000.dementiaapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -14,12 +15,16 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -32,7 +37,9 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     private static CalendarActivity mActivity;
     private static HttpTransport httpTransport;
     private static final String PREFS_NAME = "CalendarPref";
-    private static final String PREFS_KEY = "SyncToken";
+    private static String PREFS_KEY = "SyncToken";
+    private static final String ER_NAME = "CalendarPref";
+    private static final String ER_KEY = "SyncToken";
     public static ArrayList<EventModel> eList;
 
     /**
@@ -197,77 +204,104 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
         updateResultsText();
     }
 
-    public static void UpdateEvents(String calendarId) throws IOException {
+    public static void UpdateEvents() throws IOException {
         // Construct the {@link Calendar.Events.List} request, but don't execute it yet.
         Credentials.signonActivity.refreshCalendarService();
-        Calendar.Events.List request = Credentials.signonActivity.calendarService.events().list(calendarId).setShowDeleted(true);
+        HashMap<String, String> calList = CalendarAPIAdapter.getCalendarList();
+        for(String email : calList.keySet()) {
+                String calendarId=calList.get(email);
+                PREFS_KEY = calendarId;
+                Calendar.Events.List request = Credentials.signonActivity.calendarService.events().list(calendarId).setShowDeleted(true);
 
-        // Load the sync token stored from the last execution, if any.
-        String syncToken = getValue(Credentials.signonActivity);
-        if (syncToken == null) {
-            System.out.println("Performing full sync.");
-        } else {
-            System.out.println("Performing incremental sync.");
-            request.setSyncToken(syncToken);
-        }
-
-        // Retrieve the events, one page at a time.
-        String pageToken = null;
-        Events events = null;
-        do {
-            request.setPageToken(pageToken);
-            try {
-                events = request.execute();
-            } catch (GoogleJsonResponseException e) {
-                if (e.getStatusCode() == 410) {
-                    // A 410 status code, "Gone", indicates that the sync token is invalid.
-                    System.out.println("Invalid sync token, clearing event store and re-syncing.");
-                    save(Credentials.signonActivity, null);
-                    UpdateEvents(calendarId);
+                // Load the sync token stored from the last execution, if any.
+                String syncToken = getValue(Credentials.signonActivity);
+                if (syncToken == null) {
+                    System.out.println("Performing full sync eventResults.");
                 } else {
-                    throw e;
+                    System.out.println("Performing incremental sync eventResults.");
+                    request.setSyncToken(syncToken);
                 }
-            }
 
-            List<Event> items = events.getItems();
-            if (items.size() == 0) {
-                System.out.println("No new events to sync.");
-            } else {
-                System.out.println(items.size() + " items to sync");
-                for (Event event : items) {
-                    if(event.getStatus().equals("cancelled")){
-                        //delete db entry
-                        try {
-                            new EventDbHelper(Credentials.signonActivity).delete(event.getId(), Credentials.signonActivity);
-                        }catch(Exception ee){
-                            //there wasn't anything in the db
-                        }
-                        //delete the alarm if it exists
-                        try {
-                            AlarmManagerHelper.cancelAlarm(Credentials.signonActivity, event.getId());
-                        }catch(Exception e){
-                            //tere wasn't an alarm
-                        }
-
-                    }else {
-                        String action = "";
-                        if (event.getExtendedProperties() != null)
-                            action = event.getExtendedProperties().getShared().get("Action");
-                        if (event.getId() != null & event.getSummary() != null & event.getStart() != null) {
-                            new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
-                                    event.getLocation(), event.getStart().getDateTime(), event.getEnd().getDateTime(), action
-                                    , Credentials.signonActivity);
+                // Retrieve the events, one page at a time.
+                String pageToken = null;
+                Events events = null;
+                do {
+                    request.setPageToken(pageToken);
+                    try {
+                        events = request.execute();
+                    } catch (GoogleJsonResponseException e) {
+                        if (e.getStatusCode() == 410) {
+                            // A 410 status code, "Gone", indicates that the sync token is invalid.
+                            System.out.println("Invalid sync token, clearing event store and re-syncing.");
+                            save(Credentials.signonActivity, null);
+                            UpdateEvents();
+                        } else {
+                            throw e;
                         }
                     }
-                }
+
+                    List<Event> items = events.getItems();
+                    if (items.size() == 0) {
+                        System.out.println("No new events to sync.");
+                    } else {
+                        System.out.println(items.size() + " items to sync");
+                        for (Event event : items) {
+                            if (event.getStatus().equals("cancelled")) {
+                                //delete db entry
+                                try {
+                                    new EventDbHelper(Credentials.signonActivity).delete(event.getId(), Credentials.signonActivity);
+                                } catch (Exception ee) {
+                                    //there wasn't anything in the db
+                                }
+                                //delete the alarm if it exists
+                                try {
+                                    AlarmManagerHelper.cancelAlarm(Credentials.signonActivity, event.getId());
+                                } catch (Exception e) {
+                                    //tere wasn't an alarm
+                                }
+
+                            } else {
+                                String action = "";
+                                if (event.getExtendedProperties() != null)
+                                    action = event.getExtendedProperties().getShared().get("Action");
+                                if (event.getId() != null & event.getSummary() != null & event.getStart() != null) {
+                                    new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
+                                            event.getLocation(), event.getStart().getDateTime(), event.getEnd().getDateTime(), action
+                                            , Credentials.signonActivity);
+                                }
+                                String evR = "";
+                                if (event.getExtendedProperties() != null)
+                                    evR = event.getExtendedProperties().getShared().get("EventResult");
+                                if(evR != null) {
+                                    if (!evR.equals("")) {
+                                        try {
+                                            JSONObject json = new JSONObject(evR);
+                                            action = json.get("action").toString().trim();
+                                            String eventId = json.get("eventId").toString().trim();
+                                            String startTime = json.get("startTime").toString().trim();
+                                            String endTime = json.get("endTime").toString().trim();
+                                            String cancelTime = json.get("cancelTime").toString().trim();
+                                            String level = json.get("level").toString().trim();
+                                            String score = json.get("score").toString().trim();
+                                            Log.d("insertingEventResult db", "EventId: " + eventId + ",Action: " + action);
+                                            EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
+                                            db.insertEventResult(startTime, endTime, cancelTime, level, score, action, eventId, calendarId, Credentials.signonActivity);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        }
+
+                    pageToken = events.getNextPageToken();
+                } while (pageToken != null);
+
+                save(Credentials.signonActivity, events.getNextSyncToken());
+
+                System.out.println("Sync complete.");
             }
-
-            pageToken = events.getNextPageToken();
-        } while (pageToken != null);
-
-        save(Credentials.signonActivity, events.getNextSyncToken());
-
-        System.out.println("Sync complete.");
     }
 
 
