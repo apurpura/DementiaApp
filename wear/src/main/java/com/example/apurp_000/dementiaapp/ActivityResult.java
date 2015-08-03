@@ -11,6 +11,7 @@ public class ActivityResult {
     public String score;
     public String action;
     public String eventId;
+    public String trophy;
 
     public ActivityResult(String StartTime, String EndTime, String CancelTime, String Level, String Score, String Action, String EventId){
         this.startTime = StartTime;
@@ -20,6 +21,18 @@ public class ActivityResult {
         this.score = Score;
         this.action = Action;
         this.eventId = EventId;
+        this.trophy = "";
+    }
+
+    public ActivityResult(String StartTime, String EndTime, String CancelTime, String Level, String Score, String Action, String EventId, String trophyInteger){
+        this.startTime = StartTime;
+        this.endTime = EndTime;
+        this.cancelTime = CancelTime;
+        this.level = Level;
+        this.score = Score;
+        this.action = Action;
+        this.eventId = EventId;
+        this.trophy = trophyInteger;
     }
 
 

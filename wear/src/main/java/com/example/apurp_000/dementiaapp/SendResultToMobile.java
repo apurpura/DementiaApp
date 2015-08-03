@@ -33,6 +33,7 @@ public class SendResultToMobile implements GoogleApiClient.ConnectionCallbacks, 
             json.put("cancelTime", result.cancelTime);
             json.put("level", result.level);
             json.put("score", result.score);
+            json.put("trophy", result.trophy);
             //json.put("YourValue", result.YourValue);
         } catch (JSONException e) {
             e.printStackTrace();

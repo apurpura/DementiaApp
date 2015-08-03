@@ -283,9 +283,10 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                                             String cancelTime = json.get("cancelTime").toString().trim();
                                             String level = json.get("level").toString().trim();
                                             String score = json.get("score").toString().trim();
+                                            String trophy = json.get("trophy").toString().trim();
                                             Log.d("insertingEventResult db", "EventId: " + eventId + ",Action: " + action);
                                             EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
-                                            db.insertEventResult(startTime, endTime, cancelTime, level, score, action, eventId, calendarId, Credentials.signonActivity);
+                                            db.insertEventResult(startTime, endTime, cancelTime, level, score, action, eventId, calendarId, Credentials.signonActivity, trophy);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }

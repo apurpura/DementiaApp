@@ -36,6 +36,7 @@ public class MessageListener extends WearableListenerService {
                  String cancelTime = json.get("cancelTime").toString().trim();
                  String level = json.get("level").toString().trim();
                  String score = json.get("score").toString().trim();
+                 String trophy = json.get("trophy").toString().trim();
                  Log.d("insertingEventResult db", "EventId: " + eventId + ",Action: " + action);
                  EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
                  String calendarId = new CalendarAPIAdapter(Credentials.signonActivity).getCalendarId(Credentials.credential.getSelectedAccount().toString());
@@ -46,7 +47,7 @@ public class MessageListener extends WearableListenerService {
                          e.printStackTrace();
                      }
                  }
-                 db.insertEventResult(startTime,endTime,cancelTime,level,score,action,eventId, calendarId, Credentials.signonActivity);
+                 db.insertEventResult(startTime,endTime,cancelTime,level,score,action,eventId, calendarId, Credentials.signonActivity, trophy);
                  updateEventInCalendar(message, eventId);
              } catch (JSONException e) {
                       e.printStackTrace();

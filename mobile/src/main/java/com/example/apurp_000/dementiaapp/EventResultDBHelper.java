@@ -34,7 +34,8 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                     Score + " TEXT, " +
                     Action + " TEXT, " +
                     StartTime + " TEXT, " +
-                    CalendarId + " TEXT)";
+                    CalendarId + " TEXT, " +
+                    Trophy + " TEXT)";
     private static final java.lang.String SQL_DELETE_ENTRIES = "DROP TABLE EventResult";
     private Context context;
 
@@ -66,11 +67,12 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
         public static final String Action = "Action";
         public static final String EventId = "EventId";
         public static final String CalendarId = "CalendarId";
+        public static final String Trophy = "Trophy";
     }
 
     public void insertEventResult(String startTime, String endTime, String cancelTime, String level,
                               String score, String action, String eventId, String calendarId
-            , Context context) {
+            , Context context, String trophy) {
         String result = "";
         try {
             result = GetEventResult(eventId, context).eventId;
@@ -88,6 +90,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
             values.put(Score, score);
             values.put(Action, action);
             values.put(CalendarId, calendarId);
+            values.put(Trophy, trophy);
 
             SQLiteDatabase db = new EventResultDBHelper(context).getWritableDatabase();
             db.insert("EventResult", null, values);
@@ -101,7 +104,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = new EventResultDBHelper(context).getReadableDatabase();
 
         String[] projection = {
-                EventId,StartTime,EndTime,CancelTime,Level,Score,Action,CalendarId
+                EventId,StartTime,EndTime,CancelTime,Level,Score,Action,CalendarId, Trophy
         };
 
         String selection = CalendarId + " = ?";
@@ -168,6 +171,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                         er.action = c.getString(c.getColumnIndex("Action"));
                         er.eventId = c.getString(c.getColumnIndex("EventId"));
                         er.calendarId = c.getString(c.getColumnIndex("CalendarId"));
+                        er.trophy = c.getString(c.getColumnIndex("Trophy"));
 
                         // add the bookName into the bookTitles ArrayList
                         ls.add(er);
@@ -188,7 +192,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = new EventResultDBHelper(context).getReadableDatabase();
 
         String[] projection = {
-                EventId,StartTime,EndTime,CancelTime,Level,Score,Action, CalendarId
+                EventId,StartTime,EndTime,CancelTime,Level,Score,Action, CalendarId, Trophy
         };
 
         String selection = EventId + " = ?";
@@ -240,6 +244,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                         er.action = c.getString(c.getColumnIndex("Action"));
                         er.eventId = c.getString(c.getColumnIndex("EventId"));
                         er.calendarId = c.getString(c.getColumnIndex("CalendarId"));
+                        er.trophy = c.getString(c.getColumnIndex("Trophy"));
             }
         }
         return er;

@@ -16,4 +16,5 @@ public class EventResult {
     public String action;
     public String eventId;
     public String calendarId;
+    public String trophy;
 }
