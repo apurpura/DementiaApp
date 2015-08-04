@@ -3,23 +3,29 @@ package com.example.apurp_000.dementiaapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.method.ScrollingMovementMethod;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +64,9 @@ public class CalendarActivity extends IActivity {
         setContentView(R.layout.calendar_list);
         ApplicationContextProvider.setContext(this);
         //expListView = (ListView) findViewById(R.id.lvExp);
+
+        //set up hamburger menu btn
+        setHamBtnlistners();
 
         eventDate = new DateTime().withTimeAtStartOfDay();
         eventDateMax = eventDate.plusDays(1).withTimeAtStartOfDay();
@@ -117,6 +126,69 @@ public class CalendarActivity extends IActivity {
         accountSpinner.setAdapter(dataAdapter);
         accountSpinner.setOnItemSelectedListener(new AccountOnItemSelectedListener());
         initializeCalendar();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        for (int i=0; i<menu.size(); i++) {
+            MenuItem mi = menu.getItem(i);
+            String title = mi.getTitle().toString();
+            Spannable newTitle = new SpannableString(title);
+            newTitle.setSpan(new ForegroundColorSpan(Color.BLACK), 0, newTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mi.setTitle(newTitle);
+        }
+        return true;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.hamburger_menu_calenderpage, menu);
+        return true;
+    }
+
+    public void setHamBtnlistners(){
+
+        Button hamButton = (Button) findViewById(R.id.HamburgerButtoncalendarPAge);
+        hamButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                //Pop UP Menu
+                PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
+
+                //inflater open menu
+                popupMenu.inflate(R.menu.hamburger_menu);
+
+
+                //show menu
+                popupMenu.show();
+
+                //set up listners for the hamburger menu tiles
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+                            case R.id.item1:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.item2:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.item3:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                        }
+
+
+
+                        return false;
+                    }
+                });
+
+            }
+        });
     }
 
     /**

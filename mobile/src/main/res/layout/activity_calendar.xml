@@ -4,6 +4,7 @@
     android:padding="20dp"
     android:orientation="vertical" >
 
+
   <CalendarView
       android:id="@+id/calendar"
      android:layout_margin="10dp"
