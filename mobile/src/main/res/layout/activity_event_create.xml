@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/uibluegradientbg"
+    android:weightSum="1">
+
+
+        <!-- Spinner Dropdown -->
 
     <Button
         android:layout_width="65dp"
@@ -13,24 +18,40 @@
         xmlns:android="http://schemas.android.com/apk/res/android" />
 
     <!-- Spinner Dropdown -->
+
     <Spinner
         android:id="@+id/account_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:prompt="@string/account"
-        android:layout_marginTop="20dip"
+        android:layout_marginTop="4dip"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
-        />
+        android:layout_marginBottom="8dp"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/uilargegreenbuttonselector" />
 
     <EditText android:id="@+id/eventTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Title *" />
+        android:layout_height="40dp"
+        android:layout_marginTop="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginBottom="8dp"
+        android:hint="Enter Title *"
+        android:background="@android:color/white" />
     <EditText android:id="@+id/eventDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Description *" />
+        android:layout_height="70dp"
+        android:layout_marginTop="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginBottom="8dp"
+        android:hint="Enter Description *"
+        android:background="@android:color/white"
+        android:layout_weight="0.16" />
 
    <!-- //we don't need location
         <EditText android:id="@+id/eventLocation"
@@ -42,30 +63,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/actions_array"
-        android:prompt="@string/action_prompt"/>
+        android:prompt="@string/action_prompt"
+        android:layout_marginTop="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginBottom="8dp"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:background="@drawable/uilargegreenbuttonselector" />
 
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical">
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
                 android:hint="Start Date *"
                 android:id="@+id/startView"
-                android:layout_gravity="left|center_vertical" />
+                android:layout_gravity="left|center_vertical"
+                android:background="@android:color/white"
+                android:textStyle="bold" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Completion Date *"
-                android:id="@+id/endView"
-                android:layout_gravity="right|center_vertical" />
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:hint="Start Time *"
+                android:id="@+id/startTimeView"
+                android:layout_gravity="right|center_vertical"
+                android:background="@android:color/white"
+                android:textStyle="bold"
+                android:textAlignment="center" />
+
         </FrameLayout>
 
     </LinearLayout>
@@ -73,24 +111,42 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical">
+
+        <CheckBox
+            android:layout_width="114dp"
+            android:layout_height="wrap_content"
+            android:text="Notify Me"
+            android:id="@+id/checkBox"
+            android:layout_gravity="center_horizontal|bottom"
+            android:checked="false"
+            android:onClick="onCheckboxClicked"
+            android:textStyle="bold" />
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
+            <EditText
+                android:layout_height="40dp"
+                android:hint="Complete by Date *"
+                android:layout_width="190dp"
+                android:id="@+id/endView"
+                android:background="@android:color/white"
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Start Time *"
-                android:id="@+id/startTimeView"
-                android:layout_gravity="left|center_vertical" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Completion Time *"
+                android:layout_width="190dp"
+                android:layout_height="40dp"
+                android:hint="Complete by Time *"
                 android:id="@+id/endTimeView"
-                android:layout_gravity="right|center_vertical" />
+                android:background="@android:color/white"
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                android:visibility="invisible" />
         </FrameLayout>
 
     </LinearLayout>
@@ -111,12 +167,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinner" />
 -->
-    <Button
-        android:layout_width="110dp"
-        android:layout_height="38dp"
-        android:text="Publish"
-        android:id="@+id/publishEvent"
-        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -124,12 +174,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Publish"
+            android:id="@+id/publishEvent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/uilargegreenbuttonselector"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Fields with a * are Required"
-            android:id="@+id/textView" />
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 
 
