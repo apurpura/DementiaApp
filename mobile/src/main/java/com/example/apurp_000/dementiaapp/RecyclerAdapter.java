@@ -35,8 +35,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         EventModel event = eventModels.get(i);
         if(event != null) {
-            viewHolder.titleText.setText("Summary: " + event.Summary);
-            viewHolder.contentText.setText("Description: " + event.Description);
+            viewHolder.titleText.setText(event.Summary);
+            viewHolder.contentText.setText(event.Description);
             if (event.Action != null){
                 switch (event.Action) {
                     case "Text Message":

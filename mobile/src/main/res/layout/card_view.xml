@@ -30,8 +30,8 @@
             android:layout_alignBottom="@+id/action" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:id="@+id/event_photo"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
