@@ -48,14 +48,15 @@ public class MessageListener extends WearableListenerService {
                      }
                  }
                  db.insertEventResult(startTime,endTime,cancelTime,level,score,action,eventId, calendarId, Credentials.signonActivity, trophy);
-                 updateEventInCalendar(message, eventId);
+                 updateEventInCalendar(message, eventId,cancelTime,endTime,score,action);
+
              } catch (JSONException e) {
                       e.printStackTrace();
                   }
         }
     }
 
-    private void updateEventInCalendar(String json, String eventId) {
+    private void updateEventInCalendar(String json, String eventId, String cancelTime, String endTime, String score, String action) {
         // Retrieve the event from the API
         if (Credentials.signonActivity == null)
             Credentials.signonActivity = new SigningOnActivity();
@@ -69,7 +70,7 @@ public class MessageListener extends WearableListenerService {
             }
             if (ev != null) {
                 //add the action to extendedProperties
-                Event.ExtendedProperties EP = new Event.ExtendedProperties();
+                Event.ExtendedProperties EP = ev.getExtendedProperties();
                 Map<String, String> map = EP.getShared();
                 map.put("EventResult", json);
                 EP.setShared(map);

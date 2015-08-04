@@ -60,13 +60,12 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
     }
 
     protected void updateEventResults(){
-        EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
         final String calId = CalendarAPIAdapter.getCalendarList().get(Account.account);
-        er = db.GetEventResults(Credentials.signonActivity,calId);
         mActivity.runOnUiThread(new Runnable() {
             public void run() {
                 //GridLayout gv = mActivity.gv;
-
+                EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
+                er = db.GetEventResults(Credentials.signonActivity,calId);
                 mActivity.gv.removeAllViews();
                 for (String key : er.keySet()) {
 

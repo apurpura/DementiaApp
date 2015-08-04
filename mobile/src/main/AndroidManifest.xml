@@ -41,11 +41,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SigningOnActivity"
-            android:label="Signing On" >
+            android:name=".SigningOnActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -62,6 +60,10 @@
 
         <service
             android:name=".AlarmService"
+            android:enabled="true" />
+
+        <service
+            android:name=".CheckWearableConnection"
             android:enabled="true" />
 
         <activity

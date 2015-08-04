@@ -39,7 +39,27 @@ public class CalendarAPIAdapter {
         return id;
     }
 
+    public static String getAccount(String calendarId){
+        if(Credentials.signonActivity == null)
+            Credentials.signonActivity = new SigningOnActivity();
+        else
+            Credentials.signonActivity.refreshCalendarService();
+        String account = "";
+        HashMap<String, String> ls = getCalendarList();
+        for(String acc : ls.keySet()) {
+            if (ls.get(acc).equals(calendarId)) {
+                account = acc;
+                break;
+            }
+        }
+        return account;
+    }
+
     public static HashMap<String, String> getCalendarList(){
+        if(Credentials.signonActivity == null)
+            Credentials.signonActivity = new SigningOnActivity();
+        else
+            Credentials.signonActivity.refreshCalendarService();
         HashMap<String, String> calList = new HashMap<String, String>();
 
         // Iterate through entries in calendar list

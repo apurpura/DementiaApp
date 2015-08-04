@@ -22,7 +22,7 @@ import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultS
  * Created by apurpura on 7/19/2015.
  */
 public class EventResultDBHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private static final String DICTIONARY_TABLE_NAME = "EventResult";
     private static final String DICTIONARY_TABLE_CREATE =
             "CREATE TABLE " + DICTIONARY_TABLE_NAME + " (" +
@@ -236,10 +236,10 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                                 e.printStackTrace();
                             }
                 String level = c.getString(c.getColumnIndex("Level"));
-                        if (level != "" & level.toLowerCase() != "n/a")
+                        if (!level.equals("") & !level.toLowerCase().equals("n/a") & level != null)
                             er.level = Integer.getInteger(level);
                         String score = c.getString(c.getColumnIndex("Score"));
-                        if (score != "" & score.toLowerCase() != "n/a")
+                        if (!score.equals("") & !score.toLowerCase().equals("n/a") & score != null)
                             er.score = Integer.getInteger(score);
                         er.action = c.getString(c.getColumnIndex("Action"));
                         er.eventId = c.getString(c.getColumnIndex("EventId"));

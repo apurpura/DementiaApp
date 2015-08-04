@@ -5,21 +5,35 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.provider.BaseColumns;
 
 import com.google.api.client.util.DateTime;
 //import com.google.api.services.calendar.model.EventDateTime;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.example.apurp_000.dementiaapp.EventDbHelper.Event.*;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.Action;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.CalendarId;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.CancelTime;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.EndTime;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.EventId;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.Level;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.Score;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.StartTime;
+import static com.example.apurp_000.dementiaapp.EventResultDBHelper.EventResultStrings.Trophy;
 
 /**
  * Created by apurpura on 6/19/2015.
  */
 public class EventDbHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
     private static final String DICTIONARY_TABLE_NAME = "EventModel";
     private static final String DICTIONARY_TABLE_CREATE =
             "CREATE TABLE " + DICTIONARY_TABLE_NAME + " (" +
@@ -31,7 +45,8 @@ public class EventDbHelper extends SQLiteOpenHelper {
                     Location + " TEXT, " +
                     StartTime + " TEXT, " +
                     EndTime + " TEXT, " +
-                    Action + " TEXT)";
+                    Action + " TEXT, " +
+                    Notify + " TEXT)";
     private static final java.lang.String SQL_DELETE_ENTRIES = "DROP TABLE EventModel";
 
     EventDbHelper(Context context) {
@@ -61,11 +76,12 @@ public class EventDbHelper extends SQLiteOpenHelper {
         public static final String StartTime = "StartTime";
         public static final String EndTime = "EndTime";
         public static final String Action = "Action";
+        public static final String Notify = "Notify";
     }
 
     public void insertEventDB(String id, String calendarId, String summary, String description,
                                 String location, DateTime startTime, DateTime endTime, String action
-                                , Context context) {
+                                , Context context, String notify) {
 
         // Create a new map of values, where column names are the keys
         if(GetEvent(id, context).Id == "") {
@@ -78,13 +94,13 @@ public class EventDbHelper extends SQLiteOpenHelper {
             values.put(StartTime, startTime.toString());
             values.put(EndTime, endTime.toString());
             values.put(Action, action);
-
+            values.put(Notify, notify);
             SQLiteDatabase db = new EventDbHelper(context).getWritableDatabase();
             db.insert("EventModel", null, values);
             db.close();
 
             Integer theId = GetEvent(id, context).u_id;
-            EventModel e = new EventModel(id, calendarId, summary, description, location, startTime.toString(), endTime.toString(), action, theId);
+            EventModel e = new EventModel(id, calendarId, summary, description, location, startTime.toString(), endTime.toString(), action, theId, notify);
             HashMap<String, String> ls = CalendarAPIAdapter.getCalendarList();
             String acctName = Credentials.credential.getSelectedAccountName();
             String primary = ls.get(acctName);
@@ -95,12 +111,12 @@ public class EventDbHelper extends SQLiteOpenHelper {
 
     public EventModel GetEvent(String id, Context context){
         SQLiteDatabase db = new EventDbHelper(context).getReadableDatabase();
-        EventModel m = new EventModel("","","","","","","","",0);
+        EventModel m = new EventModel("","","","","","","","",0, "");
 
         String[] projection = {
                 Id, Action, CalendarId
                 , Description, EndTime, Location
-                , StartTime, Summary, _ID
+                , StartTime, Summary, _ID, Notify
         };
 
         String selection = Id + " = ?";
@@ -122,7 +138,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
                 c.moveToFirst();
                 m = new EventModel(c.getString(0), c.getString(2),
                         c.getString(7), c.getString(3),c.getString(5),
-                        c.getString(6),c.getString(4),c.getString(1), c.getInt(8));
+                        c.getString(6),c.getString(4),c.getString(1), c.getInt(8), c.getString(9));
             }catch(Exception e){
                 id = "";
             }
@@ -136,6 +152,81 @@ public class EventDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = new EventDbHelper(context).getWritableDatabase();
         //return db.delete(, Id + "=" + id, null) > 0;
         return db.delete(DICTIONARY_TABLE_NAME, Id + " = ?", new String[] { id }) > 0;
+    }
+
+    public void updateNotify(Context context, String id){
+        SQLiteDatabase db = new EventDbHelper(context).getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("Notify","False");
+        db.update(DICTIONARY_TABLE_NAME, cv, "Id " + "=\"" + id + "\"", null);
+    }
+
+    public HashMap<String,List<EventModel>> GetNotifyEventsWithoutEventResult(Context context){
+        EventModel m = new EventModel("","","","","","","","",0, "");
+
+        HashMap<String, List<EventModel>> results = new HashMap<String, List<EventModel>>();
+        SQLiteDatabase db = new EventDbHelper(context).getReadableDatabase();
+
+        String select =
+                "select e.Id, e.Action, e.CalendarId" +
+                ", e.Description, e.EndTime, e.Location" +
+                ", e.StartTime, e.Summary, e.Notify" +
+                        " From EventModel e where e.Notify = ?";
+
+
+        //String selection = "EventModel." + Notify + " = ?";
+        String[] selectionArgs = {"True"};
+        //Specify books table and add join to categories table (use full_id for joining categories table)
+        //SQLiteQueryBuilder _QB = new SQLiteQueryBuilder();
+        //_QB.setTables("EventModel" +
+            //    " JOIN " + "EventResult ON " +
+             //   "EventModel.Id" + " = " + "EventResult.EventId");
+
+
+
+        Cursor c = db.rawQuery(
+                select,                                // The columns for the WHERE clause
+                selectionArgs                               // The sort order
+        );
+
+        if (c != null) {
+            // move cursor to first row
+            if (c.moveToFirst()) {
+                do {
+                    String startTime = c.getString(c.getColumnIndex("StartTime"));
+                    String endTime = c.getString(c.getColumnIndex("EndTime"));
+                    if(!startTime.equals(endTime)) {
+                        boolean insertList = false;
+                        List<EventModel> ls;
+                        String action = c.getString(c.getColumnIndex("Action"));
+                        String calendarId = c.getString(c.getColumnIndex("CalendarId"));
+                        if (action != "" & action != "n/a" & calendarId != "") {
+                            if (!results.containsKey(action)) {
+                                ls = new ArrayList<EventModel>();
+                                insertList = true;
+                            } else
+                                ls = results.get(action);
+
+                            String eventId = c.getString(c.getColumnIndex("Id"));
+                            String notify = c.getString(c.getColumnIndex("Notify"));
+                            String summary = c.getString(c.getColumnIndex("Summary"));
+                            String description = c.getString(c.getColumnIndex("Description"));
+
+                            EventModel er = new EventModel(eventId, calendarId, summary, description, "", startTime, endTime, action, 0, notify);
+
+                            // add the bookName into the bookTitles ArrayList
+                            ls.add(er);
+                            // move to next row
+                            if (insertList)
+                                results.put(action, ls);
+                        }
+                    }
+                } while (c.moveToNext());
+            }
+        }
+
+
+        return results;
     }
 
 

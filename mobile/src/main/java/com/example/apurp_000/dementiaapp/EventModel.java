@@ -18,9 +18,10 @@ public class EventModel {
     public String EndTime;
     public String Action;
     public Integer u_id;
+    public String Notify;
 
     public EventModel(String id, String calendarId, String summary, String description,
-                      String location, String startTime, String endTime, String action, Integer _id){
+                      String location, String startTime, String endTime, String action, Integer _id, String notify){
         this.Id = id;
         this.CalendarId = calendarId;
         this.Summary = summary;
@@ -30,5 +31,6 @@ public class EventModel {
         this.EndTime = endTime;
         this.Action = action;
         this.u_id = _id;
+        this.Notify = notify;
     }
 }

@@ -75,8 +75,14 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
 
         //DateTime endDateTime = new DateTime(System.currentTimeMillis() + 720000);
         DateTime endDateTime = null;
-        if(mActivity.checked && zEndDateTime != null)
-            endDateTime = new DateTime(zEndDateTime);
+        String notify = "False";
+        if(mActivity.checked) {
+            notify = "True";
+            if( zEndDateTime != null)
+                endDateTime = new DateTime(zEndDateTime);
+            else
+                endDateTime = startDateTime;
+        }
         else
             endDateTime = startDateTime;
         EventDateTime end = new EventDateTime()
@@ -99,7 +105,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
         //insert in DB
         new EventDbHelper(mActivity).insertEventDB(id, calendarId, summary.getText().toString(), description.getText().toString(),
                 "MARA", start.getDateTime(), end.getDateTime(), mActivity.action
-                , mActivity);
+                , mActivity, notify);
 
         Intent intent = new Intent(mActivity, CalendarActivity.class);
         mActivity.startActivity(intent);

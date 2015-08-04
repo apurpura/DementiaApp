@@ -183,8 +183,10 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                 String id = event.getId();
 
                 String action = "";
+                String notify = "False";
                 if(event.getExtendedProperties() != null)
                     action = event.getExtendedProperties().getShared().get("Action");
+                    notify = event.getExtendedProperties().getShared().get("Notify");
 
 
                 SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
@@ -194,7 +196,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                 String formattedDate = DateFormat.getTimeInstance().format(date);
                 if(start.equals(eventStart)) {
                     EventModel m = new EventModel(id, "", summary, description,
-                            "", formattedDate, "", action, 1);
+                            "", formattedDate, "", action, 1, notify);
                     eList.add(m);
                     //mActivity.listDataHeader.add(start + "       " + childLine);
                 }
@@ -208,10 +210,12 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
         // Construct the {@link Calendar.Events.List} request, but don't execute it yet.
         Credentials.signonActivity.refreshCalendarService();
         HashMap<String, String> calList = CalendarAPIAdapter.getCalendarList();
+        org.joda.time.DateTime eventDate = new org.joda.time.DateTime().withTimeAtStartOfDay();
+        String tz=eventDate.getZone().toString();
         for(String email : calList.keySet()) {
                 String calendarId=calList.get(email);
                 PREFS_KEY = calendarId;
-                Calendar.Events.List request = Credentials.signonActivity.calendarService.events().list(calendarId).setShowDeleted(true);
+                Calendar.Events.List request = Credentials.signonActivity.calendarService.events().list(calendarId).setShowDeleted(true).setTimeZone(tz);
 
                 // Load the sync token stored from the last execution, if any.
                 String syncToken = getValue(Credentials.signonActivity);
@@ -262,12 +266,16 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
 
                             } else {
                                 String action = "";
+                                String notify = "False";
+                                DateTime startD = event.getStart().getDateTime();
+                                DateTime endD = event.getEnd().getDateTime();
                                 if (event.getExtendedProperties() != null)
                                     action = event.getExtendedProperties().getShared().get("Action");
+                                    notify = event.getExtendedProperties().getShared().get("Notify");
                                 if (event.getId() != null & event.getSummary() != null & event.getStart() != null) {
                                     new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
-                                            event.getLocation(), event.getStart().getDateTime(), event.getEnd().getDateTime(), action
-                                            , Credentials.signonActivity);
+                                            event.getLocation(), startD, endD, action
+                                            , Credentials.signonActivity, notify);
                                 }
                                 String evR = "";
                                 if (event.getExtendedProperties() != null)
@@ -287,6 +295,23 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                                             Log.d("insertingEventResult db", "EventId: " + eventId + ",Action: " + action);
                                             EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
                                             db.insertEventResult(startTime, endTime, cancelTime, level, score, action, eventId, calendarId, Credentials.signonActivity, trophy);
+
+                                            if(notify != null) {
+                                                if (!Credentials.credential.getSelectedAccountName().contains(CalendarAPIAdapter.getAccount(calendarId)) & notify.equals("True")) {
+                                                    StringBuilder desc = new StringBuilder();
+                                                    desc.append(CalendarAPIAdapter.getAccount(calendarId) + "\n");
+                                                    if (cancelTime != null && !cancelTime.equals("")) {
+                                                        desc.append("Cancelled");
+                                                    } else {
+                                                        desc.append("Completed");
+                                                    }
+                                                    if (!score.equals("") && !score.equals("n/a") && !score.equals("N/A")) {
+                                                        desc.append("Score: " + score + "\n");
+                                                    }
+
+                                                    Notification.sendNotification(Credentials.signonActivity, action, desc.toString());
+                                                }
+                                            }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
