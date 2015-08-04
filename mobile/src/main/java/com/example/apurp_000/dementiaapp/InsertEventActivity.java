@@ -76,6 +76,7 @@ public class InsertEventActivity extends IActivity {
         context = this;
         publishEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //Check Summary and Description fields for Text or do not publish
                 if(summary.getText().toString().equals("") && description.getText().toString().equals("")) {
                     Toast.makeText(getBaseContext(), "Fill All Required Fields", Toast.LENGTH_SHORT).show();
                 }else if (summary.getText().toString().equals("")) {
@@ -131,7 +132,6 @@ public class InsertEventActivity extends IActivity {
                 //inflater open menu
                 popupMenu.inflate(R.menu.hamburger_menu_insertitempage);
 
-
                 //show menu
                 popupMenu.show();
 
@@ -139,7 +139,6 @@ public class InsertEventActivity extends IActivity {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-
                         switch (item.getItemId()) {
                             case R.id.item1:
                                 Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
@@ -151,9 +150,6 @@ public class InsertEventActivity extends IActivity {
                                 Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
                                 return true;
                         }
-
-
-
                         return false;
                     }
                 });
@@ -161,6 +157,7 @@ public class InsertEventActivity extends IActivity {
             }
         });
     }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         for (int i=0; i<menu.size(); i++) {
@@ -172,7 +169,6 @@ public class InsertEventActivity extends IActivity {
         }
         return true;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -230,7 +226,7 @@ public class InsertEventActivity extends IActivity {
     }
 
     //Create the Listener for the dates selected, then evalutes what text field to
-    //display the date.
+    //Display the date.
     private DatePickerDialog.OnDateSetListener dpickerListner = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -270,10 +266,11 @@ public class InsertEventActivity extends IActivity {
                     zEndDate = eventEndDate.getText().toString();
 
             }
-            //Toast.makeText(InsertEventActivity.this,zYear + "-" + zMonth + "-" + zDay, Toast.LENGTH_LONG).show();
         }
     };
 
+    //Create the Listener for the times selected, then evalutes what text field to
+    //Display the time.
     private TimePickerDialog.OnTimeSetListener tPickerListen = new TimePickerDialog.OnTimeSetListener(){
 
         @Override
@@ -308,29 +305,30 @@ public class InsertEventActivity extends IActivity {
         }
     };
 
-public Date zGetStartDate (){
-    SimpleDateFormat zSDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    Date zEventStartDateTime = null;
-    try {
-        zEventStartDateTime = zSDF.parse(zStartDate + "T" + zStartTime);
-    } catch (ParseException e) {
-        e.printStackTrace();
-    }
+    //Format Start Date and Time to be used in StartDateTime Event Method
+    public Date zGetStartDate (){
+        SimpleDateFormat zSDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date zEventStartDateTime = null;
+        try {
+            zEventStartDateTime = zSDF.parse(zStartDate + "T" + zStartTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-    return zEventStartDateTime;
+        return zEventStartDateTime;
+        };
+        //Format End Date and Time to be used in EndDateTime of Event Method
+    public Date zGetEndDate (){
+        SimpleDateFormat zEDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date zEventEndDateTime = null;
+        try {
+            zEventEndDateTime = zEDF.parse(zEndDate + "T" + zEndTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return zEventEndDateTime;
     };
-
-public Date zGetEndDate (){
-    SimpleDateFormat zEDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    Date zEventEndDateTime = null;
-    try {
-        zEventEndDateTime = zEDF.parse(zEndDate + "T" + zEndTime);
-    } catch (ParseException e) {
-        e.printStackTrace();
-    }
-
-    return zEventEndDateTime;
-};
 
     /**
      * Called whenever this activity is pushed to the foreground, such as after
