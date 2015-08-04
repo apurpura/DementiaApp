@@ -74,7 +74,11 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
         event.setStart(start);
 
         //DateTime endDateTime = new DateTime(System.currentTimeMillis() + 720000);
-        DateTime endDateTime = new DateTime(zEndDateTime);
+        DateTime endDateTime = null;
+        if(mActivity.checked && zEndDateTime != null)
+            endDateTime = new DateTime(zEndDateTime);
+        else
+            endDateTime = startDateTime;
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime)
                 .setTimeZone("America/Los_Angeles");
@@ -84,6 +88,8 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
         Event.ExtendedProperties EP = new Event.ExtendedProperties();
         Map<String, String> map = new HashMap<String, String>();
         map.put("Action", mActivity.action);
+        if(mActivity.checked)
+            map.put("Notify", "True");
         EP.setShared(map);
         event.setExtendedProperties(EP);
 

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.PopupMenu;
@@ -42,6 +43,7 @@ public class InsertEventActivity extends IActivity {
     static final int zDateDialog = 0;
     static final int zTimeDialog = 1;
     boolean setFalse = false;
+    boolean checked = false;
 
     String action;
     Spinner actionSpinner;
@@ -381,6 +383,24 @@ public Date zGetEndDate (){
         public void onNothingSelected(AdapterView<?> arg0) {
             // TODO Auto-generated method stub
         }
+
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        checked = ((CheckBox) view).isChecked();
+        EditText endDate = (EditText) findViewById(R.id.endView);
+        EditText endTime = (EditText) findViewById(R.id.endTimeView);
+        if(checked){
+            endDate.setVisibility(View.VISIBLE);
+            endTime.setVisibility(View.VISIBLE);
+        }
+        else{
+            endDate.setVisibility(View.INVISIBLE);
+            endTime.setVisibility(View.INVISIBLE);
+        }
+
+
 
     }
 }
