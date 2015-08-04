@@ -5,8 +5,7 @@
     android:background="@drawable/uibluegradientbg"
     android:weightSum="1">
 
-
-        <!-- Spinner Dropdown -->
+    <!-- Spinner Dropdown -->
 
     <Button
         android:layout_width="65dp"
@@ -19,19 +18,37 @@
 
     <!-- Spinner Dropdown -->
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Active Patient&apos;s Account:"
+        android:id="@+id/textView2"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
     <Spinner
         android:id="@+id/account_spinner"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:prompt="@string/account"
-        android:layout_marginTop="4dip"
+        android:layout_marginTop="0dp"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
-        android:layout_marginBottom="8dp"
-        android:paddingRight="25dp"
-        android:paddingLeft="25dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/uilargegreenbuttonselector" />
+        android:background="@drawable/uilargegreenbuttonselector"
+        android:layout_marginBottom="20dp"
+        android:clickable="false"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
+        android:layout_weight=".15" />
 
     <EditText android:id="@+id/eventTitle"
         android:layout_width="match_parent"
@@ -42,6 +59,7 @@
         android:layout_marginBottom="8dp"
         android:hint="Enter Title *"
         android:background="@android:color/white" />
+
     <EditText android:id="@+id/eventDescription"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -58,18 +76,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Location" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Type of Activity:"
+        android:id="@+id/textView3"
+        android:textStyle="bold"
+        android:textColor="#000000"/>
+
     <Spinner
         android:id="@+id/actionSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
         android:entries="@array/actions_array"
         android:prompt="@string/action_prompt"
-        android:layout_marginTop="4dip"
         android:layout_marginLeft="8dip"
+        android:layout_marginTop="0dp"
         android:layout_marginRight="8dip"
-        android:layout_marginBottom="8dp"
-        android:paddingRight="25dp"
-        android:paddingLeft="25dp"
+        android:layout_marginBottom="20dip"
+        android:paddingLeft="15dp"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="2dp"
+        android:layout_weight=".15"
         android:background="@drawable/uilargegreenbuttonselector" />
 
 
@@ -81,6 +112,7 @@
         android:layout_marginRight="8dip"
         android:layout_marginBottom="8dp"
         android:orientation="vertical">
+
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -175,13 +207,18 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="38dp"
             android:text="Publish"
             android:id="@+id/publishEvent"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/uilargegreenbuttonselector"
-            android:textStyle="bold" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_margin="5dp"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
