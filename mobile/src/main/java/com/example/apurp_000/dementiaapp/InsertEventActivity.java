@@ -5,13 +5,20 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -54,6 +61,10 @@ public class InsertEventActivity extends IActivity {
             zDay = cal.get(Calendar.DAY_OF_MONTH);
             zMinute = cal.get(Calendar.MINUTE);
             zHourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+
+        //set up hamburger menu btn
+        setHamBtnlistners();
+
 
         //Execute Calendar Dialog Popup
         showDialog();
@@ -104,6 +115,68 @@ public class InsertEventActivity extends IActivity {
         actionSpinner = (Spinner) findViewById(R.id.actionSpinner);
         actionSpinner.setOnItemSelectedListener(new ActionOnItemSelectedListener());
 
+    }
+
+    public void setHamBtnlistners(){
+
+        Button hamButton = (Button) findViewById(R.id.HamburgerButtonInsertEvent);
+        hamButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                //Pop UP Menu
+                PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
+
+                //inflater open menu
+                popupMenu.inflate(R.menu.hamburger_menu_insertitempage);
+
+
+                //show menu
+                popupMenu.show();
+
+                //set up listners for the hamburger menu tiles
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+                            case R.id.item1:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.item2:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.item3:
+                                Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
+                                return true;
+                        }
+
+
+
+                        return false;
+                    }
+                });
+
+            }
+        });
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        for (int i=0; i<menu.size(); i++) {
+            MenuItem mi = menu.getItem(i);
+            String title = mi.getTitle().toString();
+            Spannable newTitle = new SpannableString(title);
+            newTitle.setSpan(new ForegroundColorSpan(Color.BLACK), 0, newTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mi.setTitle(newTitle);
+        }
+        return true;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.hamburger_menu_insertitempage, menu);
+        return true;
     }
 
     //Create a Popup Dialog for Start Date and End Date text fields

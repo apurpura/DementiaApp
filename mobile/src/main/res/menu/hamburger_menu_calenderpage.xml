@@ -9,7 +9,7 @@
         />
     <item
         android:id="@+id/item2"
-        android:title="Close"
+        android:title="Instructions"
         />
     <item
         android:id="@+id/item3"

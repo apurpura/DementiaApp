@@ -76,7 +76,7 @@ public class MainMenu extends Activity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
 
-                      /*  switch (item.getItemId()) {
+                       switch (item.getItemId()) {
                             case R.id.item1:
                                 Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
                                 return true;
@@ -85,8 +85,8 @@ public class MainMenu extends Activity {
                                 return true;
                             case R.id.item3:
                                 Toast.makeText(getApplicationContext(),item.toString(),Toast.LENGTH_SHORT).show();
-                                return true;*/
-                   //     }
+                                return true;
+                       }
 
 
 
