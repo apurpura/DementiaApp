@@ -22,10 +22,13 @@ public class PillSequence extends Activity {
     public String zStartTime;
     public String zEndTime;
     public String zCancelTime = "n/a";
+    public String zTResults = "";
     Date zStart;
     Date zEnd;
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
+    TextMessageActivity zTMA = new TextMessageActivity();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +94,6 @@ public class PillSequence extends Activity {
                         //Integer fakeEndTime = 4;
                         zEnd = new Date();
                         zEndTime = zGetTimes.generateTimes();
-                        //ryan comment out analytics if gonna run to test time check
-                        generateAnalytics();
-                        notFinished = false;
 
                         if(zTrophieTimes() <= 3){
 
@@ -101,9 +101,10 @@ public class PillSequence extends Activity {
                             // start end page
                             Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                             trophyIntent.putExtra("text", goldText);
+                            zTResults = "1";
+                            generateAnalytics();
                             //start memory end page
                             startActivity(trophyIntent);
-
                             //finish
                             finish();
 
@@ -114,6 +115,8 @@ public class PillSequence extends Activity {
                             // start end page
                             Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                             trophyIntent.putExtra("text", silverText);
+                            zTResults = "2";
+                            generateAnalytics();
                             //start memory end page
                             startActivity(trophyIntent);
 
@@ -121,12 +124,12 @@ public class PillSequence extends Activity {
                             finish();
 
                         }else if (zTrophieTimes() <= 5){
-
-
                             String bronzeText = "bronze";
                             // start end page
                             Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                             trophyIntent.putExtra("text", bronzeText);
+                            zTResults = "3";
+                            generateAnalytics();
                             //start memory end page
                             startActivity(trophyIntent);
 
@@ -135,11 +138,13 @@ public class PillSequence extends Activity {
 
                         }
                         else {
+                            generateAnalytics();
                             //no trophy
                             finish();
                         }
-
+                        notFinished = false;
                         break;
+
 
                 }
 
@@ -155,9 +160,10 @@ public class PillSequence extends Activity {
         String Level = "n/a";
         String Score = "n/a";
         String Action = "Pill Sequence";
-        String EventId = "FigureOutEvenID02";
+        String EventId = zTMA.id;
+        String Trophy = zTResults;
 
-        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
+        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId, Trophy);
         new SendResultToMobile(zResults,this).start();
     }
 

@@ -89,11 +89,13 @@ public class MemoryGameActivity extends Activity {
 
     int zAttempts = 0;
 
+    public String zTResults = "";
     public String zStartTime;
     public String zEndTime;
     public String zCancelTime = "n/a";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
+    TextMessageActivity zTMA = new TextMessageActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -622,18 +624,24 @@ public class MemoryGameActivity extends Activity {
             //start Memory
             // startActivity(new Intent(getApplicationContext(), MemoryWinPage.class));
             String endPageMissed = String.valueOf(zAttempts);
+            zEndTime = zGetTimes.generateTimes();
+            //Fake Trophy Data
+            if(zAttempts <= 18) {
+                zTResults = "1";
+            }else if(zAttempts <= 20){
+                zTResults = "2";
+            }else if (zAttempts <= 30){
+                zTResults = "3";
+            }
+
+            notFinished = false;
+            generateAnalytics();
 
             // start end page
             Intent memoryGameIntent = new Intent(getApplicationContext(), MemoryWinPage.class);
             memoryGameIntent.putExtra("text", endPageMissed);
             //start memory end page
             startActivity(memoryGameIntent);
-
-            //close app
-            zEndTime = zGetTimes.generateTimes();
-            notFinished = false;
-           generateAnalytics();
-
             //end app
             finish();
         }else {
@@ -1803,9 +1811,10 @@ public class MemoryGameActivity extends Activity {
         String Level = "n/a";
         String Score = Integer.toString(zAttempts);
         String Action = "Memory Game";
-        String EventId = "FigureOutEvenID04";
+        String EventId = zTMA.id;
+        String Trophy = zTResults;
 
-        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
+        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId, Trophy);
         new SendResultToMobile(zResults,this).start();
     }
 

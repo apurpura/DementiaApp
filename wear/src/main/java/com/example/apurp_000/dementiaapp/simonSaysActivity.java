@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,12 +28,14 @@ public class simonSaysActivity extends Activity {
     List<Integer> zComparingList = new ArrayList<Integer>();
     List<Integer> zTrueList = new ArrayList<Integer>();
     public int zSpotInArray = 0, zLevelCount = 0;
+    public String zTResults;
 
     public String zStartTime;
     public String zEndTime;
     public String zCancelTime = "n/a";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
+    TextMessageActivity zTMA = new TextMessageActivity();
 
     //sound - implement when speakers are avail
     //MediaPlayer yellowMediaPlayer;
@@ -113,8 +117,8 @@ public class simonSaysActivity extends Activity {
         if(notFinished){
             zCancelTime = zGetTimes.generateTimes();
             zEndTime = "n/a";
-
-            //generateAnalytics();
+            zTResults = "";
+            generateAnalytics();
         }
         super.onDestroy();
     }
@@ -144,8 +148,14 @@ public class simonSaysActivity extends Activity {
                             zClearArrays();
                             onResume();}else{
                                 zEndTime = zGetTimes.generateTimes();
-                                //here dave
-                                //generateAnalytics();
+                                if (zLevelCount >= 6) {
+                                    zTResults = "1";
+                                }else if(zLevelCount >= 4){
+                                    zTResults = "2";
+                                }else if(zLevelCount >= 2){
+                                    zTResults = "3";
+                                }
+                                generateAnalytics();
                                 notFinished = false;
                                 finish(); }
                     }
@@ -185,8 +195,14 @@ public class simonSaysActivity extends Activity {
                             zClearArrays();
                             onResume();}else{
                             zEndTime = zGetTimes.generateTimes();
-                            //here dave
-                            //generateAnalytics();
+                            if (zLevelCount >= 6) {
+                                zTResults = "1";
+                            }else if(zLevelCount >= 4){
+                                zTResults = "2";
+                            }else if(zLevelCount >= 2){
+                                zTResults = "3";
+                            }
+                            generateAnalytics();
                             notFinished = false;
                             finish(); }
                     }
@@ -226,8 +242,14 @@ public class simonSaysActivity extends Activity {
                             zClearArrays();
                             onResume();}else{
                             zEndTime = zGetTimes.generateTimes();
-                            //here dave
-                            //generateAnalytics();
+                            if (zLevelCount >= 6) {
+                                zTResults = "1";
+                            }else if(zLevelCount >= 4){
+                                zTResults = "2";
+                            }else if(zLevelCount >= 2){
+                                zTResults = "3";
+                            }
+                            generateAnalytics();
                             notFinished = false;
                             finish(); }
                     }
@@ -267,8 +289,14 @@ public class simonSaysActivity extends Activity {
                             zClearArrays();
                             onResume();}else{
                             zEndTime = zGetTimes.generateTimes();
-                            //here dave
-                            //generateAnalytics();
+                            if (zLevelCount >= 6) {
+                                zTResults = "1";
+                            }else if(zLevelCount >= 4){
+                                zTResults = "2";
+                            }else if(zLevelCount >= 2){
+                                zTResults = "3";
+                            }
+                            generateAnalytics();
                             notFinished = false;
                             finish(); }
                     }
@@ -378,9 +406,10 @@ public class simonSaysActivity extends Activity {
         String Level = Integer.toString(zLevelCount);
         String Score = "n/a";
         String Action = "Simon Says";
-        String EventId = "FigureOutEvenID06";
+        String EventId = zTMA.id;
+        String Trophy = zTResults;
 
-        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
+        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId, Trophy);
         new SendResultToMobile(zResults,this).start();
     }
 

@@ -21,8 +21,10 @@ public class ActSequence extends Activity {
     Date zStart;
     Date zEnd;
     public String zCancelTime = "n/a";
+    public String zTResults = "";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
+    TextMessageActivity zTMA = new TextMessageActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +103,6 @@ public class ActSequence extends Activity {
                            //Integer fakeEndTime = 3;
                            zEnd = new Date();
                            zEndTime = zGetTimes.generateTimes();
-                           notFinished = false;
-                           //Ryan comment analytics for debug check
-                           generateAnalytics();
 
                            if(zTrophieTimes() <= 3){
 
@@ -111,6 +110,8 @@ public class ActSequence extends Activity {
                                // start end page
                                Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                                trophyIntent.putExtra("text", goldText);
+                               zTResults = "1";
+                               generateAnalytics();
                                //start memory end page
                                startActivity(trophyIntent);
 
@@ -119,11 +120,12 @@ public class ActSequence extends Activity {
 
                            }else if (zTrophieTimes() <= 4){
 
-
                                String silverText = "silver";
                                // start end page
                                Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                                trophyIntent.putExtra("text", silverText);
+                               zTResults = "2";
+                               generateAnalytics();
                                //start memory end page
                                startActivity(trophyIntent);
 
@@ -131,12 +133,12 @@ public class ActSequence extends Activity {
                                finish();
 
                            }else if (zTrophieTimes() <= 5){
-
-
                                String bronzeText = "bronze";
                                // start end page
                                Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                                trophyIntent.putExtra("text", bronzeText);
+                               zTResults = "3";
+                               generateAnalytics();
                                //start memory end page
                                startActivity(trophyIntent);
 
@@ -145,10 +147,11 @@ public class ActSequence extends Activity {
 
                            }
                            else {
+                               generateAnalytics();
                                //no trophy
                                finish();
                            }
-
+                           notFinished = false;
                            break;
                    }
             }
@@ -163,9 +166,10 @@ public class ActSequence extends Activity {
         String Level = "n/a";
         String Score = "n/a";
         String Action = "Dress Sequence";
-        String EventId = "FigureOutEvenID01";
+        String EventId = zTMA.id;
+        String Trophy = zTResults;
 
-        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
+        ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId, Trophy);
         new SendResultToMobile(zResults,this).start();
     }
 

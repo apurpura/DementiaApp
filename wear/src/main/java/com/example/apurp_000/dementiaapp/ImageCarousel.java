@@ -48,6 +48,8 @@ public class ImageCarousel extends Activity {
     public String zCancelTime = "n/a";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
+    TextMessageActivity zTMA = new TextMessageActivity();
+
     int TIMEOUT_MS = 10000;
     public  Bitmap zTestBimp;
     private  GoogleApiClient mGoogleApiClient;
@@ -110,7 +112,7 @@ public class ImageCarousel extends Activity {
         String Level = "n/a";
         String Score = "n/a";
         String Action = "Image Carousel";
-        String EventId = "FigureOutEvenID03";
+        String EventId = zTMA.id;
 
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
         new SendResultToMobile(zResults,this).start();

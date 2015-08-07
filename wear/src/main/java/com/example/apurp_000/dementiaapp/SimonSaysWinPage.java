@@ -54,9 +54,9 @@ public class SimonSaysWinPage extends Activity {
                 //debug for trophy page
                 //simonScore = "10";
 
-                int numberRight=  Integer.parseInt(simonScore);
+                int numberRight= Integer.parseInt(simonScore);
 
-                if (numberRight >= 4) {
+                if (numberRight >= 6) {
 
                     String goldText = "gold";
                     // start end page
@@ -67,7 +67,7 @@ public class SimonSaysWinPage extends Activity {
 
                     finish();
 
-                }else if(numberRight >= 3){
+                }else if(numberRight >= 4){
                     String silverText = "silver";
                     // start end page
                     Intent trophyIntent = new Intent(getApplicationContext(),TrophyPage.class);

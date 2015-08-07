@@ -35,7 +35,7 @@ public class TextMessageActivity extends Activity  {
     private JSONObject json;
     private String summary;
     private String description;
-    private String id;
+    protected String id;
     private String action;
     private String location;
     private String closeTime;
