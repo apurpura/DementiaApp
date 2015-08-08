@@ -36,10 +36,10 @@ public class ImageCarousel extends Activity {
             R.drawable.pic4
     };
     String[] zTextIDs ={
-      "Abstract Art",
-      "Shark",
-      "Wolf",
-      "Parrot"
+      "Friend - Bill",
+      "Daughter - Jane",
+      "Surpise!",
+      "The Grandkids - Sam and Kelly"
     };
 
     int zImageCounter = 0;
@@ -81,8 +81,8 @@ public class ImageCarousel extends Activity {
         //before moving onto the next image.
         Runnable r = new Runnable() {
             public void run() {
-                //zImageView.setImageResource(zImageIDs[zImageCounter]);
-                zImageView.setImageBitmap(zTestBimp);
+                zImageView.setImageResource(zImageIDs[zImageCounter]);
+                //zImageView.setImageBitmap(zTestBimp);
                 zTextView.setText(zTextIDs[zImageCounter]);
                 zImageCounter++;
                 if (zImageCounter >= zImageIDs.length) {
