@@ -1,6 +1,7 @@
 package com.example.apurp_000.dementiaapp;
 
         import android.app.Activity;
+        import android.content.Intent;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
         import android.os.Bundle;
@@ -19,6 +20,8 @@ package com.example.apurp_000.dementiaapp;
         import com.google.android.gms.wearable.DataMapItem;
         import com.google.android.gms.wearable.Wearable;
         import com.google.android.gms.wearable.WearableListenerService;
+
+        import org.json.JSONObject;
 
         import java.io.InputStream;
         import java.util.concurrent.TimeUnit;
@@ -48,7 +51,7 @@ public class ImageCarousel extends Activity {
     public String zCancelTime = "n/a";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
-    TextMessageActivity zTMA = new TextMessageActivity();
+    private String id = "";
 
     int TIMEOUT_MS = 10000;
     public  Bitmap zTestBimp;
@@ -60,6 +63,17 @@ public class ImageCarousel extends Activity {
         setContentView(R.layout.activity_image_carousel);
         setupGoogleApiClient();
         zStartTime = zGetTimes.generateTimes();
+
+        Intent intent = getIntent();
+        String m = intent.getStringExtra("text");
+        if(m != null) {
+            try {
+                JSONObject json = new JSONObject(m);
+                id = json.get("Id").toString();
+            } catch (Exception e) {
+                ///keep going
+            }
+        }
 
         //Pull the Image View and Text View variable from the XML Layout
         final ImageView zImageView = (ImageView) findViewById(R.id.image1);
@@ -112,7 +126,7 @@ public class ImageCarousel extends Activity {
         String Level = "n/a";
         String Score = "n/a";
         String Action = "Image Carousel";
-        String EventId = zTMA.id;
+        String EventId = id;
 
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId);
         new SendResultToMobile(zResults,this).start();

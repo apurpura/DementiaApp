@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -95,11 +97,11 @@ public class MemoryGameActivity extends Activity {
     public String zCancelTime = "n/a";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
-    TextMessageActivity zTMA = new TextMessageActivity();
+    String id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_memory_game);
         zStartTime = zGetTimes.generateTimes();
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
@@ -107,6 +109,7 @@ public class MemoryGameActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+
 
                 //give sinstructions
                 Toast.makeText(getBaseContext(), "Match Two Images Alike By Tapping On Card", Toast.LENGTH_SHORT).show();
@@ -124,7 +127,17 @@ public class MemoryGameActivity extends Activity {
 
             }
         });
-
+        Intent intent = getIntent();
+        String m = intent.getStringExtra("text");
+        if(m != null) {
+            try {
+                JSONObject json = new JSONObject(m);
+                id = json.get("Id").toString();
+            } catch (Exception e) {
+                ///keep going
+            }
+        }
+        super.onCreate(savedInstanceState);
 
     }
 
@@ -1811,7 +1824,7 @@ public class MemoryGameActivity extends Activity {
         String Level = "n/a";
         String Score = Integer.toString(zAttempts);
         String Action = "Memory Game";
-        String EventId = zTMA.id;
+        String EventId = id;
         String Trophy = zTResults;
 
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId, Trophy);

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +26,7 @@ public class ActSequence extends Activity {
     public String zTResults = "";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
-    TextMessageActivity zTMA = new TextMessageActivity();
+    private String id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,16 @@ public class ActSequence extends Activity {
                 tapToConitinue();
             }
         });
+        Intent intent = getIntent();
+        String m = intent.getStringExtra("text");
+        if(m != null) {
+            try {
+                JSONObject json = new JSONObject(m);
+                id = json.get("Id").toString();
+            } catch (Exception e) {
+                ///keep going
+            }
+        }
     }
     //Should the patient just cancel the activity
     protected void onDestroy(){
@@ -166,7 +178,7 @@ public class ActSequence extends Activity {
         String Level = "n/a";
         String Score = "n/a";
         String Action = "Dress Sequence";
-        String EventId = zTMA.id;
+        String EventId = id;
         String Trophy = zTResults;
 
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId, Trophy);

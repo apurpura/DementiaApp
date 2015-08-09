@@ -54,19 +54,19 @@ public class MessageListener extends WearableListenerService {
                     startTextMessageActivity(message);
                     break;
                 case "Image Carousel":
-                    startCarousel();
+                    startCarousel(message);
                     break;
                 case "Simon Says Game":
-                    simonSaysActivity();
+                    simonSaysActivity(message);
                     break;
                 case "Pills - Sequence":
-                    pillSequence();
+                    pillSequence(message);
                     break;
                 case "Female Dressed - Sequence":
-                    actSequence();
+                    actSequence(message);
                     break;
                 case "Memory Matching Game":
-                    MemoryMatchingActivity();
+                    MemoryMatchingActivity(message);
                     break;
             }
         } catch (JSONException e) {
@@ -74,22 +74,25 @@ public class MessageListener extends WearableListenerService {
         }
     }
 
-    private void simonSaysActivity() {
+    private void simonSaysActivity(String message) {
         Log.d("activatingIntent", "MainActivityIntent");
         Intent messageIntent = new Intent(this, startPage.class);
         messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        messageIntent.putExtra("text", message);
         this.startActivity(messageIntent);
     }
-    private void pillSequence() {
+    private void pillSequence(String message) {
         Log.d("activatingIntent", "MainActivityIntent");
         Intent messageIntent = new Intent(this, PillSequence.class);
         messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        messageIntent.putExtra("text", message);
         this.startActivity(messageIntent);
     }
-    private void actSequence() {
+    private void actSequence(String message) {
         Log.d("activatingIntent", "MainActivityIntent");
         Intent messageIntent = new Intent(this, ActSequence.class);
         messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        messageIntent.putExtra("text", message);
         this.startActivity(messageIntent);
     }
 
@@ -101,17 +104,19 @@ public class MessageListener extends WearableListenerService {
         this.startActivity(messageIntent);
     }
 
-    private void startCarousel() {
+    private void startCarousel( String message) {
         Log.d("activatingIntent", "MainActivityIntent");
         Intent messageIntent = new Intent(this, ImageCarousel.class);
         messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        messageIntent.putExtra("text", message);
         this.startActivity(messageIntent);
     }
 
-    private void MemoryMatchingActivity(){
+    private void MemoryMatchingActivity(String message){
         Log.d("activatingIntent", "MainActivityIntent");
         Intent messageIntent = new Intent(this, MemoryGameStartPage.class);
         messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        messageIntent.putExtra("text", message);
         this.startActivity(messageIntent);
     }
 

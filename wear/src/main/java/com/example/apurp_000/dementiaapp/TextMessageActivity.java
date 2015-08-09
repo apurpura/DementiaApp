@@ -58,10 +58,10 @@ public class TextMessageActivity extends Activity  {
             if(m != null) {
                 try {
                     json = new JSONObject(m);
-                    id = json.get("Id").toString() + "\n";
-                    action = json.get("Action").toString() + "\n";
-                    summary =  json.get("Summary").toString() + "\n";
-                    description =json.get("Description").toString() + "\n";
+                    id = json.get("Id").toString();
+                    action = json.get("Action").toString();
+                    summary =  json.get("Summary").toString();
+                    description =json.get("Description").toString();
                     //text = text + "EndTime: " + json.get("EndTime").toString() + "\n";
                     location = json.get("Location").toString();
                 } catch (JSONException e) {

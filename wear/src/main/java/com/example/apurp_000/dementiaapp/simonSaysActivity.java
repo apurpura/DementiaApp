@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class simonSaysActivity extends Activity {
     public String zCancelTime = "n/a";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
-    TextMessageActivity zTMA = new TextMessageActivity();
+    private String id = "";
 
     //sound - implement when speakers are avail
     //MediaPlayer yellowMediaPlayer;
@@ -85,6 +86,16 @@ public class simonSaysActivity extends Activity {
                 onClickYellow();
             }
         });
+        Intent intent = getIntent();
+        String m = intent.getStringExtra("text");
+        if(m != null) {
+            try {
+                JSONObject json = new JSONObject(m);
+                id = json.get("Id").toString();
+            } catch (Exception e) {
+                ///keep going
+            }
+        }
     }
 
     protected void onResume() {
@@ -406,7 +417,7 @@ public class simonSaysActivity extends Activity {
         String Level = Integer.toString(zLevelCount);
         String Score = "n/a";
         String Action = "Simon Says";
-        String EventId = zTMA.id;
+        String EventId = id;
         String Trophy = zTResults;
 
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId, Trophy);

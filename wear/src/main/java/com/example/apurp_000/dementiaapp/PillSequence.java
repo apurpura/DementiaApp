@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,7 +29,7 @@ public class PillSequence extends Activity {
     Date zEnd;
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
-    TextMessageActivity zTMA = new TextMessageActivity();
+    private String id = "";
 
 
     @Override
@@ -46,6 +48,16 @@ public class PillSequence extends Activity {
                 tapToConitinue();
             }
         });
+        Intent intent = getIntent();
+        String m = intent.getStringExtra("text");
+        if(m != null) {
+            try {
+                JSONObject json = new JSONObject(m);
+                id = json.get("Id").toString();
+            } catch (Exception e) {
+                ///keep going
+            }
+        }
     }
 
     //Should the patient just cancel the activity
@@ -160,7 +172,7 @@ public class PillSequence extends Activity {
         String Level = "n/a";
         String Score = "n/a";
         String Action = "Pill Sequence";
-        String EventId = zTMA.id;
+        String EventId = id;
         String Trophy = zTResults;
 
         ActivityResult zResults = new ActivityResult(StartTime, EndTime, CancelTime, Level, Score, Action, EventId, Trophy);

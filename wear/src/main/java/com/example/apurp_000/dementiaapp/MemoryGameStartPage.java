@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 public class MemoryGameStartPage extends Activity {
 
     private TextView mTextView;
+    private String message ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class MemoryGameStartPage extends Activity {
 
             }
         });
+        Intent intent = getIntent();
+        message = intent.getStringExtra("text");
 
 
     }
@@ -36,7 +41,9 @@ public class MemoryGameStartPage extends Activity {
 
 
                 //start Memory
-                startActivity(new Intent(getApplicationContext(),MemoryGameActivity.class));
+                Intent actIntent = new Intent(getApplicationContext(),MemoryGameActivity.class);
+                actIntent.putExtra("text",message);
+                startActivity(actIntent);
                 //Close Start Page
                 finish();
 

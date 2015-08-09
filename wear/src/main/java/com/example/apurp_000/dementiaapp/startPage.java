@@ -14,6 +14,7 @@ public class startPage extends Activity {
     private TextView mTextView;
     //Code for when wearable has speakers
    // MediaPlayer goodJob;
+    private String message = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,8 @@ public class startPage extends Activity {
 
             }
         });
-
+        Intent intent = getIntent();
+        message = intent.getStringExtra("text");
 
     }
     public void onClickStart(){
@@ -44,6 +46,7 @@ public class startPage extends Activity {
 
 
                 Intent intent = new Intent(startPage.this,simonSaysActivity.class);
+                intent.putExtra("text", message);
                 startActivity(intent);
                 //close
                 finish();

@@ -81,6 +81,8 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                 mActivity.rl.removeAllViews();
                 Integer actionId = View.generateViewId();
                 for (String key : er.keySet()) {
+                    List<EventResult> ls = er.get(key);
+                    String hsv = getHighestScore(ls);
                     GridLayout gv = new GridLayout(mActivity);
                     gv.setColumnCount(2);
                     gv.setRowCount(6);
@@ -117,7 +119,7 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                     TextView blank3 = new TextView(mActivity);
                     gv.addView(blank3);*/
 
-                    List<EventResult> ls = er.get(key);
+
                     EventResult evR = getEventWithScore(ls);
                     if(evR.score > 0){
                         action.setClickable(true);
@@ -226,7 +228,6 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                         gv.addView(hs, params11);
 
                         //high score value
-                        String hsv = getHighestScore(ls);
                         TextView hcv = new TextView(mActivity);
                         hcv.setText(hsv);
                         hcv.setTypeface(null, Typeface.BOLD);
@@ -341,16 +342,16 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
         for(EventResult e : ls){
             if(e.score > highest){
                 highest = e.score;
-                try {
-                    if (Integer.getInteger(e.trophy) == 1)
-                        gScore++;
-                    if (Integer.getInteger(e.trophy) == 2)
-                        sScore++;
-                    if (Integer.getInteger(e.trophy) == 3)
-                        bScore++;
-                }catch (Exception k){
-                    //just keep it going
-                }
+            }
+            try {
+                if (e.trophy.equals("1"))
+                    gScore++;
+                if (e.trophy.equals("2"))
+                    sScore++;
+                if (e.trophy.equals("3"))
+                    bScore++;
+            }catch (Exception k){
+                //just keep it going
             }
         }
         return highest.toString();
