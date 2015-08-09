@@ -15,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.GridLayout.LayoutParams;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -26,14 +29,14 @@ import java.util.List;
 import java.util.Map;
 
 public class MemoryRecallAnalytics extends IActivity {
-    public GridLayout gv;
+    public LinearLayout rl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Credentials.signonActivity.refreshCalendarService();
         setContentView(R.layout.activity_memory_recall_analytics);
-        gv = (GridLayout) findViewById(R.id.grid);
+        rl = (LinearLayout) findViewById(R.id.rellay);
 
         // Spinner Drop down elements
         lables = new ArrayList<>();

@@ -46,7 +46,7 @@ public class CheckWearableConnection  extends Service implements GoogleApiClient
         public void run() {
         NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes(googleClient).await();
         if (nodes.getNodes().size() == 0) {
-            Set<String> ls = CalendarAPIAdapter.getCalendarList().keySet();
+            /*Set<String> ls = CalendarAPIAdapter.getCalendarList().keySet();
             String[] recips =  ls.toArray(new String[ls.size()]);
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("message/rfc822");
@@ -57,7 +57,8 @@ public class CheckWearableConnection  extends Service implements GoogleApiClient
                 Credentials.signonActivity.startActivity(Intent.createChooser(i, "Send mail..."));
             } catch (android.content.ActivityNotFoundException ex) {
                 Toast.makeText(Credentials.signonActivity, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-            }
+            }*/
+            Notification.sendNotification(Credentials.signonActivity, "Wearable not connected", "Connect Device");
             sendConnectionFailedMessage = false;
         } else
             sendConnectionFailedMessage = true;

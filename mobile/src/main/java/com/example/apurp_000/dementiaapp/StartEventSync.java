@@ -57,6 +57,9 @@ public class StartEventSync extends AsyncTask<Void, Void, Void>{
     }
 
     public static void startAlarm(){
+        if(Credentials.signonActivity == null){
+            Credentials.signonActivity = new SigningOnActivity();
+        }
         Credentials.signonActivity.refreshCalendarService();
         String id = Integer.toString(new Random().nextInt());
         String calendarId = null;
@@ -68,8 +71,8 @@ public class StartEventSync extends AsyncTask<Void, Void, Void>{
         try {
             CalendarApiHelperAsync.UpdateEvents();
             SearchForOverDueEvents();
-           // Intent intent = new Intent(mActivity,CheckWearableConnection.class);
-           // mActivity.startService(intent);
+            Intent intent = new Intent(mActivity,CheckWearableConnection.class);
+            mActivity.startService(intent);
         } catch (IOException e) {
             e.printStackTrace();
         }
