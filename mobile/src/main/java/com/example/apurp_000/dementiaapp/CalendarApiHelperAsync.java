@@ -270,8 +270,12 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                                 DateTime startD = event.getStart().getDateTime();
                                 DateTime endD = event.getEnd().getDateTime();
                                 if (event.getExtendedProperties() != null)
-                                    action = event.getExtendedProperties().getShared().get("Action");
-                                    notify = event.getExtendedProperties().getShared().get("Notify");
+                                    try {
+                                        action = event.getExtendedProperties().getShared().get("Action");
+                                        notify = event.getExtendedProperties().getShared().get("Notify");
+                                    }catch(Exception e){
+                                        //keep going
+                                    }
                                 if (event.getId() != null & event.getSummary() != null & event.getStart() != null) {
                                     new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
                                             event.getLocation(), startD, endD, action

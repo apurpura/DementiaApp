@@ -1,5 +1,6 @@
 package com.example.apurp_000.dementiaapp;
 
+import android.util.ArrayMap;
 import android.util.Log;
 
 import com.google.android.gms.wearable.MessageEvent;
@@ -71,7 +72,14 @@ public class MessageListener extends WearableListenerService {
             if (ev != null) {
                 //add the action to extendedProperties
                 Event.ExtendedProperties EP = ev.getExtendedProperties();
-                Map<String, String> map = EP.getShared();
+                Map<String, String> map = null;
+                try {
+                    map = EP.getShared();
+                }catch(Exception e){
+
+                }
+                if(map == null)
+                    map = new ArrayMap<String, String>() ;
                 map.put("EventResult", json);
                 EP.setShared(map);
                 ev.setExtendedProperties(EP);

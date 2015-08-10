@@ -338,6 +338,9 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
     }
 
     protected String getHighestScore(List<EventResult> ls){
+        gScore = 0;
+        sScore = 0;
+        bScore = 0;
         Integer highest = 0;
         for(EventResult e : ls){
             if(e.score > highest){

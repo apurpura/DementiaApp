@@ -71,8 +71,8 @@ public class StartEventSync extends AsyncTask<Void, Void, Void>{
         try {
             CalendarApiHelperAsync.UpdateEvents();
             SearchForOverDueEvents();
-            Intent intent = new Intent(mActivity,CheckWearableConnection.class);
-            mActivity.startService(intent);
+            //Intent intent = new Intent(mActivity,CheckWearableConnection.class);
+            //mActivity.startService(intent);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class StartEventSync extends AsyncTask<Void, Void, Void>{
     }
 
     private static long getUpdateAlarmInterval(){
-        DateTime startDateTime = new DateTime(System.currentTimeMillis() + 30000);
+        DateTime startDateTime = new DateTime(System.currentTimeMillis() + 15000);
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime)
                 .setTimeZone(TimeZone.getDefault().toString());
@@ -115,7 +115,7 @@ public class StartEventSync extends AsyncTask<Void, Void, Void>{
                     String dayEnd = (String) android.text.format.DateFormat.format("dd", endDate);
                     String dayNow = (String) android.text.format.DateFormat.format("dd", rightNow);
                     if (rightNow.after(endDate) && dayEnd.equals(dayNow)) {
-                        Notification.sendNotification(Credentials.signonActivity, em.Action,CalendarAPIAdapter.getAccount(em.CalendarId) + " Exceeded Complete by time.");
+                        Notification.sendNotification(Credentials.signonActivity, em.Action,CalendarAPIAdapter.getAccount(em.CalendarId) + " Time Exceeded");
                         dbHelper.updateNotify(Credentials.signonActivity, em.Id);
                     }
                 }

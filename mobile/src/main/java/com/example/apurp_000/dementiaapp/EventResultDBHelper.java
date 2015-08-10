@@ -73,14 +73,14 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
     public void insertEventResult(String startTime, String endTime, String cancelTime, String level,
                               String score, String action, String eventId, String calendarId
             , Context context, String trophy) {
-        String result = "";
+        String result = null;
         try {
             result = GetEventResult(eventId, context).eventId;
         }catch(Exception e){
 
         }
         // Create a new map of values, where column names are the keys
-        if(result == "" || result == null) {
+        if(result == null) {
             ContentValues values = new ContentValues();
             values.put(EventId, eventId);
             values.put(StartTime, startTime);
@@ -144,21 +144,21 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                         String startTime = c.getString(c.getColumnIndex("StartTime"));
                         if (!startTime.equals("") && !startTime.toLowerCase().equals("n/a") && startTime != null)
                             try {
-                                er.startTime = new SimpleDateFormat("MMM d, yyyy HH:mm:ss a").parse(startTime);
+                                er.startTime = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a").parse(startTime);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                         String endTime = c.getString(c.getColumnIndex("EndTime"));
                         if (!endTime.equals("") && !endTime.toLowerCase().equals("n/a"))
                             try {
-                                er.endTime = new SimpleDateFormat("MMM d, yyyy HH:mm:ss a").parse(endTime);
+                                er.endTime = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a").parse(endTime);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                         String cancelTime = c.getString(c.getColumnIndex("CancelTime"));
                         if (!cancelTime.equals("") && !cancelTime.toLowerCase().equals("n/a") && cancelTime != null)
                             try {
-                                er.cancelTime = new SimpleDateFormat("MMM d, yyyy HH:mm:ss a").parse(cancelTime);
+                                er.cancelTime = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a").parse(cancelTime);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
