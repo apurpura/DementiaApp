@@ -21,14 +21,14 @@ public class MemoryGameActivity extends Activity {
     Handler handler = new Handler();
     private TextView mTextView;
     Integer[] cardDefaultLayout = {
+            R.drawable.memoryorangecircle,
             R.drawable.memoryredtriangle,
-            R.drawable.memoryredtriangle,
+            R.drawable.memorypurplehexagon,
             R.drawable.memoryyellowstarix,
+            R.drawable.memoryredtriangle,
+            R.drawable.memoryorangecircle,
             R.drawable.memoryyellowstarix,
             R.drawable.memorypurplehexagon,
-            R.drawable.memorypurplehexagon,
-            R.drawable.memoryorangecircle,
-            R.drawable.memoryorangecircle,
             R.drawable.memorybluerectangle,
             R.drawable.memorybluerectangle,
             R.drawable.memorybluediamnod,
@@ -114,12 +114,14 @@ public class MemoryGameActivity extends Activity {
                 //give sinstructions
                 Toast.makeText(getBaseContext(), "Match Two Images Alike By Tapping On Card", Toast.LENGTH_SHORT).show();
 
-                //shuffle layout
-                List<Integer> shuffleList = Arrays.asList(cardDefaultLayout);
-                Collections.shuffle(shuffleList);
-                Integer[]shuffleLayoutArray = shuffleList.toArray(new Integer[shuffleList.size()]);
-                //make default layout shuffled ready for new game
-                cardLayout = shuffleLayoutArray;
+                //commented code below so cards wont be random and demo can be showed in under 2 mins
+                    //shuffle layout
+                        //List<Integer> shuffleList = Arrays.asList(cardDefaultLayout);
+                        //Collections.shuffle(shuffleList);
+                        //Integer[]shuffleLayoutArray = shuffleList.toArray(new Integer[shuffleList.size()]);
+                    //make default layout shuffled ready for new game
+                        //cardLayout = shuffleLayoutArray;
+                cardLayout = cardDefaultLayout;
 
 
                 //set up card listeners by position
