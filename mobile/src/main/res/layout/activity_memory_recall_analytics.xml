@@ -12,9 +12,9 @@
         android:layout_gravity="center_horizontal">
 
         <ImageButton
-            android:layout_width="300dp"
+            android:layout_width="220dp"
             android:layout_height="50dp"
-            android:id="@+id/imageButton"
+            android:id="@+id/imageButtonanalytictitle"
             android:layout_gravity="left|top"
             android:background="@drawable/analyticpagetitleimage" />
 

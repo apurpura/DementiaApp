@@ -3,7 +3,20 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@drawable/uibluegradientbg">>
+    android:background="@drawable/uibluegradientbg"><![CDATA[>
+
+    ]]>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="169dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageButton"
+            android:layout_gravity="left|top"
+            android:background="@drawable/calendartexttitle" />
 
     <Button
         android:layout_width="65dp"
@@ -13,6 +26,8 @@
         android:layout_gravity="top|right"
         android:onClick="showPopUp"
         xmlns:android="http://schemas.android.com/apk/res/android" />
+    </FrameLayout>
+
     <Spinner
         android:id="@+id/account_spinner"
         android:layout_width="fill_parent"
