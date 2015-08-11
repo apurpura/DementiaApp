@@ -23,7 +23,7 @@ public class PillSequence extends Activity {
     int currentPill = 0;
     public String zStartTime;
     public String zEndTime;
-    public String zCancelTime = "n/a";
+    public String zCancelTime = "";
     public String zTResults = "";
     Date zStart;
     Date zEnd;
@@ -64,7 +64,7 @@ public class PillSequence extends Activity {
     protected void onDestroy(){
         if(notFinished){
             zCancelTime = zGetTimes.generateTimes();
-            zEndTime = "n/a";
+            zEndTime = "";
             generateAnalytics();
         }
         super.onDestroy();
@@ -167,10 +167,10 @@ public class PillSequence extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = zEndTime;
+        String EndTime = "";
         String CancelTime = zCancelTime;
-        String Level = "n/a";
-        String Score = "n/a";
+        String Level = "";
+        String Score = "";
         String Action = "Pill Sequence";
         String EventId = id;
         String Trophy = zTResults;

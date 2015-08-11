@@ -33,7 +33,7 @@ public class simonSaysActivity extends Activity {
 
     public String zStartTime;
     public String zEndTime;
-    public String zCancelTime = "n/a";
+    public String zCancelTime = "";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
     private String id = "";
@@ -100,7 +100,7 @@ public class simonSaysActivity extends Activity {
 
     protected void onResume() {
         super.onResume();
-        new CountDownTimer(5000, 1000) {
+        new CountDownTimer(4000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -108,7 +108,7 @@ public class simonSaysActivity extends Activity {
 
             @Override
             public void onFinish() {
-                Toast.makeText(getBaseContext(), "Repeat After Simon", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Repeat After Simone", Toast.LENGTH_SHORT).show();
                 SimonAI();
             }
         }.start();
@@ -127,7 +127,7 @@ public class simonSaysActivity extends Activity {
 
         if(notFinished){
             zCancelTime = zGetTimes.generateTimes();
-            zEndTime = "n/a";
+            zEndTime = "";
             zTResults = "";
             generateAnalytics();
         }
@@ -166,8 +166,8 @@ public class simonSaysActivity extends Activity {
                                 }else if(zLevelCount >= 2){
                                     zTResults = "3";
                                 }
-                                generateAnalytics();
                                 notFinished = false;
+                                generateAnalytics();
                                 finish(); }
                     }
                 };
@@ -213,8 +213,8 @@ public class simonSaysActivity extends Activity {
                             }else if(zLevelCount >= 2){
                                 zTResults = "3";
                             }
-                            generateAnalytics();
                             notFinished = false;
+                            generateAnalytics();
                             finish(); }
                     }
                 };
@@ -260,8 +260,8 @@ public class simonSaysActivity extends Activity {
                             }else if(zLevelCount >= 2){
                                 zTResults = "3";
                             }
-                            generateAnalytics();
                             notFinished = false;
+                            generateAnalytics();
                             finish(); }
                     }
                 };
@@ -307,8 +307,8 @@ public class simonSaysActivity extends Activity {
                             }else if(zLevelCount >= 2){
                                 zTResults = "3";
                             }
-                            generateAnalytics();
                             notFinished = false;
+                            generateAnalytics();
                             finish(); }
                     }
                 };
@@ -333,7 +333,7 @@ public class simonSaysActivity extends Activity {
         int count = 0;
 
         for (int loop = 0; loop <= length; loop++) {
-            final int zDelayTimer = 4000;
+            final int zDelayTimer = 2500;
             final int zFinalCount = count;
             zHandler.postDelayed(new Runnable() {
                 @Override
@@ -364,7 +364,7 @@ public class simonSaysActivity extends Activity {
                             break;
                     }
                 }
-            }, 5000 * (count + 1));
+            }, 3000 * (count + 1));
             count++;
         };
     }
@@ -412,7 +412,7 @@ public class simonSaysActivity extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = zEndTime;
+        String EndTime = "";
         String CancelTime = zCancelTime;
         String Level = Integer.toString(zLevelCount);
         String Score = Integer.toString(zLevelCount);

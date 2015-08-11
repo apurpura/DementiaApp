@@ -94,7 +94,7 @@ public class MemoryGameActivity extends Activity {
     public String zTResults = "";
     public String zStartTime;
     public String zEndTime;
-    public String zCancelTime = "n/a";
+    public String zCancelTime = "";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
     String id = "";
@@ -147,7 +147,7 @@ public class MemoryGameActivity extends Activity {
     protected void onDestroy(){
         if(notFinished){
             zCancelTime = zGetTimes.generateTimes();
-            zEndTime = "n/a";
+            zEndTime = "";
             generateAnalytics();
         }
         super.onDestroy();
@@ -1821,9 +1821,9 @@ public class MemoryGameActivity extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = zEndTime;
+        String EndTime = "";
         String CancelTime = zCancelTime;
-        String Level = "n/a";
+        String Level = "";
         String Score = Integer.toString(zAttempts);
         String Action = "Memory Game";
         String EventId = id;

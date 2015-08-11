@@ -22,7 +22,7 @@ public class ActSequence extends Activity {
     public String zEndTime;
     Date zStart;
     Date zEnd;
-    public String zCancelTime = "n/a";
+    public String zCancelTime = "";
     public String zTResults = "";
     boolean notFinished = true;
     GenerateTime zGetTimes = new GenerateTime();
@@ -59,7 +59,7 @@ public class ActSequence extends Activity {
     protected void onDestroy(){
         if(notFinished){
             zCancelTime = zGetTimes.generateTimes();
-            zEndTime = "n/a";
+            zEndTime = "";
             generateAnalytics();
         }
         super.onDestroy();
@@ -123,6 +123,7 @@ public class ActSequence extends Activity {
                                Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                                trophyIntent.putExtra("text", goldText);
                                zTResults = "1";
+                               notFinished = false;
                                generateAnalytics();
                                //start memory end page
                                startActivity(trophyIntent);
@@ -137,6 +138,7 @@ public class ActSequence extends Activity {
                                Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                                trophyIntent.putExtra("text", silverText);
                                zTResults = "2";
+                               notFinished = false;
                                generateAnalytics();
                                //start memory end page
                                startActivity(trophyIntent);
@@ -150,6 +152,7 @@ public class ActSequence extends Activity {
                                Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                                trophyIntent.putExtra("text", bronzeText);
                                zTResults = "3";
+                               notFinished = false;
                                generateAnalytics();
                                //start memory end page
                                startActivity(trophyIntent);
@@ -159,11 +162,11 @@ public class ActSequence extends Activity {
 
                            }
                            else {
+                               notFinished = false;
                                generateAnalytics();
                                //no trophy
                                finish();
                            }
-                           notFinished = false;
                            break;
                    }
             }
@@ -173,10 +176,10 @@ public class ActSequence extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = zEndTime;
+        String EndTime = "";
         String CancelTime = zCancelTime;
-        String Level = "n/a";
-        String Score = "n/a";
+        String Level = "";
+        String Score = "";
         String Action = "Dress Sequence";
         String EventId = id;
         String Trophy = zTResults;

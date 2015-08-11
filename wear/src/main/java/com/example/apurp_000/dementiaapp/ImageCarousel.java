@@ -111,7 +111,7 @@ public class ImageCarousel extends Activity {
     protected void onDestroy(){
         if(notFinished){
             zCancelTime = zGetTimes.generateTimes();
-            zEndTime = "n/a";
+            zEndTime = "";
             generateAnalytics();
         }
         super.onDestroy();
@@ -121,10 +121,10 @@ public class ImageCarousel extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = zEndTime;
+        String EndTime = "";
         String CancelTime = zCancelTime;
-        String Level = "n/a";
-        String Score = "n/a";
+        String Level = "";
+        String Score = "";
         String Action = "Image Carousel";
         String EventId = id;
 
