@@ -45,7 +45,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            Credentials.signonActivity.refreshCalendarService();
+            CalendarApiHelperAsync.refreshCredentials();
             initializeEvent();
         } catch (IOException e) {
             e.printStackTrace();

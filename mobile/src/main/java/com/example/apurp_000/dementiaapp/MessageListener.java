@@ -25,7 +25,7 @@ public class MessageListener extends WearableListenerService {
     public void onMessageReceived(MessageEvent messageEvent) {
         Log.d("onMessageReceive", "made it");
         String path = messageEvent.getPath();
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         if( path.equalsIgnoreCase("activityresult") ) {
             String message = new String(messageEvent.getData());
              try {
@@ -61,7 +61,7 @@ public class MessageListener extends WearableListenerService {
         // Retrieve the event from the API
         if (Credentials.signonActivity == null)
             Credentials.signonActivity = new SigningOnActivity();
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         Event ev = null;
         for (String calId : CalendarAPIAdapter.getCalendarList().values()) {
             try {

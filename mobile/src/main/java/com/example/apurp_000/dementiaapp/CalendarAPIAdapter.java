@@ -25,7 +25,7 @@ public class CalendarAPIAdapter {
 
     public String getCalendar() throws IOException {
         String id = "";
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         HashMap<String, String> calList = getCalendarList();
         if (!calList.containsKey(Credentials.credential.getSelectedAccountName())){
             com.google.api.services.calendar.model.Calendar calendar = new com.google.api.services.calendar.model.Calendar();
@@ -40,10 +40,7 @@ public class CalendarAPIAdapter {
     }
 
     public static String getAccount(String calendarId){
-        if(Credentials.signonActivity == null)
-            Credentials.signonActivity = new SigningOnActivity();
-        else
-            Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         String account = "";
         HashMap<String, String> ls = getCalendarList();
         for(String acc : ls.keySet()) {
@@ -56,10 +53,7 @@ public class CalendarAPIAdapter {
     }
 
     public static HashMap<String, String> getCalendarList(){
-        if(Credentials.signonActivity == null)
-            Credentials.signonActivity = new SigningOnActivity();
-        else
-            Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         HashMap<String, String> calList = new HashMap<String, String>();
 
         // Iterate through entries in calendar list
@@ -70,9 +64,8 @@ public class CalendarAPIAdapter {
                 calendarList = Credentials.signonActivity.calendarService.calendarList().list().setPageToken(pageToken).execute();
             }  catch (UserRecoverableAuthIOException e) {
                 mActivity.startActivity(e.getIntent());
-            }
-            catch (IOException e) {
-                e.printStackTrace();
+            }catch(Exception e){
+                CalendarApiHelperAsync.refreshCredentials();
             }
             if(calendarList == null)
                 return calList;

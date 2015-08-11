@@ -240,7 +240,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                             er.level = Integer.getInteger(level);
                         String score = c.getString(c.getColumnIndex("Score"));
                         if (!score.equals("") & !score.toLowerCase().equals("n/a") & score != null)
-                            er.score = Integer.getInteger(score);
+                            er.score = Integer.parseInt(score);
                         er.action = c.getString(c.getColumnIndex("Action"));
                         er.eventId = c.getString(c.getColumnIndex("EventId"));
                         er.calendarId = c.getString(c.getColumnIndex("CalendarId"));

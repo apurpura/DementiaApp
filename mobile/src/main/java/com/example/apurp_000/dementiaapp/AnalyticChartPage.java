@@ -125,7 +125,7 @@ public class AnalyticChartPage extends Activity {
 
     protected void getDomainAndRange() {
 
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         EventResultDBHelper db = new EventResultDBHelper(Credentials.signonActivity);
         er = db.GetEventResults(Credentials.signonActivity, calendarId);
         scores.clear();

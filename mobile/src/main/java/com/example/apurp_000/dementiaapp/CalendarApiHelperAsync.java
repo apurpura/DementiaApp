@@ -74,7 +74,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            Credentials.signonActivity.refreshCalendarService();
+            CalendarApiHelperAsync.refreshCredentials();
             String calendarId = CalendarAPIAdapter.getCalendarList().get(Account.account);
             try {
 
@@ -208,7 +208,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
 
     public static void UpdateEvents() throws IOException {
         // Construct the {@link Calendar.Events.List} request, but don't execute it yet.
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         HashMap<String, String> calList = CalendarAPIAdapter.getCalendarList();
         org.joda.time.DateTime eventDate = new org.joda.time.DateTime().withTimeAtStartOfDay();
         String tz=eventDate.getZone().toString();
@@ -329,9 +329,15 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                 } while (pageToken != null);
 
                 save(Credentials.signonActivity, events.getNextSyncToken());
-
                 System.out.println("Sync complete.");
             }
+    }
+
+    public static void refreshCredentials(){
+        if(Credentials.signonActivity == null)
+            Credentials.signonActivity = new SigningOnActivity();
+
+        Credentials.signonActivity.refreshCalendarService();
     }
 
 

@@ -63,7 +63,7 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            Credentials.signonActivity.refreshCalendarService();
+            CalendarApiHelperAsync.refreshCredentials();
             updateEventResults();
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,7 +219,7 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
 
                         //high score text
                         GridLayout.LayoutParams params11 = new GridLayout.LayoutParams();
-                        params11.setMargins(90,0,40,0);
+                        params11.setMargins(40,0,40,0);
                         TextView hs = new TextView(mActivity);
                         hs.setTypeface(null, Typeface.BOLD);
                         hs.setText("High Score: ");
@@ -238,7 +238,7 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
 
                         //last scoretext
                         GridLayout.LayoutParams params9 = new GridLayout.LayoutParams();
-                        params9.setMargins(90, 0, 40, 0);
+                        params9.setMargins(40, 0, 40, 0);
                         TextView st = new TextView(mActivity);
                         st.setText("Last Score: ");
                         st.setTextSize(14);
@@ -261,7 +261,7 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
 
                     //Last start time text
                     GridLayout.LayoutParams params5 = new GridLayout.LayoutParams();
-                    params5.setMargins(90,0,40,0);
+                    params5.setMargins(40,0,40,0);
                     TextView startTime = new TextView(mActivity);
                     startTime.setTypeface(null, Typeface.BOLD);
                     startTime.setText("Last Start Time: ");
@@ -272,19 +272,17 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                     TextView startDateTime = new TextView(mActivity);
                     startDateTime.setTypeface(null, Typeface.BOLD);
                     if (ls.get(ls.size() - 1).startTime != null)
-                        startDateTime.setText(DateFormat.getDateTimeInstance().
-
-                                format(ls.get(ls.size()
-
-                                        - 1).startTime));
+                        startDateTime.setText(DateFormat.getDateInstance().format(ls.get(ls.size() - 1).startTime) +
+                                        " " + DateFormat.getTimeInstance(DateFormat.SHORT).format(ls.get(ls.size() - 1).startTime));
                     startDateTime.setTextSize(13);
                     GridLayout.LayoutParams params3 = new GridLayout.LayoutParams();
+                    params3.setMargins(0,0,40,0);
                     startDateTime.setLayoutParams(params3);
                     gv.addView(startDateTime, params3);
 
                     //last end time text
                     GridLayout.LayoutParams params2 = new GridLayout.LayoutParams();
-                    params2.setMargins(90,0,40,0);
+                    params2.setMargins(40,0,40,0);
                     TextView endTime = new TextView(mActivity);
                     endTime.setTypeface(null, Typeface.BOLD);
                     endTime.setText("Last End Time: ");
@@ -296,19 +294,17 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
                     TextView endDateTime = new TextView(mActivity);
                     endDateTime.setTypeface(null, Typeface.BOLD);
                     if (ls.get(ls.size() - 1).endTime != null)
-                        endDateTime.setText(DateFormat.getDateTimeInstance().
-
-                                format(ls.get(ls.size()
-
-                                        - 1).endTime));
+                        endDateTime.setText(DateFormat.getDateInstance().format(ls.get(ls.size() - 1).endTime) +
+                            " " + DateFormat.getTimeInstance(DateFormat.SHORT).format(ls.get(ls.size() - 1).endTime));
                     endDateTime.setTextSize(13);
                     GridLayout.LayoutParams params6 = new GridLayout.LayoutParams();
+                    params6.setMargins(0,0,40,0);
                     endDateTime.setLayoutParams(params6);
                     gv.addView(endDateTime, params6);
 
                     //was last cancelled text
                     GridLayout.LayoutParams params7 = new GridLayout.LayoutParams();
-                    params7.setMargins(90,0,40,0);
+                    params7.setMargins(40,0,40,0);
                     TextView wc = new TextView(mActivity);
                     wc.setTypeface(null, Typeface.BOLD);
                     wc.setText("Was Last Canceled: ");

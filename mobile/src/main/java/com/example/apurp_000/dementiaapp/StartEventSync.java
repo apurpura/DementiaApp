@@ -57,10 +57,7 @@ public class StartEventSync extends AsyncTask<Void, Void, Void>{
     }
 
     public static void startAlarm(){
-        if(Credentials.signonActivity == null){
-            Credentials.signonActivity = new SigningOnActivity();
-        }
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         String id = Integer.toString(new Random().nextInt());
         String calendarId = null;
         try {
@@ -89,9 +86,7 @@ public class StartEventSync extends AsyncTask<Void, Void, Void>{
     }
 
     private static void SearchForOverDueEvents(){
-        if(Credentials.signonActivity == null)
-            Credentials.signonActivity = new SigningOnActivity();
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         EventDbHelper dbHelper = new EventDbHelper(Credentials.signonActivity);
         HashMap<String, List<EventModel>> ls = dbHelper.GetNotifyEventsWithoutEventResult(Credentials.signonActivity);
         for(List<EventModel> els :  ls.values()){

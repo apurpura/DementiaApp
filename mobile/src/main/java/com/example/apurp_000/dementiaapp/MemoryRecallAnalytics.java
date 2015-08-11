@@ -34,7 +34,7 @@ public class MemoryRecallAnalytics extends IActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         setContentView(R.layout.activity_memory_recall_analytics);
         rl = (LinearLayout) findViewById(R.id.rellay);
 
@@ -67,7 +67,7 @@ public class MemoryRecallAnalytics extends IActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         if (Credentials.isGooglePlayServicesAvailable(this)) {
             refreshResults();
         } else {

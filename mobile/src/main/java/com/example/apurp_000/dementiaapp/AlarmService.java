@@ -68,21 +68,25 @@ public class AlarmService extends Service implements GoogleApiClient.ConnectionC
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult){
-        int notificationId = 001;
-        android.support.v4.app.NotificationCompat.Builder notificationBuilder =
-                null;
         try {
-            notificationBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle(json.get("Summary").toString())
-                    .setContentText(json.get("Description").toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+            int notificationId = 001;
+            android.support.v4.app.NotificationCompat.Builder notificationBuilder =
+                    null;
+            try {
+                notificationBuilder = new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(json.get("Summary").toString())
+                        .setContentText(json.get("Description").toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            NotificationManagerCompat notificationManager =
+                    NotificationManagerCompat.from(this);
+
+            notificationManager.notify(notificationId, notificationBuilder.build());
+        }catch(Exception e){
+            //keep going
         }
-
-        NotificationManagerCompat notificationManager =
-                NotificationManagerCompat.from(this);
-
-        notificationManager.notify(notificationId, notificationBuilder.build());
     }
 }

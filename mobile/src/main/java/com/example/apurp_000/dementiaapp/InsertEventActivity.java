@@ -51,7 +51,7 @@ public class InsertEventActivity extends IActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         final EditText summary = (EditText)findViewById(R.id.eventTitle);
         final EditText description = (EditText)findViewById(R.id.eventDescription);
 
@@ -337,7 +337,7 @@ public class InsertEventActivity extends IActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        Credentials.signonActivity.refreshCalendarService();
+        CalendarApiHelperAsync.refreshCredentials();
         if (Credentials.isGooglePlayServicesAvailable(this)) {
             refreshResults();
         } else {
