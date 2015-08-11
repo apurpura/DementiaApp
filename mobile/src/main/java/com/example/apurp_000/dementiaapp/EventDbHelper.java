@@ -81,7 +81,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
 
     public void insertEventDB(String id, String calendarId, String summary, String description,
                                 String location, DateTime startTime, DateTime endTime, String action
-                                , Context context, String notify) {
+                                , Context context, String notify, String evR) {
 
         // Create a new map of values, where column names are the keys
         if(GetEvent(id, context).Id == "") {
@@ -104,8 +104,9 @@ public class EventDbHelper extends SQLiteOpenHelper {
             HashMap<String, String> ls = CalendarAPIAdapter.getCalendarList();
             String acctName = Credentials.credential.getSelectedAccountName();
             String primary = ls.get(acctName);
-            if(calendarId.equals(primary))
+            if(calendarId.equals(primary) & (evR == null || evR.isEmpty())) {
                 AlarmManagerHelper.setAlarm(context, startTime.getValue(), e, "AlarmService");
+            }
         }
     }
 

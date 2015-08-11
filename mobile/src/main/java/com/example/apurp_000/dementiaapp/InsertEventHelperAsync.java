@@ -106,7 +106,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
         //insert in DB
         new EventDbHelper(mActivity).insertEventDB(id, calendarId, summary.getText().toString(), description.getText().toString(),
                 "MARA", start.getDateTime(), end.getDateTime(), mActivity.action
-                , mActivity, notify);
+                , mActivity, notify, "");
 
         Intent intent = new Intent(mActivity, CalendarActivity.class);
         mActivity.startActivity(intent);

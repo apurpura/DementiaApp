@@ -266,6 +266,7 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
 
                             } else {
                                 String action = "";
+                                String evR = "";
                                 String notify = "False";
                                 DateTime startD = event.getStart().getDateTime();
                                 DateTime endD = event.getEnd().getDateTime();
@@ -273,17 +274,16 @@ public class CalendarApiHelperAsync extends AsyncTask<Void, Void, Void> {
                                     try {
                                         action = event.getExtendedProperties().getShared().get("Action");
                                         notify = event.getExtendedProperties().getShared().get("Notify");
+                                        evR = event.getExtendedProperties().getShared().get("EventResult");
                                     }catch(Exception e){
                                         //keep going
                                     }
                                 if (event.getId() != null & event.getSummary() != null & event.getStart() != null) {
                                     new EventDbHelper(Credentials.signonActivity).insertEventDB(event.getId(), calendarId, event.getSummary(), event.getDescription(),
                                             event.getLocation(), startD, endD, action
-                                            , Credentials.signonActivity, notify);
+                                            , Credentials.signonActivity, notify, evR);
                                 }
-                                String evR = "";
-                                if (event.getExtendedProperties() != null)
-                                    evR = event.getExtendedProperties().getShared().get("EventResult");
+
                                 if(evR != null) {
                                     if (!evR.equals("")) {
                                         try {
