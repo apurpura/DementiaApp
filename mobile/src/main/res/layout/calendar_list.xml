@@ -38,8 +38,8 @@
         android:background="@drawable/uilargegreenbuttonselector"
         android:textStyle="bold"
         android:textColor="@drawable/uigreenbtntextseector"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
+        android:paddingRight="45dp"
+        android:paddingLeft="45dp"
         />
 
 

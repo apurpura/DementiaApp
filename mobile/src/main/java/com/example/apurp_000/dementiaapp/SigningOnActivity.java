@@ -83,25 +83,24 @@ public class SigningOnActivity extends Activity {
         mResultsText.setVerticalScrollBarEnabled(true);
         mResultsText.setMovementMethod(new ScrollingMovementMethod());
         activityLayout.addView(mResultsText);
-        refreshCalendarService();
+        refreshCalendarService(this);
 
         setContentView(activityLayout);
         ApplicationContextProvider.setContext(this);
     }
 
-    public void refreshCalendarService(){
+    public void refreshCalendarService(Context ctx){
+            SharedPreferences settings = getPreferences(ctx.MODE_PRIVATE);
+            credential = GoogleAccountCredential.usingOAuth2(
+                    getApplicationContext(), Arrays.asList(SCOPES))
+                    .setBackOff(new ExponentialBackOff())
+                    .setSelectedAccountName(settings.getString(PREF_ACCOUNT_NAME, null));
 
-        // Initialize credentials and service object.
-        SharedPreferences settings = getPreferences(this.MODE_PRIVATE);
-        credential = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(), Arrays.asList(SCOPES))
-                .setBackOff(new ExponentialBackOff())
-                .setSelectedAccountName(settings.getString(PREF_ACCOUNT_NAME, null));
+            calendarService = new com.google.api.services.calendar.Calendar.Builder(
+                    transport, jsonFactory, credential)
+                    .setApplicationName("Google Calendar API Android Quickstart")
+                    .build();
 
-        calendarService = new com.google.api.services.calendar.Calendar.Builder(
-                transport, jsonFactory, credential)
-                .setApplicationName("Google Calendar API Android Quickstart")
-                .build();
     }
 
     /**

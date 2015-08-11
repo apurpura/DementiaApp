@@ -63,7 +63,7 @@ public class MemoryRecallAnalyticsHelperAsync extends AsyncTask<Void, Void, Void
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            CalendarApiHelperAsync.refreshCredentials();
+            RefreshCredentialsService.refreshCredentials();
             updateEventResults();
         } catch (Exception e) {
             e.printStackTrace();

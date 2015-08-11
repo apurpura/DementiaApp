@@ -110,7 +110,7 @@ public class CalendarActivity extends IActivity {
 
 
 
-        CalendarApiHelperAsync.refreshCredentials();
+        RefreshCredentialsService.refreshCredentials();
 
         // Spinner Drop down elements
         ArrayList<String> lables = new ArrayList<String>();
@@ -198,7 +198,7 @@ public class CalendarActivity extends IActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        CalendarApiHelperAsync.refreshCredentials();
+        RefreshCredentialsService.refreshCredentials();
         if (Credentials.isGooglePlayServicesAvailable(this)) {
             //listDataHeader = new ArrayList<String>();
             //itemsAdapter =

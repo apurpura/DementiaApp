@@ -11,6 +11,7 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 
 import java.io.IOException;
+import java.sql.Ref;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class InsertEventHelperAsync extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            CalendarApiHelperAsync.refreshCredentials();
+            RefreshCredentialsService.refreshCredentials();
             initializeEvent();
         } catch (IOException e) {
             e.printStackTrace();

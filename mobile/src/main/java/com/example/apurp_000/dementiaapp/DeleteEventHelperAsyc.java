@@ -49,7 +49,7 @@ public class DeleteEventHelperAsyc extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            CalendarApiHelperAsync.refreshCredentials();
+            RefreshCredentialsService.refreshCredentials();
             initializeEvent();
         } catch (IOException e) {
             e.printStackTrace();

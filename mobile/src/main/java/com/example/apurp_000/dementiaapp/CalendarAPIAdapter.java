@@ -25,7 +25,7 @@ public class CalendarAPIAdapter {
 
     public String getCalendar() throws IOException {
         String id = "";
-        CalendarApiHelperAsync.refreshCredentials();
+        RefreshCredentialsService.refreshCredentials();
         HashMap<String, String> calList = getCalendarList();
         if (!calList.containsKey(Credentials.credential.getSelectedAccountName())){
             com.google.api.services.calendar.model.Calendar calendar = new com.google.api.services.calendar.model.Calendar();
@@ -40,7 +40,7 @@ public class CalendarAPIAdapter {
     }
 
     public static String getAccount(String calendarId){
-        CalendarApiHelperAsync.refreshCredentials();
+        RefreshCredentialsService.refreshCredentials();
         String account = "";
         HashMap<String, String> ls = getCalendarList();
         for(String acc : ls.keySet()) {
@@ -53,7 +53,7 @@ public class CalendarAPIAdapter {
     }
 
     public static HashMap<String, String> getCalendarList(){
-        CalendarApiHelperAsync.refreshCredentials();
+        RefreshCredentialsService.refreshCredentials();
         HashMap<String, String> calList = new HashMap<String, String>();
 
         // Iterate through entries in calendar list
@@ -65,7 +65,7 @@ public class CalendarAPIAdapter {
             }  catch (UserRecoverableAuthIOException e) {
                 mActivity.startActivity(e.getIntent());
             }catch(Exception e){
-                CalendarApiHelperAsync.refreshCredentials();
+                RefreshCredentialsService.refreshCredentials();
             }
             if(calendarList == null)
                 return calList;

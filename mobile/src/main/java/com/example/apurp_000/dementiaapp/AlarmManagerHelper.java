@@ -11,7 +11,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         //implement here to create alarms on phone start.
-        CalendarApiHelperAsync.refreshCredentials();
+        RefreshCredentialsService.refreshCredentials();
         new StartEventSync(Credentials.signonActivity).execute();
     }
 
