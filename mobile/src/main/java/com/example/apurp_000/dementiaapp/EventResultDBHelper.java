@@ -182,7 +182,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                 } while (c.moveToNext());
             }
         }
-
+        c.close();
 
         return results;
     }
@@ -247,6 +247,7 @@ public class EventResultDBHelper extends SQLiteOpenHelper {
                         er.trophy = c.getString(c.getColumnIndex("Trophy"));
             }
         }
+        c.close();
         return er;
     }
 }

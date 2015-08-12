@@ -122,7 +122,7 @@ public class CalendarAPIAdapter {
                 id = "";
             }
         }
-
+        c.close();
         return id;
     }
 
