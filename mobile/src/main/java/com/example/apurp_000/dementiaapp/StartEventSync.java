@@ -78,7 +78,7 @@ public class StartEventSync extends AsyncTask<Void, Void, Void>{
     }
 
     private static long getUpdateAlarmInterval(){
-        DateTime startDateTime = new DateTime(System.currentTimeMillis() + 15000);
+        DateTime startDateTime = new DateTime(System.currentTimeMillis() + 30000);
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime)
                 .setTimeZone(TimeZone.getDefault().toString());

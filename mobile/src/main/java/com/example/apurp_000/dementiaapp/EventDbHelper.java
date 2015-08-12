@@ -145,6 +145,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
             }
         }
         c.close();
+        db.close();
         return m;
     }
 
@@ -227,6 +228,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
         }
 
         c.close();
+        db.close();
         return results;
     }
 

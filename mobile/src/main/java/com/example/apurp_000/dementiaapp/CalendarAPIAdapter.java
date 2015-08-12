@@ -123,6 +123,7 @@ public class CalendarAPIAdapter {
             }
         }
         c.close();
+        db.close();
         return id;
     }
 

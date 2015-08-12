@@ -31,6 +31,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -146,6 +148,15 @@ public class AnalyticChartPage extends Activity {
                         }
                     }
                 }
+        Collections.sort(dates, new Comparator<Number>() {
+            @Override
+            public int compare(Number o1, Number o2) {
+                Long d1 = o1.longValue();
+                Long d2 = o2.longValue();
+                return d1.compareTo(d2);
+
+            }
+        });
     }
 
     protected String stringDateValue(Long timestamp) {
