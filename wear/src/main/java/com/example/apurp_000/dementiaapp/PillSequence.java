@@ -111,10 +111,11 @@ public class PillSequence extends Activity {
 
                             String goldText = "gold";
                             // start end page
+                            zTResults = "1";
+                            notFinished = false;
+                            generateAnalytics();
                             Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                             trophyIntent.putExtra("text", goldText);
-                            zTResults = "1";
-                            generateAnalytics();
                             //start memory end page
                             startActivity(trophyIntent);
                             //finish
@@ -122,13 +123,13 @@ public class PillSequence extends Activity {
 
                         }else if (zTrophieTimes() <= 4){
 
-
                             String silverText = "silver";
                             // start end page
+                            zTResults = "2";
+                            notFinished = false;
+                            generateAnalytics();
                             Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                             trophyIntent.putExtra("text", silverText);
-                            zTResults = "2";
-                            generateAnalytics();
                             //start memory end page
                             startActivity(trophyIntent);
 
@@ -138,26 +139,23 @@ public class PillSequence extends Activity {
                         }else if (zTrophieTimes() <= 5){
                             String bronzeText = "bronze";
                             // start end page
+                            zTResults = "3";
+                            notFinished = false;
+                            generateAnalytics();
                             Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
                             trophyIntent.putExtra("text", bronzeText);
-                            zTResults = "3";
-                            generateAnalytics();
                             //start memory end page
                             startActivity(trophyIntent);
-
                             //finish
                             finish();
-
                         }
                         else {
+                            notFinished = false;
                             generateAnalytics();
                             //no trophy
                             finish();
                         }
-                        notFinished = false;
                         break;
-
-
                 }
 
             }
@@ -167,7 +165,7 @@ public class PillSequence extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = "";
+        String EndTime = zEndTime;
         String CancelTime = zCancelTime;
         String Level = "";
         String Score = "";

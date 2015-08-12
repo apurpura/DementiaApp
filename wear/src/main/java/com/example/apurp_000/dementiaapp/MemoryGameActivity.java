@@ -648,7 +648,6 @@ public class MemoryGameActivity extends Activity {
             }else if (zAttempts <= 30){
                 zTResults = "3";
             }
-
             notFinished = false;
             generateAnalytics();
 
@@ -1821,7 +1820,7 @@ public class MemoryGameActivity extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = "";
+        String EndTime = zEndTime;
         String CancelTime = zCancelTime;
         String Level = "";
         String Score = Integer.toString(zAttempts);

@@ -120,11 +120,11 @@ public class ActSequence extends Activity {
 
                                String goldText = "gold";
                                // start end page
-                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
-                               trophyIntent.putExtra("text", goldText);
                                zTResults = "1";
                                notFinished = false;
                                generateAnalytics();
+                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                               trophyIntent.putExtra("text", goldText);
                                //start memory end page
                                startActivity(trophyIntent);
 
@@ -135,11 +135,11 @@ public class ActSequence extends Activity {
 
                                String silverText = "silver";
                                // start end page
-                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
-                               trophyIntent.putExtra("text", silverText);
                                zTResults = "2";
                                notFinished = false;
                                generateAnalytics();
+                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                               trophyIntent.putExtra("text", silverText);
                                //start memory end page
                                startActivity(trophyIntent);
 
@@ -149,11 +149,11 @@ public class ActSequence extends Activity {
                            }else if (zTrophieTimes() <= 5){
                                String bronzeText = "bronze";
                                // start end page
-                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
-                               trophyIntent.putExtra("text", bronzeText);
                                zTResults = "3";
                                notFinished = false;
                                generateAnalytics();
+                               Intent trophyIntent = new Intent(getApplicationContext(), TrophyPage.class);
+                               trophyIntent.putExtra("text", bronzeText);
                                //start memory end page
                                startActivity(trophyIntent);
 
@@ -176,7 +176,7 @@ public class ActSequence extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = "";
+        String EndTime = zEndTime;
         String CancelTime = zCancelTime;
         String Level = "";
         String Score = "";

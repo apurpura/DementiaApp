@@ -121,7 +121,7 @@ public class ImageCarousel extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = "";
+        String EndTime = zEndTime;
         String CancelTime = zCancelTime;
         String Level = "";
         String Score = "";

@@ -412,11 +412,11 @@ public class simonSaysActivity extends Activity {
     public void generateAnalytics() {
 
         String StartTime = zStartTime ;
-        String EndTime = "";
+        String EndTime = zEndTime;
         String CancelTime = zCancelTime;
         String Level = Integer.toString(zLevelCount);
         String Score = Integer.toString(zLevelCount);
-        String Action = "Simon Says";
+        String Action = "Simone Says";
         String EventId = id;
         String Trophy = zTResults;
 
