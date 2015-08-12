@@ -72,22 +72,24 @@ public class MessageListener extends WearableListenerService {
             if (ev != null) {
                 //add the action to extendedProperties
                 Event.ExtendedProperties EP = ev.getExtendedProperties();
-                Map<String, String> map = null;
-                try {
-                    map = EP.getShared();
-                }catch(Exception e){
+                if(EP != null) {
+                    Map<String, String> map = null;
+                    try {
+                        map = EP.getShared();
+                    } catch (Exception e) {
 
-                }
-                if(map == null)
-                    map = new ArrayMap<String, String>() ;
-                map.put("EventResult", json);
-                EP.setShared(map);
-                ev.setExtendedProperties(EP);
-                // Update the event
-                try {
-                    Event updatedEvent = Credentials.signonActivity.calendarService.events().update(calId, eventId, ev).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    }
+                    if (map == null)
+                        map = new ArrayMap<String, String>();
+                    map.put("EventResult", json);
+                    EP.setShared(map);
+                    ev.setExtendedProperties(EP);
+                    // Update the event
+                    try {
+                        Event updatedEvent = Credentials.signonActivity.calendarService.events().update(calId, eventId, ev).execute();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

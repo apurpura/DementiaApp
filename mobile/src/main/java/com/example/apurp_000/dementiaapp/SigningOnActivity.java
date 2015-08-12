@@ -90,7 +90,7 @@ public class SigningOnActivity extends Activity {
     }
 
     public void refreshCalendarService(Context ctx){
-            SharedPreferences settings = getPreferences(ctx.MODE_PRIVATE);
+            SharedPreferences settings = getPreferences(getApplicationContext().MODE_PRIVATE);
             credential = GoogleAccountCredential.usingOAuth2(
                     getApplicationContext(), Arrays.asList(SCOPES))
                     .setBackOff(new ExponentialBackOff())

@@ -416,7 +416,7 @@ public class simonSaysActivity extends Activity {
         String CancelTime = zCancelTime;
         String Level = Integer.toString(zLevelCount);
         String Score = Integer.toString(zLevelCount);
-        String Action = "Simone Says";
+        String Action = "Simon Says";
         String EventId = id;
         String Trophy = zTResults;
 
